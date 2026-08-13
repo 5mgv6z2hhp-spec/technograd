@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Техноград — Ремонт коммерческих кофемашин, HoReCa и кофеен самообслуживания в Тольятти</title>
-    <meta name="description" content="Сервисный центр Техноград в Тольятти. Профессиональный ремонт вендинговых аппаратов, кофе-корнеров, суперавтоматов, оборудования HoReCa и рожковых кофемашин для ресторанов и кафе. Оперативный выезд, запчасти в наличии.">
+    <title>КофеМастер 163 — Ремонт коммерческих кофемашин, HoReCa и вендинга в Тольятти</title>
+    <meta name="description" content="Сервисный центр КофеМастер 163 в Тольятти. Профессиональный ремонт вендинговых аппаратов, кофе-корнеров, суперавтоматов, оборудования HoReCa и рожковых кофемашин. Оперативный выезд, запчасти в наличии.">
     <style>
         :root {
             --primary: #0f172a;
@@ -24,7 +24,7 @@
         .phone { font-size: 22px; font-weight: 700; color: var(--accent); text-decoration: none; transition: 0.2s; }
         .phone:hover { color: var(--accent-hover); }
         
-        .hero { text-align: center; padding: 80px 20px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff; }
+        .hero { text-align: center; padding: 80px 20px; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #fff; }
         .hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
         .hero h1 span { color: var(--accent); }
         .hero p { font-size: 20px; opacity: 0.9; max-width: 700px; margin: 0 auto 30px; font-weight: 300; }
@@ -72,7 +72,11 @@
 
     <header>
         <div class="container nav-flex">
-            <div class="logo">Техно<span>град</span></div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <!-- Логотип КофеМастер -->
+                <img src="logo.jpg" alt="Логотип КофеМастер 163" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 1px solid #cbd5e1;">
+                <div class="logo">Кофе<span>Мастер 163</span></div>
+            </div>
             <a href="tel:+79372115128" class="phone">📞 8 (937) 211-51-28</a>
         </div>
     </header>
@@ -91,6 +95,7 @@
             <button class="tab-btn" onclick="openTab(event, 'professional')">☕ Профессиональные кофемашины</button>
             <button class="tab-btn" onclick="openTab(event, 'maintenance')">🛠️ Регулярное ТО для бизнеса</button>
         </div>
+
         <!-- Вкладка 1: Кофейни самообслуживания & HoReCa -->
         <div id="vending" class="tab-content active">
             <h2>Ремонт кофе-корнеров, вендинга и систем HoReCa</h2>

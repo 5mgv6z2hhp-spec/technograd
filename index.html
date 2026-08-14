@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>КофеМастер 163 — Ремонт коммерческих кофемашин, HoReCa и вендинга в Тольятти</title>
     <meta name="description" content="Сервисный центр КофеМастер 163 в Тольятти. Профессиональный ремонт вендинговых аппаратов, кофе-корнеров, суперавтоматов, оборудования HoReCa и рожковых кофемашин. Оперативный выезд, запчасти в наличии.">
+    <meta name="robots" content="index, follow">
     <style>
         :root {
             --primary: #0f172a;
@@ -23,65 +24,63 @@
         .logo span { color: var(--accent); }
         .phone { font-size: 22px; font-weight: 700; color: var(--accent); text-decoration: none; transition: 0.2s; }
         .phone:hover { color: var(--accent-hover); }
-        
+ 
         .hero { text-align: center; padding: 80px 20px; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #fff; }
         .hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
         .hero h1 span { color: var(--accent); }
         .hero p { font-size: 20px; opacity: 0.9; max-width: 700px; margin: 0 auto 30px; font-weight: 300; }
-        
+ 
         .b2b-badge { display: inline-block; background: rgba(180, 83, 9, 0.2); color: #fef08a; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
-
+ 
         .tabs-section { padding: 60px 20px; }
         .tabs-header { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
         .tab-btn { padding: 14px 28px; border: 1px solid var(--border); background: #fff; color: var(--dark); font-size: 16px; font-weight: 600; cursor: pointer; border-radius: 6px; transition: 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
         .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
         .tab-btn:hover:not(.active) { background: #f1f5f9; border-color: #94a3b8; }
-        
+ 
         .tab-content { display: none; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); border: 1px solid #e2e8f0; }
         .tab-content.active { display: block; animation: fadeIn 0.4s ease-out; }
         .tab-content h2 { font-size: 28px; font-weight: 700; margin-bottom: 15px; color: var(--primary); }
         .tab-content .subtitle { font-size: 16px; color: #64748b; margin-bottom: 30px; }
-        
+ 
         .tab-image { width: 100%; height: 250px; border-radius: 6px; margin-bottom: 25px; }
-
+ 
         .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 20px; }
         .service-card { border: 1px solid #e2e8f0; padding: 25px; border-radius: 6px; background: #f8fafc; transition: 0.2s; }
         .service-card:hover { border-color: #cbd5e1; transform: translateY(-2px); }
         .service-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--primary); }
         .service-card p { color: #475569; font-size: 15px; }
         .price { font-weight: 700; color: var(--accent); margin-top: 15px; font-size: 20px; border-top: 1px dashed #e2e8f0; padding-top: 10px; }
-        
+ 
         .cta-btn { display: inline-block; background: var(--accent); color: #fff; padding: 16px 32px; border-radius: 6px; font-size: 16px; font-weight: 700; text-decoration: none; margin-top: 35px; transition: 0.2s; text-align: center; border: none; cursor: pointer; width: 100%; box-shadow: 0 2px 4px rgba(180, 83, 9, 0.2); }
         .cta-btn:hover { background: var(--accent-hover); }
-        
+ 
         .advantages { padding: 60px 20px; background: #fff; border-top: 1px solid #e2e8f0; }
         .adv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; text-align: center; margin-top: 40px; }
         .adv-card { border: 1px solid #e2e8f0; padding: 25px; border-radius: 6px; background: #f8fafc; }
         .adv-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--primary); }
         .adv-card p { color: #64748b; font-size: 14px; }
-
+ 
         .contacts { background: #f1f5f9; padding: 60px 20px; text-align: center; border-top: 1px solid #e2e8f0; }
         .contact-info { margin: 30px 0; font-size: 18px; color: var(--primary); }
         .contact-info p { margin-bottom: 10px; }
-        
+ 
         footer { background: var(--primary); color: #94a3b8; text-align: center; padding: 25px; font-size: 14px; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
-
-        <header>
+ 
+    <header>
         <div class="container nav-flex">
             <div style="display: flex; align-items: center; gap: 14px;">
-                <!-- Увеличенный логотип КофеМастер -->
                 <img src="logo.jpg" alt="Логотип КофеМастер 163" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 1px solid #cbd5e1;">
                 <div class="logo" style="font-size: 28px;">Кофе<span>Мастер 163</span></div>
             </div>
             <a href="tel:+79372115128" class="phone">📞 8 (937) 211-51-28</a>
         </div>
     </header>
-
-
+ 
     <section class="hero">
         <div class="container">
             <div class="b2b-badge">Сервис для коммерческого кофейного бизнеса</div>
@@ -89,14 +88,14 @@
             <p>Устраняем поломки кофеен самообслуживания, вендинга, систем HoReCa и профессиональных машин. Выезд инженера на точку от 1 часа. Без простоев вашего бизнеса.</p>
         </div>
     </section>
-
+ 
     <section class="container tabs-section">
         <div class="tabs-header">
             <button class="tab-btn active" onclick="openTab(event, 'vending')">🤖 Кофейни самообслуживания & HoReCa</button>
             <button class="tab-btn" onclick="openTab(event, 'professional')">☕ Профессиональные кофемашины</button>
             <button class="tab-btn" onclick="openTab(event, 'maintenance')">🛠️ Регулярное ТО для бизнеса</button>
         </div>
-
+ 
         <!-- Вкладка 1: Кофейни самообслуживания & HoReCa -->
         <div id="vending" class="tab-content active">
             <h2>Ремонт кофе-корнеров, вендинга и систем HoReCa</h2>
@@ -108,7 +107,7 @@
             <div class="service-grid">
                 <div class="service-card">
                     <h3>Ремонт телеметрии и платежных систем</h3>
-                    <p>Настройка купюроприемников, terminalов безналичной оплаты (KitPos, Pax) и систем мониторинга точек.</p>
+                    <p>Настройка купюроприемников, терминалов безналичной оплаты (KitPos, Pax) и систем мониторинга точек.</p>
                     <p class="price">от 2 500 ₽</p>
                 </div>
                 <div class="service-card">
@@ -124,7 +123,6 @@
             </div>
             <a href="tel:+79372115128" class="cta-btn">Вызвать инженера к аппарату</a>
         </div>
-
         <!-- Вкладка 2: Профессиональные кофемашины -->
         <div id="professional" class="tab-content">
             <h2>Ремонт ресторанного кофейного оборудования</h2>
@@ -152,7 +150,7 @@
             </div>
             <a href="tel:+79372115128" class="cta-btn">Вызвать мастера в ресторан / кафе</a>
         </div>
-
+ 
         <!-- Вкладка 3: Регулярное ТО -->
         <div id="maintenance" class="tab-content">
             <h2>Профилактика и абонентское обслуживание</h2>
@@ -181,6 +179,7 @@
             <a href="tel:+79372115128" class="cta-btn">Заключить договор на обслуживание</a>
         </div>
     </section>
+
     <section class="advantages">
         <div class="container">
             <h2 style="text-align: center; font-size: 32px;">Условия работы инженера</h2>
@@ -192,7 +191,7 @@
                 </div>
                 <div class="adv-card">
                     <h4>⚙️ Свой склад запчастей</h4>
-                    <p>Большинство ходовых деталей (помпы, клапаны, датчики, уплотнители) всегда в наличии в Тольятти.</p>
+                    <p>Большинство ходовых деталей (помпы, клапаны, датчики, уплотнители) always в наличии в Тольятти.</p>
                 </div>
                 <div class="adv-card">
                     <h4>📄 Работаем официально</h4>
@@ -201,10 +200,10 @@
             </div>
         </div>
     </section>
-
+ 
     <section class="contacts">
         <div class="container">
-            <h2>Контакты Сервиса «Техноград»</h2>
+            <h2>Контакты Сервиса «КофеМастер 163»</h2>
             <div class="contact-info">
                 <p>📍 Оперативный выезд инженера по всему г. Тольятти</p>
                 <p>🕒 Прием экстренных заявок для бизнеса: Пн–Пт с 09:00 до 21:00 (Сб, Вс — выходные)</p>
@@ -213,13 +212,12 @@
             <p style="font-weight: bold; font-size: 20px;">Прямой контакт с инженером: <a href="tel:+79372115128" style="color: var(--accent); text-decoration: none;">8 (937) 211-51-28</a></p>
         </div>
     </section>
-
-        <footer>
+ 
+    <footer>
         <p>&copy; 2026 Сервисный центр КофеМастер 163. Специализированный ремонт кофейных систем B2B.</p>
         <p style="font-size: 12px; opacity: 0.7; margin-top: 5px;">Услуги оказывает самозанятый мастер. Предоставляются официальные чеки и акты.</p>
     </footer>
-
-
+ 
     <script>
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
@@ -237,3 +235,241 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КофеМастер 163 — Ремонт коммерческих кофемашин, HoReCa и вендинга в Тольятти</title>
+    <meta name="description" content="Сервисный центр КофеМастер 163 в Тольятти. Профессиональный ремонт вендинговых аппаратов, кофе-корнеров, суперавтоматов, оборудования HoReCa и рожковых кофемашин. Оперативный выезд, запчасти в наличии.">
+    <meta name="robots" content="index, follow">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #b45309;
+            --accent-hover: #92400e;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --border: #cbd5e1;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background: var(--light); color: var(--dark); line-height: 1.6; }
+        header { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .logo { font-size: 26px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .logo span { color: var(--accent); }
+        .phone { font-size: 22px; font-weight: 700; color: var(--accent); text-decoration: none; transition: 0.2s; }
+        .phone:hover { color: var(--accent-hover); }
+ 
+        .hero { text-align: center; padding: 80px 20px; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #fff; }
+        .hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
+        .hero h1 span { color: var(--accent); }
+        .hero p { font-size: 20px; opacity: 0.9; max-width: 700px; margin: 0 auto 30px; font-weight: 300; }
+ 
+        .b2b-badge { display: inline-block; background: rgba(180, 83, 9, 0.2); color: #fef08a; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+ 
+        .tabs-section { padding: 60px 20px; }
+        .tabs-header { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+        .tab-btn { padding: 14px 28px; border: 1px solid var(--border); background: #fff; color: var(--dark); font-size: 16px; font-weight: 600; cursor: pointer; border-radius: 6px; transition: 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .tab-btn:hover:not(.active) { background: #f1f5f9; border-color: #94a3b8; }
+ 
+        .tab-content { display: none; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); border: 1px solid #e2e8f0; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease-out; }
+        .tab-content h2 { font-size: 28px; font-weight: 700; margin-bottom: 15px; color: var(--primary); }
+        .tab-content .subtitle { font-size: 16px; color: #64748b; margin-bottom: 30px; }
+ 
+        .tab-image { width: 100%; height: 250px; border-radius: 6px; margin-bottom: 25px; }
+ 
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 20px; }
+        .service-card { border: 1px solid #e2e8f0; padding: 25px; border-radius: 6px; background: #f8fafc; transition: 0.2s; }
+        .service-card:hover { border-color: #cbd5e1; transform: translateY(-2px); }
+        .service-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--primary); }
+        .service-card p { color: #475569; font-size: 15px; }
+        .price { font-weight: 700; color: var(--accent); margin-top: 15px; font-size: 20px; border-top: 1px dashed #e2e8f0; padding-top: 10px; }
+ 
+        .cta-btn { display: inline-block; background: var(--accent); color: #fff; padding: 16px 32px; border-radius: 6px; font-size: 16px; font-weight: 700; text-decoration: none; margin-top: 35px; transition: 0.2s; text-align: center; border: none; cursor: pointer; width: 100%; box-shadow: 0 2px 4px rgba(180, 83, 9, 0.2); }
+        .cta-btn:hover { background: var(--accent-hover); }
+ 
+        .advantages { padding: 60px 20px; background: #fff; border-top: 1px solid #e2e8f0; }
+        .adv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; text-align: center; margin-top: 40px; }
+        .adv-card { border: 1px solid #e2e8f0; padding: 25px; border-radius: 6px; background: #f8fafc; }
+        .adv-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--primary); }
+        .adv-card p { color: #64748b; font-size: 14px; }
+ 
+        .contacts { background: #f1f5f9; padding: 60px 20px; text-align: center; border-top: 1px solid #e2e8f0; }
+        .contact-info { margin: 30px 0; font-size: 18px; color: var(--primary); }
+        .contact-info p { margin-bottom: 10px; }
+ 
+        footer { background: var(--primary); color: #94a3b8; text-align: center; padding: 25px; font-size: 14px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+ 
+    <header>
+        <div class="container nav-flex">
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <img src="logo.jpg" alt="Логотип КофеМастер 163" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 1px solid #cbd5e1;">
+                <div class="logo" style="font-size: 28px;">Кофе<span>Мастер 163</span></div>
+            </div>
+            <a href="tel:+79372115128" class="phone">📞 8 (937) 211-51-28</a>
+        </div>
+    </header>
+ 
+    <section class="hero">
+        <div class="container">
+            <div class="b2b-badge">Сервис для коммерческого кофейного бизнеса</div>
+            <h1>Срочный ремонт кофейного оборудования в Тольятти</h1>
+            <p>Устраняем поломки кофеен самообслуживания, вендинга, систем HoReCa и профессиональных машин. Выезд инженера на точку от 1 часа. Без простоев вашего бизнеса.</p>
+        </div>
+    </section>
+ 
+    <section class="container tabs-section">
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="openTab(event, 'vending')">🤖 Кофейни самообслуживания & HoReCa</button>
+            <button class="tab-btn" onclick="openTab(event, 'professional')">☕ Профессиональные кофемашины</button>
+            <button class="tab-btn" onclick="openTab(event, 'maintenance')">🛠️ Регулярное ТО для бизнеса</button>
+        </div>
+ 
+        <!-- Вкладка 1: Кофейни самообслуживания & HoReCa -->
+        <div id="vending" class="tab-content active">
+            <h2>Ремонт кофе-корнеров, вендинга и систем HoReCa</h2>
+            <div class="subtitle">Обслуживание аппаратов Jofemar, Bluetec, Unicum, Saeco, Rheavendors, Necta. Обслуживание кофейных зон в отелях, кафе и микромаркетах Тольятти.</div>
+            <div class="tab-image" style="background: linear-gradient(135deg, #1e293b, #475569); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; border: 1px solid #cbd5e1;">
+                <div style="font-size: 70px; margin-bottom: 5px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">🤖</div>
+                <div style="font-size: 16px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; color: #f59e0b;">Вендинг, Микромаркеты & HoReCa</div>
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>Ремонт телеметрии и платежных систем</h3>
+                    <p>Настройка купюроприемников, терминалов безналичной оплаты (KitPos, Pax) и систем мониторинга точек.</p>
+                    <p class="price">от 2 500 ₽</p>
+                </div>
+                <div class="service-card">
+                    <h3>Устранение ошибок гидросистемы</h3>
+                    <p>Замена помп, ремонт бойлера, устранение протечек, замена уплотнителей и клапанов высокого давления.</p>
+                    <p class="price">от 2 000 ₽</p>
+                </div>
+                <div class="service-card">
+                    <h3>Настройка и калибровка помола</h3>
+                    <p>Регулировка ножей кофемолки, дозировки зерна и ингредиентов для стабильного качества напитков.</p>
+                    <p class="price">от 1 500 ₽</p>
+                </div>
+            </div>
+            <a href="tel:+79372115128" class="cta-btn">Вызвать инженера к аппарату</a>
+        </div>
+        <!-- Вкладка 2: Профессиональные кофемашины -->
+        <div id="professional" class="tab-content">
+            <h2>Ремонт ресторанного кофейного оборудования</h2>
+            <div class="subtitle">Ремонт суперавтоматов и рожковых машин для общепита: Nuova Simonelli, La Marzocco, WMF, Franke, Faema, Casadio, Sanremo.</div>
+            <div class="tab-image" style="background: linear-gradient(135deg, #1e293b, #b45309); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; border: 1px solid #cbd5e1;">
+                <div style="font-size: 70px; margin-bottom: 5px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">☕</div>
+                <div style="font-size: 16px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; color: #fef08a;">Профессиональное Оборудование</div>
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>Восстановление электроники и плат</h3>
+                    <p>Диагностика электрических цепей, ремонт силовых плат, замена датчиков уровня воды и температуры.</p>
+                    <p class="price">от 3 500 ₽</p>
+                </div>
+                <div class="service-card">
+                    <h3>Переборка заварочных групп</h3>
+                    <p>Замена прокладок, сеток душей, чистка жиклеров, регулировка давления помпы (ротационной/вибрационной).</p>
+                    <p class="price">от 3 000 ₽</p>
+                </div>
+                <div class="service-card">
+                    <h3>Капитальный ремонт с выкупом</h3>
+                    <p>Полная переборка, очистка от накипи в кислотной ванне (декальцинация бойлера с разбором).</p>
+                    <p class="price">от 8 000 ₽</p>
+                </div>
+            </div>
+            <a href="tel:+79372115128" class="cta-btn">Вызвать мастера в ресторан / кафе</a>
+        </div>
+ 
+        <!-- Вкладка 3: Регулярное ТО -->
+        <div id="maintenance" class="tab-content">
+            <h2>Профилактика и абонентское обслуживание</h2>
+            <div class="subtitle">Предотвращаем дорогостоящие поломки. Договорное и разовое техническое обслуживание оборудования.</div>
+            <div class="tab-image" style="background: linear-gradient(135deg, #0f172a, #1e293b); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; border: 1px solid #cbd5e1;">
+                <div style="font-size: 70px; margin-bottom: 5px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">🛠️</div>
+                <div style="font-size: 16px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; color: #38bdf8;">Техническое Обслуживание (ТО)</div>
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>Регулярное ТО кофе-точки</h3>
+                    <p>Комплексная чистка от кофейных масел, замена изношенных расходников, проверка стабильности выдачи стаканов.</p>
+                    <p class="price">от 1 800 ₽</p>
+                </div>
+                <div class="service-card">
+                    <h3>Замена фильтров водоподготовки</h3>
+                    <p>Контроль жесткости воды, замена картриджей фильтр-систем (BWT, Brita) для защиты бойлера от накипи.</p>
+                    <p class="price">от 1 500 ₽</p>
+                </div>
+                <div class="service-card">
+                    <h3>Абонентский контракт</h3>
+                    <p>Ежемесячный плановый выезд мастера, приоритет на экстренные вызовы 24/7, скидки на запчасти.</p>
+                    <p class="price">Индивидуально</p>
+                </div>
+            </div>
+            <a href="tel:+79372115128" class="cta-btn">Заключить договор на обслуживание</a>
+        </div>
+    </section>
+
+    <section class="advantages">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 32px;">Условия работы инженера</h2>
+            <div class="adv-grid">
+                <div class="adv-card" style="border: 2px solid #b45309; background: #fef3c7;">
+                    <h4>⏱️ Выезд и диагностика</h4>
+                    <p style="font-weight: bold; color: #b45309; margin-bottom: 5px;">Стоимость — 1 000 ₽</p>
+                    <p>При проведении ремонта выезд и диагностика оборудования проводятся <strong>БЕСПЛАТНО</strong> (сумма полностью входит в стоимость работ).</p>
+                </div>
+                <div class="adv-card">
+                    <h4>⚙️ Свой склад запчастей</h4>
+                    <p>Большинство ходовых деталей (помпы, клапаны, датчики, уплотнители) always в наличии в Тольятти.</p>
+                </div>
+                <div class="adv-card">
+                    <h4>📄 Работаем официально</h4>
+                    <p>Предоставляем акты выполненных работ, чеки. Возможна оплата на расчетный счет для юрлиц.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <section class="contacts">
+        <div class="container">
+            <h2>Контакты Сервиса «КофеМастер 163»</h2>
+            <div class="contact-info">
+                <p>📍 Оперативный выезд инженера по всему г. Тольятти</p>
+                <p>🕒 Прием экстренных заявок для бизнеса: Пн–Пт с 09:00 до 21:00 (Сб, Вс — выходные)</p>
+                <p style="font-size: 15px; color: #64748b; margin-top: 10px;">* Ложные вызовы или отказ от ремонта после проведения диагностики оплачиваются фиксированно — 1 000 ₽.</p>
+            </div>
+            <p style="font-weight: bold; font-size: 20px;">Прямой контакт с инженером: <a href="tel:+79372115128" style="color: var(--accent); text-decoration: none;">8 (937) 211-51-28</a></p>
+        </div>
+    </section>
+ 
+    <footer>
+        <p>&copy; 2026 Сервисный центр КофеМастер 163. Специализированный ремонт кофейных систем B2B.</p>
+        <p style="font-size: 12px; opacity: 0.7; margin-top: 5px;">Услуги оказывает самозанятый мастер. Предоставляются официальные чеки и акты.</p>
+    </footer>
+ 
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
+

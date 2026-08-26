@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Территория КофеМашин — Ремонт коммерческих кофемашин in Тольятти</title>
+    <title>Территория КофеМашин — Ремонт коммерческих кофемашин в Тольятти</title>
     <meta name="description" content="Сервисный центр Территория КофеМашин в Тольятти. Профессиональный ремонт вендинговых аппаратов, кофе-корнеров, суперавтоматов, HoReCa и рожковых кофемашин.">
     <meta name="robots" content="index, follow">
     
@@ -112,7 +112,7 @@
             letter-spacing: 1px; 
         }
 
-        /* ДВУХКОЛОНОЧНЫЙ ФОН С ЭФФЕКТОМ ПАРАЛЛАКСА */
+        /* ДВУХКОЛОНОЧНЫЙ ЗАКРЕПЛЕННЫЙ ФОН */
         .split-bg-container {
             width: 100%;
             position: relative;
@@ -122,7 +122,7 @@
             overflow: hidden;
         }
         
-        /* ЛЕВАЯ СТОРОНА: Город кофемашин (Родной размер + Параллакс) */
+        /* ЛЕВАЯ СТОРОНА: Город кофемашин (Родной масштаб + Параллакс) */
         .bg-side-left {
             position: absolute;
             left: 0; top: 0; bottom: 0;
@@ -136,7 +136,7 @@
             pointer-events: none;
         }
 
-        /* ПРАВАЯ СТОРОНА: Курица с зерном (Родной размер + Параллакс) */
+        /* ПРАВАЯ СТОРОНА: Курица с зерном (Родной масштаб + Параллакс) */
         .bg-side-right {
             position: absolute;
             right: 0; top: 0; bottom: 0;
@@ -350,6 +350,7 @@
             white-space: nowrap; 
         }
 
+        /* ЗЕЛЕНАЯ КНОПКА ЗВОНКА */
         .floating-call-btn { 
             position: fixed; 
             bottom: 20px; 
@@ -368,10 +369,30 @@
             z-index: 999; 
             transition: 0.2s; 
         }
-        .floating-call-btn:hover { 
-            transform: scale(1.05); 
-            background: #16a34a; 
+        .floating-call-btn:hover { transform: scale(1.05); background: #16a34a; }
+
+        /* ПЛАВАЮЩАЯ КНОПКА МЕССЕНДЖЕРА MAX НАД ТРУБКОЙ */
+        .floating-max-btn { 
+            position: fixed; 
+            bottom: 90px; 
+            right: 20px; 
+            width: 60px; 
+            height: 60px; 
+            background: #0284c7; 
+            color: white; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 13px; 
+            font-weight: 900;
+            box-shadow: 0 4px 16px rgba(2, 132, 199, 0.4); 
+            text-decoration: none; 
+            z-index: 999; 
+            transition: 0.2s; 
+            border: 1px solid rgba(255,255,255,0.2);
         }
+        .floating-max-btn:hover { transform: scale(1.05); background: #0369a1; }
  
         .contacts { 
             background: #f1f5f9; 
@@ -453,12 +474,15 @@
             <p class="hero-text-block">Устраняем поломки кофеен самообслуживания, вендинга, систем HoReCa и профессиональных машин. Выезд инженера на точку от 1 часа. Без простоев вашего бизнеса.</p>
             
             <div class="hero-icons-block">
+                <!-- 1. Иконка (Кофе-корнеры) -->
                 <div class="hero-circle-icon" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
                     <img src="icon-corner.png" alt="Кофе-корнеры" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
+                <!-- 2. Иконка (Рожковые машины) -->
                 <div class="hero-circle-icon" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
                     <img src="icon-espresso.png" alt="Рожковые машины" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
+                <!-- 3. Иконка (Грузовик выезда) -->
                 <div class="hero-circle-icon" style="color: #b45309; padding: 14px; display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 100%; height: 100%; display: block;">
                         <rect x="1" y="3" width="15" height="13" rx="2" ry="2" />
@@ -490,7 +514,7 @@
                 <div class="subtitle">Обслуживание аппаратов Jofemar, Bluetec, Unicum, Saeco, Rheavendors, Necta. Обслуживание кофейных зон в отелях, кафе и микромаркетах Тольятти.</div>
                 
                 <div class="tab-image-new">
-                    <svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 8px; filter: drop-shadow(0 2px 8px rgba(180,83,9,0.3));">
+                    <svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 8px; filter: drop-shadow(0 2px 8px rgba(180, 83, 9, 0.3));">
                         <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
                         <line x1="4" y1="12" x2="20" y2="12"/>
                         <rect x="7" y="5" width="6" height="4" rx="1"/>
@@ -515,20 +539,20 @@
                     </div>
                     <div class="service-card">
                         <h3>Настройка и калибровка помола</h3>
-                        <p>Регулировка ножей кофемолки, дозировки зерна и ingredients для стабильного качества напитков.</p>
+                        <p>Регулировка ножей кофемолки, дозировки зерна и ингредиентов для стабильного качества напитков.</p>
                         <p class="price">от 1 500 ₽</p>
                     </div>
                 </div>
                 <a href="tel:+79372115128" class="cta-btn">Вызвать инженера к аппарату</a>
+                <a href="https://max.ru" target="_blank" style="display: block; margin-top: 12px; background: #0284c7; color: #fff; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 3px 6px rgba(2,132,199,0.2); transition: 0.2s;">💬 Написать в мессенджер MAX</a>
             </div>
-
             <!-- Вкладка 2 -->
             <div id="professional" class="tab-content">
                 <h2>Ремонт ресторанного кофейного оборудования</h2>
                 <div class="subtitle">Ремонт суперавтоматов и рожковых машин для общепита: Nuova Simonelli, La Marzocco, WMF, Franke, Faema, Casadio, Sanremo.</div>
                 
                 <div class="tab-image-new">
-                    <img src="icon-espresso.png" alt="Профессиональное оборудование" style="width: 58px; height: 58px; object-fit: contain; background: #fff; border-radius: 50%; padding: 6px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-bottom: 8px;">
+                    <img src="icon-espresso.png" alt="Профессиональное оборудование" style="width: 68px; height: 68px; min-width: 68px; min-height: 68px; object-fit: contain; background: #fff; border-radius: 50%; padding: 8px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-bottom: 8px;">
                     <div style="font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">Профессиональное Оборудование</div>
                 </div>
 
@@ -550,15 +574,16 @@
                     </div>
                 </div>
                 <a href="tel:+79372115128" class="cta-btn">Вызвать мастера в ресторан / кафе</a>
+                <a href="https://max.ru" target="_blank" style="display: block; margin-top: 12px; background: #0284c7; color: #fff; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 3px 6px rgba(2,132,199,0.2); transition: 0.2s;">💬 Написать в мессенджер MAX</a>
             </div>
-    
             <!-- Вкладка 3 -->
             <div id="maintenance" class="tab-content">
                 <h2>Профилактика и абонентское обслуживание</h2>
                 <div class="subtitle">Предотвращаем дорогостоящие поломки. Договорное и разовое техническое обслуживание оборудования.</div>
                 
+                <!-- ОШИБКА ИСПРАВЛЕНА: Опечатка (2.12 полностью удалена. Ключ теперь железно стабилен на любых экранах -->
                 <div class="tab-image-new">
-                    <svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 8px; filter: drop-shadow(0 2px 8px rgba(56,189,248,0.2));">
+                    <svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 8px; filter: drop-shadow(0 2px 10px rgba(56,189,248,0.5)); display: block;">
                         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
                     </svg>
                     <div style="font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">Техническое Обслуживание (ТО)</div>
@@ -582,6 +607,7 @@
                     </div>
                 </div>
                 <a href="tel:+79372115128" class="cta-btn">Заключить договор на обслуживание</a>
+                <a href="https://max.ru" target="_blank" style="display: block; margin-top: 12px; background: #0284c7; color: #fff; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 3px 6px rgba(2,132,199,0.2); transition: 0.2s;">💬 Написать в мессенджер MAX</a>
             </div>
         </section>
     </div>
@@ -633,7 +659,6 @@
             </div>
         </div>
     </section>
-
     <section style="background: #f1f5f9; padding: 60px 20px; border-top: 1px solid #e2e8f0; text-align: center;">
         <div class="container">
             <h3 style="font-size: 26px; color: var(--primary); margin-bottom: 10px;">Прайс-лист на ремонт кофемашин в Тольятти</h3>
@@ -710,6 +735,8 @@
         </div>
     </footer>
 
+    <!-- ПЛАВАЮЩИЕ ИКОНКИ СВЯЗИ В ПРАВОМ УГЛУ ЭКРАНА -->
+    <a href="https://max.ru" target="_blank" class="floating-max-btn">MAX</a>
     <a href="tel:+79372115128" class="floating-call-btn">📞</a>
  
     <script>

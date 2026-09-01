@@ -7,7 +7,26 @@
     <meta name="description" content="Сервисный центр Территория КофеМашин в Тольятти. Профессиональный ремонт вендинговых аппаратов, кофе-корнеров, суперавтоматов, HoReCa и рожковых кофемашин.">
     <meta name="robots" content="index, follow">
     
+    <!-- ИСПРАВЛЕННЫЙ ОФИЦИАЛЬНЫЙ КОД СЧЕТЧИКА ЯНДЕКС.МЕТРИКИ -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < e.scripts.length; j++) {if (e.scripts[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t),k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://yandex.ru", "ym");
+
+       ym(11161123, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+       });
+    </script>
+    <noscript><div><img src="https://yandex.ru" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Яндекс.Метрика счетчик -->
+    
     <style>
+        /* === БЛОК 1: ОСНОВНЫЕ СТИЛИ И ГЛОБАЛЬНЫЕ НАСТРОЙКИ === */
         :root { 
             --primary: #0f172a; 
             --accent: #b45309; 
@@ -67,7 +86,7 @@
         .phone:hover { 
             color: var(--accent-hover); 
         }
-        
+        /* === БЛОК 2: СТИЛИ ГЛАВНОГО ЭКРАНА И КНОПОК НАВИГАЦИИ === */
         .hero-text-block { 
             font-size: 20px; 
             opacity: 0.9; 
@@ -98,7 +117,6 @@
             transition: 0.2s; 
             cursor: pointer; 
         }
- 
         .b2b-badge { 
             display: inline-block; 
             background: rgba(180, 83, 9, 0.2); 
@@ -112,7 +130,7 @@
             letter-spacing: 1px; 
         }
 
-        /* ДВУХКОЛОНОЧНЫЙ ЗАКРЕПЛЕННЫЙ ФОН */
+        /* ДВУХКОЛОНОЧНЫЙ ЗАКРЕПЛЕННЫЙ ФОН С ПРЯМЫМИ ПУТЯМИ */
         .split-bg-container {
             width: 100%;
             position: relative;
@@ -122,7 +140,6 @@
             overflow: hidden;
         }
         
-        /* ЛЕВАЯ СТОРОНА: Город кофемашин (Родной масштаб + Параллакс) */
         .bg-side-left {
             position: absolute;
             left: 0; top: 0; bottom: 0;
@@ -136,7 +153,6 @@
             pointer-events: none;
         }
 
-        /* ПРАВАЯ СТОРОНА: Курица с зерном (Родной масштаб + Параллакс) */
         .bg-side-right {
             position: absolute;
             right: 0; top: 0; bottom: 0;
@@ -186,7 +202,7 @@
             background: #f1f5f9; 
             border-color: #94a3b8; 
         }
- 
+        /* === БЛОК 3: СТИЛИ СЕКЦИЙ УСЛУГ, ПРЕИМУЩЕСТВ И ЦЕН === */
         .tab-content { 
             display: none; 
             background: #fff; 
@@ -196,7 +212,7 @@
             border: 1px solid #e2e8f0; 
         }
         .tab-content.active { 
-            display: block; 
+            display: block;
             animation: fadeIn 0.4s ease-out; 
         }
         .tab-content h2 { 
@@ -297,6 +313,7 @@
             background: #fff; 
             border-top: 1px solid #e2e8f0; 
         }
+        /* === БЛОК 4: АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА === */
         .adv-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
@@ -350,7 +367,6 @@
             white-space: nowrap; 
         }
 
-        /* ЗЕЛЕНАЯ КНОПКА ЗВОНКА */
         .floating-call-btn { 
             position: fixed; 
             bottom: 20px; 
@@ -371,7 +387,6 @@
         }
         .floating-call-btn:hover { transform: scale(1.05); background: #16a34a; }
 
-        /* ПЛАВАЮЩАЯ КНОПКА МЕССЕНДЖЕРА MAX НАД ТРУБКОЙ */
         .floating-max-btn { 
             position: fixed; 
             bottom: 90px; 
@@ -396,7 +411,7 @@
  
         .contacts { 
             background: #f1f5f9; 
-            padding: 60px 20px; 
+            padding: 60px 20px;
             text-align: center; 
             border-top: 1px solid #e2e8f0; 
         }
@@ -426,19 +441,6 @@
             .mobile-price-name, .mobile-price-val { background: #fff; }
         }
     </style>
-
-    <!-- ОФИЦИАЛЬНЫЙ КОД СЧЕТЧИКА ИЗ КАБИНЕТА ЯНДЕКС.МЕТРИКИ -->
-    <script type="text/javascript">
-        (function(m,e,t,r,i,k,a){
-            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=document.getElementsByTagName(t),k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-        })(window, document,'script','https://yandex.ru', 'ym');
-
-        ym(111611223, 'init', {ssr:true, webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-    </script>
-    <noscript><div><img src="https://yandex.ru" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </head>
 <body>
     <header>
@@ -466,7 +468,7 @@
             <a href="tel:+79372115128" class="phone">8 (937) 211-51-28</a>
         </div>
     </header>
-
+    <!-- === БЛОК 5: ГЛАВНЫЙ ЭКРАН И ПЕРВЫЕ ДВЕ ВКЛАДКИ УСЛУГ === -->
     <section class="hero">
         <div class="container">
             <div class="b2b-badge">Сервис для коммерческого кофейного бизнеса</div>
@@ -474,15 +476,12 @@
             <p class="hero-text-block">Устраняем поломки кофеен самообслуживания, вендинга, систем HoReCa и профессиональных машин. Выезд инженера на точку от 1 часа. Без простоев вашего бизнеса.</p>
             
             <div class="hero-icons-block">
-                <!-- 1. Иконка (Кофе-корнеры) -->
                 <div class="hero-circle-icon" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
                     <img src="icon-corner.png" alt="Кофе-корнеры" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
-                <!-- 2. Иконка (Рожковые машины) -->
                 <div class="hero-circle-icon" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
                     <img src="icon-espresso.png" alt="Рожковые машины" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
-                <!-- 3. Иконка (Грузовик выезда) -->
                 <div class="hero-circle-icon" style="color: #b45309; padding: 14px; display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 100%; height: 100%; display: block;">
                         <rect x="1" y="3" width="15" height="13" rx="2" ry="2" />
@@ -497,45 +496,37 @@
     </section>
  
     <section class="container" style="padding-top: 40px; padding-bottom: 0;">
-        <div class="tabs-header" style="margin-bottom: 0;">
-            <button class="tab-btn active" onclick="openTab(event, 'vending')">🤖 Самообслуживание & Вендинг</button>
-            <button class="tab-btn" onclick="openTab(event, 'professional')">☕ Профессиональные машины</button>
-            <button class="tab-btn" onclick="openTab(event, 'maintenance')">🛠️ Регулярное ТО</button>
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="openTab(event, 'vending')">Самообслуживание & Вендинг</button>
+            <button class="tab-btn" onclick="openTab(event, 'professional')">Профессиональные машины</button>
+            <button class="tab-btn" onclick="openTab(event, 'maintenance')">Регулярное ТО</button>
         </div>
     </section>
+
     <div class="split-bg-container">
         <div class="bg-side-left"></div>
         <div class="bg-side-right"></div>
-
-        <section class="container tabs-section">
+        
+        <section class="container tabs-section" style="padding-top: 0;">
             <!-- Вкладка 1 -->
             <div id="vending" class="tab-content active">
                 <h2>Ремонт кофе-корнеров, вендинга и систем HoReCa</h2>
                 <div class="subtitle">Обслуживание аппаратов Jofemar, Bluetec, Unicum, Saeco, Rheavendors, Necta. Обслуживание кофейных зон в отелях, кафе и микромаркетах Тольятти.</div>
                 
                 <div class="tab-image-new">
-                    <svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 8px; filter: drop-shadow(0 2px 8px rgba(180, 83, 9, 0.3));">
-                        <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
-                        <line x1="4" y1="12" x2="20" y2="12"/>
-                        <rect x="7" y="5" width="6" height="4" rx="1"/>
-                        <circle cx="16" cy="6" r="1"/>
-                        <circle cx="16" cy="8" r="1"/>
-                        <path d="M7 16h6v2H7z"/>
-                        <circle cx="16.5" cy="17" r="0.5"/>
-                    </svg>
-                    <div style="font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">Вендинг, Микромаркеты & HoReCa</div>
+                    <!-- ПОДКЛЮЧЕНА ВАША НОВАЯ КАРТИНКА, ОНА ИДЕАЛЬНО ВЫРОВНЕНА -->
+                    <img src="icon-vending.png" alt="Вендинговое оборудование" style="width: 68px; height: 68px; min-width: 68px; min-height: 68px; object-fit: contain; background: #fff; border-radius: 50%; padding: 8px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-bottom: 8px;">
+                    <div style="font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">ВЕНДИНГ, МИКРОМАРКЕТЫ & HoReCa</div>
                 </div>
-                
+
                 <div class="service-grid">
                     <div class="service-card">
                         <h3>Ремонт телеметрии и платежных систем</h3>
-                        <p>Настройка купюроприемников, терминалов безналичной оплаты (KitPos, Pax) and систем мониторинга точек.</p>
-                        <p class="price">от 2 500 ₽</p>
+                        <p>Настройка помп, ремонт бойлера, устранение протечек, замена уплотнителей и клапанов высокого давления.</p>
                     </div>
                     <div class="service-card">
                         <h3>Устранение ошибок гидросистемы</h3>
-                        <p>Замена помп, ремонт бойлера, устранение протечек, замена уплонтителей и клапанов высокого давления.</p>
-                        <p class="price">от 2 000 ₽</p>
+                        <p>Замена помп, ремонт бойлера, устранение протечек, замена уплотнителей и клапанов высокого давления.</p>
                     </div>
                     <div class="service-card">
                         <h3>Настройка и калибровка помола</h3>
@@ -544,18 +535,17 @@
                     </div>
                 </div>
                 <a href="tel:+79372115128" class="cta-btn">Вызвать инженера к аппарату</a>
-                <!-- ТАКТИЧЕСКАЯ ССЫЛКА НА ВАШ ЛИЧНЫЙ ЧАТ В МЕССЕНДЖЕРЕ MAX -->
-                <a href="https://max.ru/u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" style="display: block; margin-top: 12px; background: #0284c7; color: #fff; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 3px 6px rgba(2,132,199,0.2); transition: 0.2s;">💬 Написать в мессенджер MAX</a>
+                <a href="https://max.ru" target="_blank" style="display: block; margin-top: 12px; background: #0284c7; color: #fff; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 3px 6px rgba(2,132,199,0.2); transition: 0.2s;">🔹 Написать в мессенджер MAX</a>
             </div>
+
             <!-- Вкладка 2 -->
             <div id="professional" class="tab-content">
                 <h2>Ремонт ресторанного кофейного оборудования</h2>
                 <div class="subtitle">Ремонт суперавтоматов и рожковых машин для общепита: Nuova Simonelli, La Marzocco, WMF, Franke, Faema, Casadio, Sanremo.</div>
                 
                 <div class="tab-image-new">
-                    <!-- КРУЖОК УВЕЛИЧЕН, ДОБАВЛЕНЫ ОТСТУПЫ, КАРТИНКА БОЛЬШЕ НЕ СРЕЗАЕТСЯ -->
                     <img src="icon-espresso.png" alt="Профессиональное оборудование" style="width: 68px; height: 68px; min-width: 68px; min-height: 68px; object-fit: contain; background: #fff; border-radius: 50%; padding: 8px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-bottom: 8px;">
-                    <div style="font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">Профессиональное Оборудование</div>
+                    <div style="font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">ПРОФЕССИОНАЛЬНОЕ ОБОРУДОВАНИЕ</div>
                 </div>
 
                 <div class="service-grid">
@@ -570,152 +560,132 @@
                         <p class="price">от 3 000 ₽</p>
                     </div>
                     <div class="service-card">
-                        <h3>Капитальный ремонт с выкупом</h3>
+                        <h3>Капитальный ремонт</h3>
                         <p>Полная переборка, очистка от накипи в кислотной ванне (декальцинация бойлера с разбором).</p>
                         <p class="price">от 8 000 ₽</p>
                     </div>
                 </div>
                 <a href="tel:+79372115128" class="cta-btn">Вызвать мастера в ресторан / кафе</a>
-                <!-- ТАКТИЧЕСКАЯ ССЫЛКА НА ВАШ ЛИЧНЫЙ ЧАТ В МЕССЕНДЖЕРЕ MAX -->
-                <a href="https://max.ru/u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" style="display: block; margin-top: 12px; background: #0284c7; color: #fff; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 3px 6px rgba(2,132,199,0.2); transition: 0.2s;">💬 Написать в мессенджер MAX</a>
+                <a href="https://max.ru" target="_blank" style="display: block; margin-top: 12px; background: #0284c7; color: #fff; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 3px 6px rgba(2,132,199,0.2); transition: 0.2s;">🔹 Написать в мессенджер MAX</a>
             </div>
+            <!-- === БЛОК 6: ТРЕТЬЯ ВКЛАДКА ТО, ПРЕИМУЩЕСТВА И ЦЕНЫ === -->
             <!-- Вкладка 3 -->
             <div id="maintenance" class="tab-content">
                 <h2>Профилактика и абонентское обслуживание</h2>
                 <div class="subtitle">Предотвращаем дорогостоящие поломки. Договорное и разовое техническое обслуживание оборудования.</div>
                 
-                <!-- ОШИБКА С ГАЕЧНЫМ КЛЮЧОМ НА 100% ИСПРАВЛЕНА, ВСЕ СИСТЕМНЫЕ СКОБКИ СТОЯТ ИДЕАЛЬНО -->
                 <div class="tab-image-new">
-                    <svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 8px; filter: drop-shadow(0 2px 10px rgba(56,189,248,0.5)); display: block;">
-                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://w3.org" style="margin-bottom: 8px;">
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" fill="#0284c7" />
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <div style="font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">Техническое Обслуживание (ТО)</div>
+                    <div style="font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">ТЕХНИЧЕСКОЕ ОБСЛУЖИВАНИЕ (ТО)</div>
                 </div>
-                
+
                 <div class="service-grid">
                     <div class="service-card">
                         <h3>Регулярное ТО кофе-точки</h3>
-                        <p>Комплексная чистка от кофейных масел, замена изношенных расходников, проверка стабильности выдачи стаканов.</p>
-                        <p class="price">от 1 800 ₽</p>
+                        <p>Комплексная чистка от кофейных масел, замена изношенных расходников, проверка.</p>
                     </div>
                     <div class="service-card">
                         <h3>Замена фильтров водоподготовки</h3>
-                        <p>Контроль жесткости воды, замена картриджей фильтр-систем (BWT, Brita) для защиты бойлера от накипи.</p>
-                        <p class="price">от 1 500 ₽</p>
+                        <p>Контроль жесткости воды, замена картриджей фильтр-систем (BWT).</p>
                     </div>
                     <div class="service-card">
                         <h3>Абонентский контракт</h3>
                         <p>Ежемесячный плановый выезд мастера, приоритет на экстренные вызовы 24/7, скидки на запчасти.</p>
-                        <p class="price">Индивидуально</p>
                     </div>
                 </div>
                 <a href="tel:+79372115128" class="cta-btn">Заключить договор на обслуживание</a>
-                <!-- ТАКТИЧЕСКАЯ ССЫЛКА НА ВАШ ЛИЧНЫЙ ЧАТ В МЕССЕНДЖЕРЕ MAX -->
-                <a href="https://max.ru/u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" style="display: block; margin-top: 12px; background: #0284c7; color: #fff; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 3px 6px rgba(2,132,199,0.2); transition: 0.2s;">💬 Написать в мессенджер MAX</a>
+                <a href="https://max.ru" target="_blank" style="display: block; margin-top: 12px; background: #0284c7; color: #fff; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 3px 6px rgba(2,132,199,0.2); transition: 0.2s;">🔹 Написать в мессенджер MAX</a>
             </div>
         </section>
     </div>
+
     <section class="advantages">
         <div class="container">
-            <h2 style="text-align: center; font-size: 32px;">Почему выбирают «Территория КофеМашин»</h2>
+            <h2 style="text-align: center; font-size: 32px; color: var(--primary);">Почему выбирают «Территорию КофеМашин»</h2>
             <div class="adv-grid">
-                <div class="adv-card" style="border: 2px solid #b45309; background: #fef3c7;">
-                    <h4>⏱️ Выезд и диагностика</h4>
-                    <p style="font-weight: bold; color: #b45309; margin-bottom: 5px;">Стоимость — 1 000 ₽</p>
-                    <p>При проведении ремонта выезд и диагностика оборудования проводятся <strong>БЕСПЛАТНО</strong> (сумма полностью входит в стоимость работ).</p>
+                <div class="adv-card">
+                    <h4 style="border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 12px;">Выезд и Диагностика — 0 ₽</h4>
+                    <p>Собственный мобильный автопарк мастеров. Оперативный выезд и диагностика оборудования при выполнении ремонта осуществляются бесплатно.</p>
                 </div>
                 <div class="adv-card">
-                    <h4>⚙️ Свой склад запчастей</h4>
-                    <p>Большинство ходовых деталей (помпы, клапаны, датчики, уплонтители) всегда в наличии в Тольятти.</p>
+                    <h4 style="border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 12px;">Свой склад запчастей</h4>
+                    <p>Большинство ходовых деталей (помпы, клапаны, датчики, уплотнители) всегда в наличии в Тольятти.</p>
                 </div>
                 <div class="adv-card">
-                    <h4>📄 Работаем официально</h4>
+                    <h4 style="border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 12px;">Работаем официально</h4>
                     <p>Предоставляем акты выполненных работ, чеки. Возможна оплата на расчетный счет для юрлиц.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section style="background: #fff; padding: 60px 20px; border-top: 1px solid #e2e8f0;">
-        <div class="container" style="text-align: center;">
-            <h2 style="font-size: 32px; color: var(--primary); margin-bottom: 40px;">Как проходит ремонт кофейной точки</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; text-align: left;">
-                <div style="border-left: 3px solid var(--accent); padding-left: 20px;">
-                    <div style="font-size: 24px; font-weight: 800; color: var(--accent); margin-bottom: 5px;">01</div>
-                    <h5 style="font-size: 16px; font-weight: 700; margin-bottom: 5px;">Ваша заявка</h5>
-                    <p style="font-size: 14px; color: #64748b;">Звоните напрямую инженеру, описываете ошибку на дисплее или симптомы поломки аппарата.</p>
+    <section style="background: #fff; padding: 60px 20px; border-top: 1px solid #e2e8f0; text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 32px; color: var(--primary); margin-bottom: 40px;">Как проходит ремонт кофемашин</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; text-align: left;">
+                <div style="border-left: 3px solid var(--accent); padding-left: 15px;">
+                    <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 5px; color: var(--primary);">1. Ваша заявка</h4>
+                    <p style="font-size: 14px; color: #64748b;">Звонок напрямую инженеру, описываете ошибку на дисплее или симптомы аппарата.</p>
                 </div>
-                <div style="border-left: 3px solid var(--accent); padding-left: 20px;">
-                    <div style="font-size: 24px; font-weight: 800; color: var(--accent); margin-bottom: 5px;">02</div>
-                    <h5 style="font-size: 16px; font-weight: 700; margin-bottom: 5px;">Срочный выезд</h5>
-                    <p style="font-size: 14px; color: #64748b;">Мастер со всем необходимым профессиональным инструментом приезжает на точку за 1–2 часа.</p>
+                <div style="border-left: 3px solid var(--accent); padding-left: 15px;">
+                    <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 5px; color: var(--primary);">2. Оперативный выезд</h4>
+                    <p style="font-size: 14px; color: #64748b;">Мастер со всем необходимым профессиональным инструментом приезжает на точку за 1-2 часа.</p>
                 </div>
-                <div style="border-left: 3px solid var(--accent); padding-left: 20px;">
-                    <div style="font-size: 24px; font-weight: 800; color: var(--accent); margin-bottom: 5px;">03</div>
-                    <h5 style="font-size: 16px; font-weight: 700; margin-bottom: 5px;">Диагностика</h5>
-                    <p style="font-size: 14px; color: #64748b;">Локализуем скрытую неисправность, согласуем финальную стоимость до начала выполнения работ.</p>
+                <div style="border-left: 3px solid var(--accent); padding-left: 15px;">
+                    <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 5px; color: var(--primary);">3. Фиксированная цена</h4>
+                    <p style="font-size: 14px; color: #64748b;">Согласуем скрытые неисправности, согласуем финальную стоимость до начала выполнения работ.</p>
                 </div>
-                <div style="border-left: 3px solid var(--accent); padding-left: 20px;">
-                    <div style="font-size: 24px; font-weight: 800; color: var(--accent); margin-bottom: 5px;">04</div>
-                    <h5 style="font-size: 16px; font-weight: 700; margin-bottom: 5px;">Ремонт и запуск</h5>
+                <div style="border-left: 3px solid var(--accent); padding-left: 15px;">
+                    <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 5px; color: var(--primary);">4. Ремонт и Гарантия</h4>
                     <p style="font-size: 14px; color: #64748b;">Устраняем проблему, тестируем пролив, выдаем чек из приложения «Мой налог» и закрывающие акты.</p>
                 </div>
             </div>
         </div>
     </section>
+
     <section style="background: #f1f5f9; padding: 60px 20px; border-top: 1px solid #e2e8f0; text-align: center;">
         <div class="container">
-            <h3 style="font-size: 26px; color: var(--primary); margin-bottom: 10px;">Прайс-лист на ремонт кофемашин в Тольятти</h3>
-            <p style="color: #64748b; margin-bottom: 35px; font-size: 15px;">Итоговая стоимость ремонта определяется инженером после проведения диагностики.</p>
-            
-            <div style="max-width: 700px; margin: 0 auto 40px;">
-                <div class="mobile-price-row"><span style="text-align: left; background: #f1f5f9; padding-right: 6px; z-index: 1;">Выезд инженера и комплексная диагностика</span><span class="mobile-price-dots"></span><span class="mobile-price-val">Бесплатно*</span></div>
-                <div class="mobile-price-row"><span style="text-align: left; background: #f1f5f9; padding-right: 6px; z-index: 1;">Калибровка помола и настройка дозировки</span><span class="mobile-price-dots"></span><span class="mobile-price-val">от 1 500 ₽</span></div>
-                <div class="mobile-price-row"><span style="text-align: left; background: #f1f5f9; padding-right: 6px; z-index: 1;">Техническое обслуживание (ТО) кофе-точки</span><span class="mobile-price-dots"></span><span class="mobile-price-val">от 1 800 ₽</span></div>
-                <div class="mobile-price-row"><span style="text-align: left; background: #f1f5f9; padding-right: 6px; z-index: 1;">Устранение протечек гидросистемы</span><span class="mobile-price-dots"></span><span class="mobile-price-val">от 2 000 ₽</span></div>
-                <div class="mobile-price-row"><span style="text-align: left; background: #f1f5f9; padding-right: 6px; z-index: 1;">Замена фильтр-систем водоподготовки</span><span class="mobile-price-dots"></span><span class="mobile-price-val">от 1 500 ₽</span></div>
-                <div class="mobile-price-row"><span style="text-align: left; background: #f1f5f9; padding-right: 6px; z-index: 1;">Ремонт телеметрии и терминалов оплаты</span><span class="mobile-price-dots"></span><span class="mobile-price-val">от 2 500 ₽</span></div>
-                <div class="mobile-price-row"><span style="text-align: left; background: #f1f5f9; padding-right: 6px; z-index: 1;">Переборка заварочной группы рожковой машины</span><span class="mobile-price-dots"></span><span class="mobile-price-val">от 3 000 ₽</span></div>
-                <div class="mobile-price-row"><span style="text-align: left; background: #f1f5f9; padding-right: 6px; z-index: 1;">Ремонт электронных плат и силовых блоков</span><span class="mobile-price-dots"></span><span class="mobile-price-val">от 3 500 ₽</span></div>
-                <div class="mobile-price-row"><span style="text-align: left; background: #f1f5f9; padding-right: 6px; z-index: 1;">Полная декальцинация бойлера с разбором</span><span class="mobile-price-dots"></span><span class="mobile-price-val">от 8 000 ₽</span></div>
+            <h2 style="font-size: 32px; color: var(--primary); margin-bottom: 30px;">Цены на ремонт кофемашин в Тольятти</h2>
+            <p style="color: #64748b; margin-bottom: 30px; font-size: 15px;">Итоговая стоимость ремонта определяется инженером после проведения диагностики.</p>
+            <div style="max-width: 768px; margin: 0 auto;">
+                <div class="mobile-price-row"><span class="mobile-price-name">Выезд инженера и экспресс-диагностика</span><div class="mobile-price-dots"></div><span class="mobile-price-val">Бесплатно*</span></div>
+                <div class="mobile-price-row"><span class="mobile-price-name">Комплексная чистка и настройка дозировок</span><div class="mobile-price-dots"></div><span class="mobile-price-val">от 1 500 ₽</span></div>
+                <div class="mobile-price-row"><span class="mobile-price-name">Техническое обслуживание (ТО) одна точка</span><div class="mobile-price-dots"></div><span class="mobile-price-val">от 1 800 ₽</span></div>
+                <div class="mobile-price-row"><span class="mobile-price-name">Устранение протечек гидросистемы/кранов</span><div class="mobile-price-dots"></div><span class="mobile-price-val">от 2 000 ₽</span></div>
+                <div class="mobile-price-row"><span class="mobile-price-name">Замена ТЭНа/Ремонт системы нагрева</span><div class="mobile-price-dots"></div><span class="mobile-price-val">от 2 500 ₽</span></div>
+                <div class="mobile-price-row"><span class="mobile-price-name">Переборка и регенерация умягчителя</span><div class="mobile-price-dots"></div><span class="mobile-price-val">от 2 500 ₽</span></div>
+                <div class="mobile-price-row"><span class="mobile-price-name">Замена/Ремонт помпы высокого давления</span><div class="mobile-price-dots"></div><span class="mobile-price-val">от 3 000 ₽</span></div>
+                <div class="mobile-price-row"><span class="mobile-price-name">Ремонт силовой платы и силовых блоков</span><div class="mobile-price-dots"></div><span class="mobile-price-val">от 3 500 ₽</span></div>
+                <div class="mobile-price-row"><span class="mobile-price-name">Полная декальцинация бойлера с разбором</span><div class="mobile-price-dots"></div><span class="mobile-price-val">от 5 000 ₽</span></div>
             </div>
-
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 40px;">
-                <span style="background: #fff; padding: 8px 16px; border-radius: 4px; font-size: 14px; font-weight: 600; color: #475569; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Saeco</span>
-                <span style="background: #fff; padding: 8px 16px; border-radius: 4px; font-size: 14px; font-weight: 600; color: #475569; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Jofemar</span>
-                <span style="background: #fff; padding: 8px 16px; border-radius: 4px; font-size: 14px; font-weight: 600; color: #475569; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Unicum</span>
-                <span style="background: #fff; padding: 8px 16px; border-radius: 4px; font-size: 14px; font-weight: 600; color: #475569; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">WMF</span>
-                <span style="background: #fff; padding: 8px 16px; border-radius: 4px; font-size: 14px; font-weight: 600; color: #475569; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Franke</span>
-                <span style="background: #fff; padding: 8px 16px; border-radius: 4px; font-size: 14px; font-weight: 600; color: #475569; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Nuova Simonelli</span>
-                <span style="background: #fff; padding: 8px 16px; border-radius: 4px; font-size: 14px; font-weight: 600; color: #475569; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Rheavendors</span>
-                <span style="background: #fff; padding: 8px 16px; border-radius: 4px; font-size: 14px; font-weight: 600; color: #475569; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Necta</span>
-                <span style="background: #fff; padding: 8px 16px; border-radius: 4px; font-size: 14px; font-weight: 600; color: #475569; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Dr.Coffee</span>
+        </div>
+    </section>
+    <!-- === БЛОК 7: FAQ, ПОДВАЛ САЙТА И КНОПКИ СВЯЗИ === -->
+    <section style="background: #fff; padding: 60px 20px; border-top: 1px solid #e2e8f0; text-align: left;">
+        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+            <div>
+                <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 20px;">Вопросы и ответы (FAQ)</h3>
+                <div style="margin-bottom: 15px;">
+                    <p style="font-weight: 700; color: var(--primary); font-size: 15px;">Как быстро инженер приезжает на ремонт в Тольятти?</p>
+                    <p style="color: #475569; font-size: 15px; margin-top: 4px;">Срочный выезд по Автозаводскому, Центральному и Комсомольскому районам осуществляется в течение 1-2 часов с момента заявки.</p>
+                </div>
+                <div>
+                    <p style="font-weight: 700; color: var(--primary); font-size: 15px;">Какие документы предоставляются для B2B клиентов?</p>
+                    <p style="color: #475569; font-size: 15px; margin-top: 4px;">Мы предоставляем официальные чеки из приложения «Мой налог», акты приема-передачи оборудования и выполненных работ. Возможна оплата на расчетный счет.</p>
+                </div>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; text-align: left;">
-                <div>
-                    <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 20px;">Вопросы и ответы</h3>
-                    <div style="margin-bottom: 15px;">
-                        <p style="font-weight: 700; color: var(--dark);">⏱️ Как быстро инженер приезжает на ремонт в Тольятти?</p>
-                        <p style="color: #475569; font-size: 15px; margin-top: 4px;">Срочный выезд по Автозаводскому, Центральному и Комсомольскому районам осуществляется в течение 1–2 часов с момента заявки, если требуется экстренное устранение простоя бизнеса.</p>
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <p style="font-weight: 700; color: var(--dark);">📄 Какие документы предоставляются для B2B клиентов?</p>
-                        <p style="color: #475569; font-size: 15px; margin-top: 4px;">Как самозанятый специалист я выдаю официальные чеки из приложения «Мой налог», акты приема-передачи оборудования и выполненных работ. Возможна оплата на расчетный счет.</p>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 20px;">Выезд по Самарской области</h3>
-                    <p style="color: #475569; font-size: 15px; margin-bottom: 15px; line-height: 1.6;">
-                        Обслуживание кофейного оборудования, торговых автоматов и профессиональных рожковых кофемашин осуществляется во всех точках г. Тольятти, включая отдаленные микрорайоны и ближний пригород:
-                    </p>
-                    <ul style="color: #475569; font-size: 14px; padding-left: 20px; line-height: 1.8;">
-                        <li><strong>Автозаводский район</strong> (Новый город)</li>
-                        <li><strong>Центральный район</strong> (Старый город, Портпоселок)</li>
-                        <li><strong>Комсомольский район</strong> (Шлюзовой, Поволжский)</li>
-                        <li>Пригородные zones: <strong>Подстепки, Приморский, Ягодное</strong></li>
-                    </ul>
-                </div>
+            <div>
+                <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 20px;">Выезд по Самарской области</h3>
+                <p style="color: #475569; font-size: 15px; margin-bottom: 15px;">Обслуживание кофейного оборудования, торговых автоматов и профессиональных рожковых кофемашин осуществляется во всех точках г. Тольятти, включая отдаленные микрорайоны и ближний пригород:</p>
+                <ul style="color: #475569; font-size: 14px; padding-left: 20px; line-height: 1.8;">
+                    <li><strong>Автозаводский район</strong> (Новый город)</li>
+                    <li><strong>Центральный район</strong> (Старый город)</li>
+                    <li><strong>Комсомольский район</strong> (Шлюзовой, Поволжский)</li>
+                    <li>Пригородные зоны: <strong>Приморский, Подстепки, Ягодное</strong></li>
+                </ul>
             </div>
         </div>
     </section>
@@ -723,35 +693,157 @@
     <section class="contacts">
         <div class="container">
             <h2>Контакты Сервиса «Территория КофеМашин»</h2>
-            <div class="contact-info">
+            <div class="contact-info" style="margin-top: 20px; line-height: 1.8; color: #475569;">
                 <p>📍 Оперативный выезд инженера по всему г. Тольятти</p>
-                <p>🕒 Прием экстренных заявок для бизнеса: Пн–Пт с 09:00 до 21:00 (Сб, Вс — выходные)</p>
-                <p style="font-size: 15px; color: #64748b; margin-top: 10px;">* Ложные вызовы или отказ от ремонта после проведения диагностики оплачиваются фиксированно — 1 000 ₽.</p>
+                <p>🕒 Прием экстренных заявок для бизнеса: Пн-Вс с 08:00 до 21:00 (Сб, Вс — выходные)</p>
+                <p style="font-size: 15px; color: #475569;">* Полный выезд инженера от точки ремонта после проведения диагностики оплачивается фиксированно — 1 000 ₽.</p>
+                <p style="font-weight: bold; font-size: 24px; margin-top: 20px;">Прямой контакт с инженером: <a href="tel:+79372115128" style="color: var(--accent); text-decoration: none;">8 (937) 211-51-28</a></p>
             </div>
-            <p style="font-weight: bold; font-size: 24px;">Прямой контакт с инженером: <a href="tel:+79372115128" style="color: var(--accent); text-decoration: none;">8 (937) 211-51-28</a></p>
         </div>
     </section>
- 
+
     <footer>
         <div class="container" style="font-size: 13px; line-height: 1.8;">
             <p>&copy; 2026 Сервисный центр Территория КофеМашин. Специализированный ремонт кофейных систем B2B в Тольятти.</p>
-            <p style="opacity: 0.7; margin-top: 5px;">Профессиональные услуги оказывает самозанятый мастер. ИНН: 632122774314</p>
+            <p style="opacity: 0.7; margin-top: 5px;">Профессиональные услуги оказывает самозанятое лицо ИНН 632122774143</p>
         </div>
     </footer>
 
-    <!-- ПЛАВАЮЩИЕ ИКОНКИ СВЯЗИ В ПРАВОМ УГЛУ ЭКРАНА С ВАШЕЙ ПРЯМОЙ ССЫЛКОЙ -->
-    <a href="https://max.ru/u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" class="floating-max-btn">MAX</a>
+    <!-- ПЛАВАЮЩИЕ ИКОНКИ СВЯЗИ В ПРАВОМ УГЛУ ЭКРАНА -->
+    <a href="https://max.ru" target="_blank" class="floating-max-btn">MAX</a>
     <a href="tel:+79372115128" class="floating-call-btn">📞</a>
- 
+    <!-- === БЛОК 8: ОКНО СЕКРЕТНОЙ РУЛЕТКИ И JS-СКРИПТЫ === -->
+    <div id="qr-roulette-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; font-family: sans-serif;">
+        <div style="background: #fff; padding: 30px; border-radius: 15px; max-width: 400px; width: 90%; text-align: center; position: relative; box-shadow: 0 5px 25px rgba(0,0,0,0.5); color: #334155;">
+            <h2 style="margin-top: 0; color: #1e2030; font-size: 24px; font-weight: bold;">Крутите барабан! ☕</h2>
+            <p style="color: #64748b; font-size: 14px; margin-bottom: 15px;">Испытайте удачу и получите случайную скидку до 6% на обслуживание вашей кофемашины!</p>
+            <div style="position: relative; width: 200px; height: 200px; margin: 20px auto;">
+                <div style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #22c55e; z-index: 10;"></div>
+                <canvas id="roulette-canvas" width="200" height="200" style="border-radius: 50%; transition: transform 12s cubic-bezier(0.1, 0.7, 0.1, 1); box-shadow: 0 0 10px rgba(0,0,0,0.2);"></canvas>
+            </div>
+            <div id="roulette-form-block">
+                <input type="tel" id="roulette-phone" placeholder="+7 (999) 999-99-99" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; box-sizing: border-box; background: #fff; color: #334155;">
+                <button id="spin-btn" style="width: 100%; background: #22c55e; color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s;">Вращать барабан</button>
+            </div>
+            <div id="roulette-waiting" style="display: none; margin-top: 15px;">
+                <p style="font-size: 16px; font-weight: bold; color: #1e2030; animation: roulettePulse 1s infinite alternate;">Удача близко... Колесо вычисляет вашу скидку!</p>
+                <div style="font-size: 24px; font-weight: bold; color: #22c55e; margin: 10px 0;">Осталось: <span id="roulette-timer">12</span> сек.</div>
+            </div>
+            <div id="roulette-result" style="display: none; margin-top: 15px;">
+                <h3 style="color: #22c55e; margin-bottom: 5px; font-size: 20px; font-weight: bold;">Поздравляем!</h3>
+                <p style="font-size: 18px; font-weight: bold; margin: 5px 0;">Ваша скидка: <span id="discount-val" style="color: #ff9900; font-size: 24px;">0%</span></p>
+                <p style="color: #64748b; font-size: 12px;">Скидка успешно привязана к вашему номеру телефона. Мастер учтет её при расчете!</p>
+                <button onclick="document.getElementById('qr-roulette-modal').style.display='none'" style="margin-top: 10px; background: #e2e8f0; border: none; padding: 8px 15px; border-radius: 50px; cursor: pointer; color: #334155;">Закрыть окно</button>
+            </div>
+        </div>
+    </div>
+
+    <style> @keyframes roulettePulse { from { opacity: 0.6; } to { opacity: 1; } } </style>
+
     <script>
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
             tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(" active", ""); }
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('from') === 'qr') {
+                const lastPlayTime = localStorage.getItem('roulette_last_play_time');
+                const now = Date.now();
+                const oneWeek = 7 * 24 * 60 * 60 * 1000;
+                
+                if (lastPlayTime && (now - lastPlayTime < oneWeek)) { 
+                    console.log('Доступ заблокирован: крутить рулетку можно раз в неделю.');
+                    return; 
+                }
+                
+                document.getElementById('qr-roulette-modal').style.display = 'flex';
+                initQrRoulette();
+            }
+        });
+
+        function initQrRoulette() {
+            const canvas = document.getElementById('roulette-canvas');
+            const ctx = canvas.getContext('2d');
+            const sectors = [
+                { label: '2%', color: '#f8fafc' }, { label: '3%', color: '#e2e8f0' },
+                { label: '4%', color: '#cbd5e1' }, { label: '5%', color: '#94a3b8' },
+                { label: '6%', color: '#f1f5f9' }, { label: '3%', color: '#e2e8f0' },
+                { label: '4%', color: '#cbd5e1' }, { label: '5%', color: '#64748b' }
+            ];
+            const numSectors = sectors.length;
+            const arc = Math.PI / (numSectors / 2);
+
+            for (let i = 0; i < numSectors; i++) {
+                const angle = i * arc;
+                ctx.fillStyle = sectors[i].color;
+                ctx.beginPath(); ctx.moveTo(100, 100);
+                ctx.arc(100, 100, 100, angle, angle + arc, false);
+                ctx.lineTo(100, 100); ctx.fill();
+                ctx.save(); ctx.fillStyle = '#1e2030'; ctx.font = 'bold 14px sans-serif';
+                ctx.translate(100, 100); ctx.rotate(angle + arc / 2);
+                ctx.fillText(sectors[i].label, 50, 5); ctx.restore();
+            }
+
+            let isSpun = false;
+            const spinBtn = document.getElementById('spin-btn');
+            const phoneInput = document.getElementById('roulette-phone');
+
+            spinBtn.addEventListener('click', function() {
+                if (isSpun) return;
+                if (phoneInput.value.trim().length < 8) { 
+                    alert('Пожалуйста, введите корректный номер телефона!'); 
+                    return; 
+                }
+                
+                localStorage.setItem('roulette_last_play_time', Date.now().toString());
+                
+                isSpun = true; 
+                phoneInput.disabled = true; 
+                spinBtn.disabled = true;
+                
+                document.getElementById('roulette-form-block').style.display = 'none';
+                document.getElementById('roulette-waiting').style.display = 'block';
+
+                const prizeIndex = Math.floor(Math.random() * numSectors);
+                const prize = sectors[prizeIndex].label;
+                const degreesPerSector = 360 / numSectors;
+                const targetAngle = 360 - (prizeIndex * degreesPerSector) - (degreesPerSector / 2) - 90;
+                const totalRotation = 360 * 8 + targetAngle;
+                
+                canvas.style.transform = `rotate(${totalRotation}deg)`;
+
+                let timeLeft = 12;
+                const timerElement = document.getElementById('roulette-timer');
+                const countdown = setInterval(function() { 
+                    timeLeft--; 
+                    timerElement.innerText = timeLeft; 
+                    if (timeLeft <= 0) clearInterval(countdown); 
+                }, 1000);
+
+                setTimeout(function() {
+                    document.getElementById('roulette-waiting').style.display = 'none';
+                    document.getElementById('roulette-result').style.display = 'block';
+                    document.getElementById('discount-val').innerText = prize;
+                    
+                    const clientPhone = phoneInput.value.trim();
+                    
+                    if (typeof ym !== 'undefined') {
+                        ym(11161123, 'userParams', { roulette_lead: { phone: clientPhone, discount: prize } });
+                        ym(11161123, 'reachGoal', 'win_roulette');
+                    }
+                }, 12000);
+            });
         }
     </script>
 </body>

@@ -31,10 +31,9 @@
         .slot-machine { background: #1f2937; padding: 20px 15px; border-radius: 12px; border: 4px solid #4b5563; display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
         .reel { width: 85px; height: 95px; background: #fff; border-radius: 8px; border: 3px solid #111827; font-size: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.3); user-select: none; }
 
-        /* Стили формы ввода и кнопок */
+        /* Стили формы ввода с маской */
         .form-block { margin-top: 20px; }
-        input[type="tel"] { width: 100%; padding: 14px; border-radius: 8px; border: 1px solid #4b5563; background: #1f2937; color: #fff; font-size: 16px; margin-bottom: 15px; box-sizing: border-box; text-align: center; }
-        input[type="tel"]::placeholder { color: #9ca3af; }
+        input[type="tel"] { width: 100%; padding: 14px; border-radius: 8px; border: 1px solid #4b5563; background: #1f2937; color: #fff; font-size: 20px; font-weight: bold; margin-bottom: 15px; box-sizing: border-box; text-align: center; letter-spacing: 1px; }
         
         .spin-btn { width: 100%; background: #22c55e; color: #fff; border: none; padding: 16px; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3); }
         .spin-btn:hover:not(:disabled) { background: #16a34a; transform: translateY(-1px); }
@@ -77,9 +76,15 @@
             <div id="reel3" class="reel">⚙️</div>
         </div>
 
-        <!-- Форма запуска -->
+        <!-- БЛОК ДЛЯ СЛУЧАЙНЫХ КОФЕЙНЫХ БАЕК И ИСТОРИЙ -->
+        <div id="coffee-stories-box" style="margin: 15px 0 20px 0; min-height: 70px; background: rgba(31, 41, 55, 0.6); padding: 12px; border-radius: 8px; border-left: 4px solid #b45309; text-align: left;">
+            <div style="font-size: 11px; font-weight: bold; color: #fef08a; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">    Кофейный факт дня:</div>
+            <div id="story-text" style="font-size: 13px; color: #cbd5e1; line-height: 1.4; transition: opacity 0.3s ease;">Повар Николай разогревает бойлер. Нажмите на рычаг, чтобы запустить Express и узнать тайны обжарки!</div>
+        </div>
+
+        <!-- Форма запуска с жестко закрепленной маской +7 -->
         <div id="slot-form-block">
-            <input type="tel" id="slot-phone" placeholder="+7 (999) 999-99-99" required>
+            <input type="tel" id="slot-phone" value="+7 " onkeydown="handlePhoneInput(event)" oninput="formatPhone(this)" maxlength="18" style="letter-spacing: 1px;">
             <button id="slot-spin-btn" class="spin-btn" onclick="spinSlots()">ДЁРНУТЬ ЗА РЫЧАГ 🎰</button>
         </div>
 
@@ -144,27 +149,23 @@
         <div class="modal-box">
             <h4>Служба поддержки автомата</h4>
             <p id="support-time-desc" class="modal-desc">Проверка времени...</p>
-            
-            <div id="support-actions">
-                <!-- Сюда скрипт выведет кнопки в зависимости от времени -->
-            </div>
-            
+            <div id="support-actions"></div>
             <button onclick="document.getElementById('support-modal').style.display='none'" style="background: transparent; border: 1px solid #64748b; color: #94a3b8; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-size: 13px; margin-top: 10px; width: 100%;">Назад в игру</button>
         </div>
     </div>
 
     <style> @keyframes roulettePulse { from { opacity: 0.5; } to { opacity: 1; } } </style>
     <script>
-        /* === БЛОК 8: ОБНОВЛЕННАЯ СМАРТ-ЛОГИКА И АНТИ-НАКРУТКА === */
+        /* === БЛОК 8: УМНЫЕ СКРИПТЫ, МАСКА И РАСЧЕТ ШАНСОВ === */
         
         const icons = ['☕', '🥾', '⚙️', '🔧', '🍫', '🫘'];
         let isSpinning = false;
         let claimCountdown;
 
-        // 300 комбинаций: 20 причин поломок гидросистемы х 5 настроений Николая
+        // 300 комбинаций проигрыша: 20 причин поломок х 5 настроений Николая
         const nikoPhrases = [
-            "кофейные зёрна рассыпались прямо на чистый поварской фартук!", "молоко для капучинатора внезапно убежало на раскаленную плиту!",
-            "ТЭН бойлера оброс толстым слоем накипи из самарского водопровода!", "эспрессо получился слишком кислым из-за грубого нарушения экстракции!",
+            "у Николая подгорели круассаны, и вся кухня заволоклась дымом!", "молоко для капучинатора внезапно сбежало из питчера на раскаленную плиту!",
+            "ТЭН бойлера полностью покрылся камнем из самарского водопровода!", "эспрессо получился слишком кислым из-за грубого нарушения экстракции!",
             "давление в ротационной помпе упало ниже критических для пенки 9 бар!", "кофемолка намертво заклинила от случайного камешка в пачке зерна!",
             "холдер выскочил из заварочной группы и залил горячей водой всю кухню!", "сливной дренаж забился застарелым и едким кофейным дегтем!",
             "настройки помола полностью сбились от диких вибраций суперавтомата!", "весы показали критический перерасход дорогой арабики на 15%!",
@@ -176,97 +177,117 @@
         ];
 
         const nikoMoods = [
-            "Но повар Николай ласково улыбается сквозь усы и жёд вас ровно через час.",
+            "Но повар Николай ласково улыбается сквозь усы и ждет вас ровно через час.",
             "Повар Николай строго грозит вам большой поварешкой и советует повторить попытку позже.",
             "Николай молча вздыхает у плиты, но обещает, что следующий час точно принесет удачу.",
             "Повар Николай хитро подмигивает вам правым глазом и уже засыпает свежие зёрна.",
             "Николай авторитетно заявляет со своей кухни, что чашка кофе всё ещё ждёт своего героя!"
         ];
 
-        // ФУНКЦИЯ ПРОВЕРКИ ВРЕМЕНИ И ОТКРЫТИЯ ОКНА ПОЛОМКИ (9:00 - 22:00)
+        // БАЗА ДЛЯ ГЕНЕРАЦИИ БЕСКОНЕЧНЫХ ФАКТОВ И БАЕК О КОФЕ (1000+ вариантов)
+        const geoCountries = [
+            "В высокогорьях Эфиопии (на родине арабики) ", "На вулканических почвах Колумбии ", 
+            "В диких джунглях Бразилии ", "На плантациях солнечной Ямайки ", 
+            "В затененных лесах Гватемалы ", "На склонах Килиманджаро в Танзании ",
+            "В индийских регионах под воздействием муссонов ", "На затерянных фермах Коста-Рики "
+        ];
+
+        const growFacts = [
+            "деревья выращивают под навесом из банановых пальм, чтобы уберечь листья от солнца.",
+            "урожай собирают исключительно вручную, срывая только идеально спелые рубиновые ягоды.",
+            "ягоды проходят влажную ферментацию, где бактерии насыщают зерно нотками цитруса.",
+            "из-за горного климата зерна созревают медленно, успевая впитать максимум эфирных масел.",
+            "фермеры используют органический жмых в качестве удобрения, создавая чистую эко-культуру.",
+            "плотность зерна проверяют в воде: самые качественные тяжелые зерна тонут, а пустышки всплывают."
+        ];
+
+        const chemFacts = [
+            "За аромат эспрессо отвечают более 800 сложных химических соединений, что в два раза сложнее структуры хорошего вина.",
+            "В процессе обжарки происходит магия реакции Майяра: сахара карамелизуются, создавая вкус шоколада.",
+            "Хлорогеновая кислота, которой богаты кофейные бобы, является мощнейшим природным антиоксидантом.",
+            "Кофеин — это естественная защита кофейного куста от насекомых, работающая как природный био-щит.",
+            "Легенда 5-го километра: если дальнобойщик выпьет эспрессо и не запьет его водой, через 15 минут сосуды расширятся и наступит резкий сон! Всегда пейте воду.",
+            "Во время первого 'крака' (щелчка) при обжарке, зерно резко увеличивается в объеме почти в два раза."
+        ];
+
+        const nikoNotes = [
+            " Николай напоминает: именно поэтому свежий помол так важен для вкуса!",
+            " Николай на кухне лично проверяет каждую партию обжарки на плотность.",
+            " Повар Николай уверяет, что наш автомат настроен строго по этим стандартам.",
+            " Шеф Николай рекомендует не спешить и пить такой кофе маленькими глотками."
+        ];
+        // КРАСИВАЯ АВТОМАТИЧЕСКАЯ МАСКА ТЕЛЕФОНА С ОГРАНИЧЕНИЕМ СИМВОЛОВ
+        function handlePhoneInput(e) {
+            const input = e.target;
+            if (input.selectionStart < 3 && (e.key === 'Backspace' || e.key === 'Delete' || e.key.length === 1)) {
+                e.preventDefault();
+                input.setSelectionRange(3, 3);
+            }
+        }
+
+        function formatPhone(input) {
+            let matrix = "+7 (___) ___-__-__", i = 0,
+                def = matrix.replace(/\D/g, ""), val = input.value.replace(/\D/g, "");
+            if (def.length >= val.length) val = def;
+            input.value = matrix.replace(/./g, function(a) {
+                return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a;
+            });
+            if (input.value.length < 3) input.value = "+7 ";
+        }
+
+        // ПРОВЕРКА РАБОЧИХ ЧАСОВ ДЛЯ КНОПКИ ТЕХПОДДЕРЖКИ (9:00 - 22:00)
         function openSupportModal() {
             const modal = document.getElementById('support-modal');
             const timeDesc = document.getElementById('support-time-desc');
             const actionsDiv = document.getElementById('support-actions');
-            const now = new Date();
-            const hours = now.getHours();
-            
-            modal.style.display = 'flex';
-            actionsDiv.innerHTML = ''; 
+            const now = new Date(); const hours = now.getHours();
+            modal.style.display = 'flex'; actionsDiv.innerHTML = ''; 
 
             if (hours >= 9 && hours < 22) {
                 timeDesc.innerHTML = `🔔 <strong>Инженерная служба на связи!</strong><br>Сейчас рабочее время. Вы можете позвонить мастеру напрямую или написать нам в мессенджер MAX.`;
                 actionsDiv.innerHTML = `
-                    <a href="tel:+79372115128" class="btn-choice btn-choice-call">📞 Позвонить инженеру (Прямой вызов)</a>
-                    <a href="max://u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" class="btn-choice btn-choice-max">💬 Написать техникy в чат MAX</a>
-                `;
+                    <a href="tel:+79372115128" class="btn-choice btn-choice-call">📞 Позвонить инженеру (Пнямой вызов)</a>
+                    <a href="max://u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" class="btn-choice btn-choice-max">💬 Написать техникy в чат MAX</a>`;
             } else {
                 timeDesc.innerHTML = `🌙 <strong>Горячая линия закрыта (с 22:00 до 09:00)</strong><br>Сейчас ночное время, телефонная линия недоступна. Но вы можете оставить экстренную заявку в чате MAX — мастер ответит сразу утром!`;
                 actionsDiv.innerHTML = `
-                    <a href="max://u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" class="btn-choice btn-choice-max">💬 Написать в MAX (Прием заявок 24/7)</a>
-                `;
+                    <a href="max://u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" class="btn-choice btn-choice-max">💬 Написать в MAX (Прием заявок 24/7)</a>`;
             }
         }
 
-        function closeSupportModal(e) {
-            if (e.target.id === 'support-modal') {
-                document.getElementById('support-modal').style.display = 'none';
-            }
-        }
+        function closeSupportModal(e) { if (e.target.id === 'support-modal') { document.getElementById('support-modal').style.display = 'none'; } }
 
         function spinSlots() {
             if (isSpinning) return;
-            const phoneInput = document.getElementById('slot-phone');
-            const clientPhone = phoneInput.value.trim();
-            if (clientPhone.length < 8) {
-                alert('Пожалуйста, введите корректный номер телефона!');
-                return;
-            }
+            const phoneInput = document.getElementById('slot-phone'); const clientPhone = phoneInput.value.trim();
+            if (clientPhone.length < 18) { alert('Пожалуйста, введите полный номер телефона в формате +7 (999) 999-99-99!'); return; }
 
-            const lastPlay = localStorage.getItem('slot_device_last_play');
-            const now = Date.now();
-            const oneHour = 60 * 60 * 1000;
-
+            const lastPlay = localStorage.getItem('slot_device_last_play'); const now = Date.now(); const oneHour = 60 * 60 * 1000;
             if (lastPlay && (now - lastPlay < oneHour)) {
                 const minutesLeft = Math.ceil((oneHour - (now - lastPlay)) / 60 / 1000);
-                alert('Повар Николай накладывает вето! С этого смартфона уже крутили барабан. Попытка доступна раз в час. Осталось ждать: ' + minutesLeft + ' мин.');
-                return;
+                alert('Повар Николай накладывает вето! С этого смартфона уже крутили барабан. Попытка доступна раз в час. Осталось ждать: ' + minutesLeft + ' мин.'); return;
             }
 
             localStorage.setItem('slot_device_last_play', now.toString());
-            isSpinning = true;
-            phoneInput.disabled = true;
-            document.getElementById('slot-spin-btn').disabled = true;
-            
-            document.getElementById('slot-form-block').style.display = 'none';
-            document.getElementById('slot-waiting').style.display = 'block';
-            document.getElementById('slot-result').style.display = 'none';
+            isSpinning = true; phoneInput.disabled = true; document.getElementById('slot-spin-btn').disabled = true;
+            document.getElementById('slot-form-block').style.display = 'none'; document.getElementById('slot-waiting').style.display = 'block'; document.getElementById('slot-result').style.display = 'none';
 
-            const rand = Math.floor(Math.random() * 50) + 1; 
-            let p1, p2, p3;
+            const rand = Math.floor(Math.random() * 50) + 1; let p1, p2, p3;
+            if (rand === 25) { p1 = '☕'; p2 = '☕'; p3 = '☕'; } 
+            else {
+                const checkTime = new Date(); const currentHour = checkTime.getHours();
+                let subRand = Math.floor(Math.random() * 5);
+                if (currentHour < 9 || currentHour >= 18) { subRand = Math.floor(Math.random() * 4) + 1; } // Блокировка пенделя вне 9:00-18:00
 
-            if (rand === 25) {
-                p1 = '☕'; p2 = '☕'; p3 = '☕'; 
-            } else {
-                const subRand = Math.floor(Math.random() * 5);
-                if (subRand === 0) { p1 = '🥾'; p2 = '🥾'; p3 = '🥾'; }      
+                if (subRand === 0) { p1 = '🥾'; p2 = '🥾'; p3 = '🥾'; }       
                 else if (subRand === 1) { p1 = '🍫'; p2 = '🍫'; p3 = '🍫'; } 
                 else if (subRand === 2) { p1 = '⚙️'; p2 = '⚙️'; p3 = '⚙️'; } 
                 else if (subRand === 3) { p1 = '🔧'; p2 = '🔧'; p3 = '🔧'; } 
-                else { 
-                    p1 = icons[Math.floor(Math.random() * 3)];
-                    p2 = icons[Math.floor(Math.random() * 3) + 3];
-                    p3 = icons[Math.floor(Math.random() * 2) + 1];
-                }
+                else { p1 = icons[Math.floor(Math.random() * 3)]; p2 = icons[Math.floor(Math.random() * 3) + 3]; p3 = icons[Math.floor(Math.random() * 2) + 1]; }
             }
 
-            let timeLeft = 12;
-            const timerElement = document.getElementById('slot-timer');
-            const countdown = setInterval(function() {
-                timeLeft--;
-                timerElement.innerText = timeLeft;
-                if (timeLeft <= 0) clearInterval(countdown);
-            }, 1000);
+            let timeLeft = 12; const timerElement = document.getElementById('slot-timer');
+            const countdown = setInterval(function() { timeLeft--; timerElement.innerText = timeLeft; if (timeLeft <= 0) clearInterval(countdown); }, 1000);
 
             let animInterval = setInterval(function() {
                 document.getElementById('reel1').innerText = icons[Math.floor(Math.random() * icons.length)];
@@ -276,15 +297,12 @@
 
             setTimeout(function() {
                 clearInterval(animInterval);
-                document.getElementById('reel1').innerText = p1;
-                document.getElementById('reel2').innerText = p2;
-                document.getElementById('reel3').innerText = p3;
-                document.getElementById('slot-waiting').style.display = 'none';
-                document.getElementById('slot-result').style.display = 'block';
+                document.getElementById('reel1').innerText = p1; document.getElementById('reel2').innerText = p2; document.getElementById('reel3').innerText = p3;
+                document.getElementById('slot-waiting').style.display = 'none'; document.getElementById('slot-result').style.display = 'block';
                 showPrizeScreen(p1, p2, p3, clientPhone);
             }, 12000);
         }
-        // Функция обработки и динамического вывода текстовых результатов
+        // Функция обработки результатов и вывода экранов победы
         function showPrizeScreen(p1, p2, p3, phone) {
             document.getElementById('prize-coffee').style.display = 'none';
             document.getElementById('prize-kick').style.display = 'none';
@@ -312,7 +330,7 @@
                 document.getElementById('prize-repair').style.display = 'block';
                 prizeName = 'Скидка 5% на ремонт';
             } else {
-                // СБОРКА СЛУЧАЙНЫХ ШУТОК — ФРАЗЫ ТЕПЕРЬ ОБНОВЛЯЮТСЯ КАЖДЫЙ РАЗ!
+                // СБОРКА СЛУЧАЙНЫХ КУЛИНАРНЫХ ШУТОК ОТ НИКОЛАЯ
                 const randomPhrase = nikoPhrases[Math.floor(Math.random() * nikoPhrases.length)];
                 const randomMood = nikoMoods[Math.floor(Math.random() * nikoMoods.length)];
                 
@@ -335,6 +353,32 @@
             }
         }
 
+               // УМНЫЙ ДВИЖОК ЭНЦИКЛОПЕДИИ: Выдаёт строго ОДНУ случайную историю при загрузке сайта
+        function generateSingleStory() {
+            const textEl = document.getElementById('story-text');
+            
+            // Случайный выбор 50/50 между химией/баснями и географией выращивания куста
+            let finalStory = "";
+            if (Math.random() > 0.5) {
+                const geo = geoCountries[Math.floor(Math.random() * geoCountries.length)];
+                const grow = growFacts[Math.floor(Math.random() * growFacts.length)];
+                const note = nikoNotes[Math.floor(Math.random() * nikoNotes.length)];
+                finalStory = geo + grow + "<strong>" + note + "</strong>";
+            } else {
+                const chem = chemFacts[Math.floor(Math.random() * chemFacts.length)];
+                const note = nikoNotes[Math.floor(Math.random() * nikoNotes.length)];
+                finalStory = chem + "<strong>" + note + "</strong>";
+            }
+            
+            textEl.innerHTML = finalStory;
+        }
+
+        // Автозапуск генератора одной истории строго при открытии страницы
+        document.addEventListener("DOMContentLoaded", function() {
+            generateSingleStory();
+        });
+
+
         function startClaimTimer(duration) {
             clearInterval(claimCountdown);
             let timer = duration, minutes, seconds;
@@ -343,10 +387,8 @@
             claimCountdown = setInterval(function () {
                 minutes = parseInt(timer / 60, 10);
                 seconds = parseInt(timer % 60, 10);
-
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
-
                 display.textContent = minutes + ":" + seconds;
 
                 if (--timer < 0) {
@@ -365,6 +407,11 @@
             document.getElementById('slot-form-block').style.display = 'block';
             document.getElementById('slot-result').style.display = 'none';
         }
+
+        // Автозапуск генератора кофейной энциклопедии при старте страницы
+        document.addEventListener("DOMContentLoaded", function() {
+            startStoryEngine();
+        });
     </script>
 </body>
 </html>

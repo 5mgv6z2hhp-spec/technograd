@@ -78,7 +78,7 @@
 
         <!-- БЛОК ДЛЯ СЛУЧАЙНЫХ КОФЕЙНЫХ БАЕК И ИСТОРИЙ -->
         <div id="coffee-stories-box" style="margin: 15px 0 20px 0; min-height: 70px; background: rgba(31, 41, 55, 0.6); padding: 12px; border-radius: 8px; border-left: 4px solid #b45309; text-align: left;">
-            <div style="font-size: 11px; font-weight: bold; color: #fef08a; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">    Кофейный факт дня:</div>
+            <div style="font-size: 11px; font-weight: bold; color: #fef08a; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">📖 Кофейный факт дня:</div>
             <div id="story-text" style="font-size: 13px; color: #cbd5e1; line-height: 1.4; transition: opacity 0.3s ease;">Повар Николай разогревает бойлер. Нажмите на рычаг, чтобы запустить Express и узнать тайны обжарки!</div>
         </div>
 
@@ -156,13 +156,14 @@
 
     <style> @keyframes roulettePulse { from { opacity: 0.5; } to { opacity: 1; } } </style>
     <script>
-        /* === БЛОК 8: УМНЫЕ СКРИПТЫ, МАСКА И РАСЧЕТ ШАНСОВ === */
+        /* === БЛОК 8: СЦЕНАРИИ СЛОТ-МАШИНЫ, БАЗЫ ТЕКСТОВ И МАСКА === */
         
         const icons = ['☕', '🥾', '⚙️', '🔧', '🍫', '🫘'];
         let isSpinning = false;
         let claimCountdown;
+        let cheatAttempts = 0; // Накопительный счетчик попыток обмана Николая фейковыми номерами
 
-        // 300 комбинаций проигрыша: 20 причин поломок х 5 настроений Николая
+        // 300 комбинаций проигрыша: 20 причин кулинарных ЧП х 5 настроений Николая
         const nikoPhrases = [
             "у Николая подгорели круассаны, и вся кухня заволоклась дымом!", "молоко для капучинатора внезапно сбежало из питчера на раскаленную плиту!",
             "ТЭН бойлера полностью покрылся камнем из самарского водопровода!", "эспрессо получился слишком кислым из-за грубого нарушения экстракции!",
@@ -184,7 +185,7 @@
             "Николай авторитетно заявляет со своей кухни, что чашка кофе всё ещё ждёт своего героя!"
         ];
 
-        // БАЗА ДЛЯ ГЕНЕРАЦИИ БЕСКОНЕЧНЫХ ФАКТОВ И БАЕК О КОФЕ (1000+ вариантов)
+        // БАЗА ДЛЯ ГЕНЕРАЦИИ БЕСКОНЕЧНЫХ НАУЧНЫХ ФАКТОВ И ГЕОГРАФИИ ВЫРАЩИВАНИЯ (1000+ вариантов)
         const geoCountries = [
             "В высокогорьях Эфиопии (на родине арабики) ", "На вулканических почвах Колумбии ", 
             "В диких джунглях Бразилии ", "На плантациях солнечной Ямайки ", 
@@ -216,7 +217,8 @@
             " Повар Николай уверяет, что наш автомат настроен строго по этим стандартам.",
             " Шеф Николай рекомендует не спешить и пить такой кофе маленькими глотками."
         ];
-        // КРАСИВАЯ АВТОМАТИЧЕСКАЯ МАСКА ТЕЛЕФОНА С ОГРАНИЧЕНИЕМ СИМВОЛОВ
+
+        // ИНТЕЛЛЕКТУАЛЬНАЯ АВТОМАТИЧЕСКАЯ МАСКА ТЕЛЕФОНА С ОГРАНИЧЕНИЕМ СИМВОЛОВ
         function handlePhoneInput(e) {
             const input = e.target;
             if (input.selectionStart < 3 && (e.key === 'Backspace' || e.key === 'Delete' || e.key.length === 1)) {
@@ -234,7 +236,6 @@
             });
             if (input.value.length < 3) input.value = "+7 ";
         }
-
         // ПРОВЕРКА РАБОЧИХ ЧАСОВ ДЛЯ КНОПКИ ТЕХПОДДЕРЖКИ (9:00 - 22:00)
         function openSupportModal() {
             const modal = document.getElementById('support-modal');
@@ -246,7 +247,7 @@
             if (hours >= 9 && hours < 22) {
                 timeDesc.innerHTML = `🔔 <strong>Инженерная служба на связи!</strong><br>Сейчас рабочее время. Вы можете позвонить мастеру напрямую или написать нам в мессенджер MAX.`;
                 actionsDiv.innerHTML = `
-                    <a href="tel:+79372115128" class="btn-choice btn-choice-call">📞 Позвонить инженеру (Пнямой вызов)</a>
+                    <a href="tel:+79372115128" class="btn-choice btn-choice-call">📞 Позвонить инженеру (Прямой вызов)</a>
                     <a href="max://u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" class="btn-choice btn-choice-max">💬 Написать техникy в чат MAX</a>`;
             } else {
                 timeDesc.innerHTML = `🌙 <strong>Горячая линия закрыта (с 22:00 до 09:00)</strong><br>Сейчас ночное время, телефонная линия недоступна. Но вы можете оставить экстренную заявку в чате MAX — мастер ответит сразу утром!`;
@@ -262,6 +263,29 @@
             const phoneInput = document.getElementById('slot-phone'); const clientPhone = phoneInput.value.trim();
             if (clientPhone.length < 18) { alert('Пожалуйста, введите полный номер телефона в формате +7 (999) 999-99-99!'); return; }
 
+            // ВЫСШАЯ ЗАЩИТА: Достаем 3-значный код оператора из маски и сверяем с реестром РФ
+            const pureDigits = clientPhone.replace(/\D/g, ""); 
+            const operatorCode = parseInt(pureDigits.substring(1, 4)); 
+            
+            const validCodes = [
+                903, 904, 905, 906, 909, 910, 911, 912, 913, 914, 915, 916, 917, 918, 919,
+                920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 930, 931, 932, 933, 936,
+                937, 938, 939, 950, 951, 952, 953, 955, 956, 958, 960, 961, 962, 963, 964,
+                965, 966, 967, 968, 969, 977, 978, 980, 981, 982, 983, 984, 985, 986, 987,
+                988, 989, 991, 992, 993, 994, 995, 996, 999
+            ];
+
+            if (!validCodes.includes(operatorCode) || /^(\d)\1+$/.test(pureDigits.substring(1))) {
+                cheatAttempts++;
+                if (cheatAttempts >= 3) {
+                    alert('Повар Николай уже ведёт списки магических пенделей! 📝 Ваш номер зафиксирован и скоро будет добавлен в очередь на внеплановое ускорение. Введите свой настоящий телефон!');
+                } else {
+                    alert('Повар Николай не верит этому номеру! 🛑 Введите реальный мобильный номер РФ (выдуманные комбинации или повторы цифр заблокированы).');
+                }
+                return;
+            }
+
+            // БЛОКИРОВКА УСТРОЙСТВА НА 1 ЧАС ОТ НАКРУТОК
             const lastPlay = localStorage.getItem('slot_device_last_play'); const now = Date.now(); const oneHour = 60 * 60 * 1000;
             if (lastPlay && (now - lastPlay < oneHour)) {
                 const minutesLeft = Math.ceil((oneHour - (now - lastPlay)) / 60 / 1000);
@@ -272,12 +296,15 @@
             isSpinning = true; phoneInput.disabled = true; document.getElementById('slot-spin-btn').disabled = true;
             document.getElementById('slot-form-block').style.display = 'none'; document.getElementById('slot-waiting').style.display = 'block'; document.getElementById('slot-result').style.display = 'none';
 
+            // РАСЧЕТ ШАНСОВ: КОФЕ СТРОГО 1 ИЗ 50 (rand === 25)
             const rand = Math.floor(Math.random() * 50) + 1; let p1, p2, p3;
             if (rand === 25) { p1 = '☕'; p2 = '☕'; p3 = '☕'; } 
             else {
                 const checkTime = new Date(); const currentHour = checkTime.getHours();
                 let subRand = Math.floor(Math.random() * 5);
-                if (currentHour < 9 || currentHour >= 18) { subRand = Math.floor(Math.random() * 4) + 1; } // Блокировка пенделя вне 9:00-18:00
+                
+                // Ключевое условие: Волшебный пендель выпадает строго с 09:00 до 18:00
+                if (currentHour < 9 || currentHour >= 18) { subRand = Math.floor(Math.random() * 4) + 1; } 
 
                 if (subRand === 0) { p1 = '🥾'; p2 = '🥾'; p3 = '🥾'; }       
                 else if (subRand === 1) { p1 = '🍫'; p2 = '🍫'; p3 = '🍫'; } 
@@ -302,7 +329,7 @@
                 showPrizeScreen(p1, p2, p3, clientPhone);
             }, 12000);
         }
-        // Функция обработки результатов и вывода экранов победы
+        // Функция распределения призов и вывода экранов результатов
         function showPrizeScreen(p1, p2, p3, phone) {
             document.getElementById('prize-coffee').style.display = 'none';
             document.getElementById('prize-kick').style.display = 'none';
@@ -353,12 +380,11 @@
             }
         }
 
-               // УМНЫЙ ДВИЖОК ЭНЦИКЛОПЕДИИ: Выдаёт строго ОДНУ случайную историю при загрузке сайта
+        // ДВИЖОК ЭНЦИКЛОПЕДИИ: Генерирует ОДНУ случайную историю строго при загрузке сайта
         function generateSingleStory() {
             const textEl = document.getElementById('story-text');
-            
-            // Случайный выбор 50/50 между химией/баснями и географией выращивания куста
             let finalStory = "";
+            
             if (Math.random() > 0.5) {
                 const geo = geoCountries[Math.floor(Math.random() * geoCountries.length)];
                 const grow = growFacts[Math.floor(Math.random() * growFacts.length)];
@@ -369,15 +395,8 @@
                 const note = nikoNotes[Math.floor(Math.random() * nikoNotes.length)];
                 finalStory = chem + "<strong>" + note + "</strong>";
             }
-            
             textEl.innerHTML = finalStory;
         }
-
-        // Автозапуск генератора одной истории строго при открытии страницы
-        document.addEventListener("DOMContentLoaded", function() {
-            generateSingleStory();
-        });
-
 
         function startClaimTimer(duration) {
             clearInterval(claimCountdown);
@@ -408,9 +427,9 @@
             document.getElementById('slot-result').style.display = 'none';
         }
 
-        // Автозапуск генератора кофейной энциклопедии при старте страницы
+        // Автозапуск генератора одной истории строго при открытии страницы
         document.addEventListener("DOMContentLoaded", function() {
-            startStoryEngine();
+            generateSingleStory();
         });
     </script>
 </body>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎰 Кофейный Экспресс — Розыгрыш призов у автомата!</title>
+    
+    <!-- ИСПРАВЛЕННЫЙ СЧЕТЧИК ЯНДЕКС.МЕТРИКИ ДЛЯ СБОРА КОФЕЙНЫХ ЛИДОВ -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < e.scripts.length; j++) {if (e.scripts[j].src === r) { return; }}
+       k=e.createElement(t); k.async=1; k.src=r; e.head.appendChild(k);
+       })(window, document, "script", "https://yandex.ru", "ym");
+
+       ym(111611223, "init", { ssr:true, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true });
+    </script>
+    <noscript><div><img src="https://yandex.ru" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <style>
+        /* === СТИЛИ ИГРОВОГО ИНТЕРФЕЙСА СЛОТ-МАШИНЫ === */
+        :root { --primary: #0f172a; --accent: #22c55e; --orange: #b45309; --light: #f8fafc; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background: #1e2030; color: #fff; text-align: center; padding: 20px 10px; }
+        .wrapper { max-width: 440px; margin: 0 auto; background: #111827; padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); border: 2px solid #374151; }
+        
+        h1 { font-size: 26px; font-weight: 800; color: #fef08a; text-shadow: 0 2px 4px rgba(0,0,0,0.5); margin-bottom: 5px; }
+        .tagline { color: #9ca3af; font-size: 14px; margin-bottom: 25px; }
+        
+        /* Стили барабанов однорукого бандита */
+        .slot-machine { background: #1f2937; padding: 20px 15px; border-radius: 12px; border: 4px solid #4b5563; display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
+        .reel { width: 85px; height: 95px; background: #fff; border-radius: 8px; border: 3px solid #111827; font-size: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.3); user-select: none; }
+
+        /* Стили формы ввода и кнопок */
+        .form-block { margin-top: 20px; }
+        input[type="tel"] { width: 100%; padding: 14px; border-radius: 8px; border: 1px solid #4b5563; background: #1f2937; color: #fff; font-size: 16px; margin-bottom: 15px; box-sizing: border-box; text-align: center; }
+        input[type="tel"]::placeholder { color: #9ca3af; }
+        
+        .spin-btn { width: 100%; background: #22c55e; color: #fff; border: none; padding: 16px; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3); }
+        .spin-btn:hover:not(:disabled) { background: #16a34a; transform: translateY(-1px); }
+        .spin-btn:disabled { background: #4b5563; cursor: not-allowed; box-shadow: none; }
+
+        .waiting-block, .result-block { display: none; margin-top: 15px; padding: 15px; border-radius: 8px; background: #1f2937; border: 1px dashed #4b5563; }
+        .timer-text { font-size: 26px; font-weight: bold; color: #22c55e; margin: 10px 0; }
+
+        /* ВАЖНЫЙ B2B БЛОК: КНОПКА ПОЛОМКИ И БАННЕР ПЕРЕХОДА */
+        .support-box { margin-top: 30px; padding-top: 20px; border-top: 2px solid #374151; text-align: center; }
+        .btn-broken { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: #dc2626; color: #fff; padding: 14px; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 15px; transition: 0.2s; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); line-height: 1.2; }
+        .btn-broken:hover { background: #b91c1c; }
+        
+        .b2b-banner { display: block; margin-top: 15px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 1px solid #b45309; padding: 15px; border-radius: 8px; text-decoration: none; text-align: left; transition: 0.2s; }
+        .b2b-banner:hover { border-color: #f59e0b; transform: translateY(-1px); }
+        .b2b-title { color: #fef08a; font-weight: bold; font-size: 14px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+        .b2b-text { color: #9ca3af; font-size: 12px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>🎰 КОФЕЙНЫЙ ЭКСПРЕСС</h1>
+        <div class="tagline">Введи телефон, дерни за рычаг и выиграй приз от повара Николая!</div>
+
+        <!-- Однорукий бандит -->
+        <div class="slot-machine">
+            <div id="reel1" class="reel">☕</div>
+            <div id="reel2" class="reel">🫘</div>
+            <div id="reel3" class="reel">⚙️</div>
+        </div>
+
+        <!-- Форма запуска -->
+        <div id="slot-form-block">
+            <input type="tel" id="slot-phone" placeholder="+7 (999) 999-99-99" required>
+            <button id="slot-spin-btn" class="spin-btn" onclick="spinSlots()">ДЁРНУТЬ ЗА РЫЧАГ 🎰</button>
+        </div>
+
+        <!-- Экран ожидания анимации -->
+        <div id="slot-waiting" class="waiting-block">
+            <p style="font-weight: bold; color: #fef08a; animation: roulettePulse 0.5s infinite alternate;">Барабаны бешено крутятся...</p>
+            <div class="timer-text">Осталось: <span id="slot-timer">12</span> сек.</div>
+        </div>
+
+        <!-- Результаты розыгрыша -->
+        <div id="slot-result" class="result-block">
+            <!-- 1. Кофейный Джекпот -->
+            <div id="prize-coffee" style="display: none;">
+                <h3 style="color: #22c55e; font-size: 20px; margin-bottom: 8px;">🏆 КОФЕЙНЫЙ ДЖЕКПОТ!</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Ура! Вы выбили бесплатный кофе! Пожалуйста, покажите этот экран кассиру в течение 3 минут. Вам нальют самый вкусный и бодрящий напиток совершенно бесплатно!</p>
+                <div style="font-size: 22px; font-weight: bold; color: #ef4444; margin: 10px 0;">Таймер: <span id="claim-timer">03:00</span></div>
+            </div>
+
+            <!-- 2. Волшебный пендель от Николая -->
+            <div id="prize-kick" style="display: none;">
+                <h3 style="color: #f59e0b; font-size: 20px; margin-bottom: 8px;">🥾 ВОЛШЕБНЫЙ ПЕНДЕЛЬ!</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Легендарный выигрыш! Вам выпал Волшебный пендель для ускорения личной продуктивности и бизнеса. Обратитесь прямо на кассу к повару Николаю — он с удовольствием выпишет его вам лично, от всей души и абсолютно бесплатно!</p>
+            </div>
+
+            <!-- 3. Магистр Прожарки -->
+            <div id="prize-magister" style="display: none;">
+                <h3 style="color: #38bdf8; font-size: 20px; margin-bottom: 8px;">⚙️ МАГИСТР ПРОЖАРКИ!</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Поздравляем! Вы только что выиграли ментальное уважение нашей кофейни. Покажите этот экран на кассе — вам мысленно пожмут руку и одобрительно кивнут прямо с кухни!</p>
+            </div>
+
+            <!-- 4. Скидка на ремонт -->
+            <div id="prize-repair" style="display: none;">
+                <h3 style="color: #a855f7; font-size: 20px; margin-bottom: 8px;">🔧 БИЗНЕС-ВЫИГРЫШ!</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Полезный приз! Вы выиграли личную скидку 5% на ремонт или техническое обслуживание любой коммерческой кофемашины в Тольятти от инженеров сервиса «Территория КофеМашин».</p>
+            </div>
+
+            <!-- 5. Шоколадный взгляд -->
+            <div id="prize-choco" style="display: none;">
+                <h3 style="color: #f43f5e; font-size: 20px; margin-bottom: 8px;">🍫 ШОКОЛАДНЫЙ ВЗГЛЯД!</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Ого! Вам выпал фирменный Шоколадный Взгляд от Николая. Покажите экран на кассе — повар посмотрит на вас так сладко, будто вы только что съели плитку бельгийского шоколада!</p>
+            </div>
+
+            <!-- 6. Проигрыш -->
+            <div id="prize-lose" style="display: none;">
+                <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">Эх, кофейные зёрна рассыпались...</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #9ca3af;">Но повар Николай верит в вас. Возвращайтесь завтра, бесплатная чашка всё ещё ждёт своего героя!</p>
+            </div>
+
+            <button onclick="resetSlots()" style="margin-top: 15px; background: #374151; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; color: #fff; font-size: 13px;">Закрыть окно</button>
+        </div>
+
+        <!-- ВАЖНЫЙ B2B БЛОК: КНОПКА ПОЛОМКИ И БАННЕР ТЕРРИТОРИИ КОФЕМАШИН -->
+        <div class="support-box">
+            <!-- Кнопка сообщить о проблеме автомата -->
+            <a href="max://u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" class="btn-broken">
+                ⚠️ Не работает автомат? Сообщить о проблеме
+            </a>
+
+            <!-- Рекламный баннер перехода на основной сайт -->
+            <a href="https://tehnograd-163.ru" target="_blank" class="b2b-banner">
+                <div class="b2b-title">⚙️ Собственный кофейный бизнес или кофемашина в офисе?</div>
+                <div class="b2b-text">Профессиональный срочный ремонт и техническое обслуживание коммерческих кофемашин в Тольятти. Выезд инженера от 1 часа. Жми для перехода на сайт!</div>
+            </a>
+        </div>
+    </div>
+
+    <style> @keyframes roulettePulse { from { opacity: 0.5; } to { opacity: 1; } } </style>
+    <script>
+        /* === БЛОК 8: СКРИПТЫ СЛОТ-МАШИНЫ И КЛЮЧЕВАЯ МАТЕМАТИКА === */
+        
+        const icons = ['☕', '🥾', '⚙️', '🔧', '🍫', '🫘'];
+        let isSpinning = false;
+        let claimCountdown;
+
+        function spinSlots() {
+            if (isSpinning) return;
+            
+            const phoneInput = document.getElementById('slot-phone');
+            const clientPhone = phoneInput.value.trim();
+            
+            if (clientPhone.length < 8) {
+                alert('Пожалуйста, введите корректный номер телефона!');
+                return;
+            }
+
+            // БЛОКИРОВКА НА 1 ЧАС: Проверяем время последнего вращения для этого номера
+            const lastPlay = localStorage.getItem('slot_last_play_' + clientPhone);
+            const now = Date.now();
+            const oneHour = 60 * 60 * 1000; // 1 час в миллисекундах
+
+            if (lastPlay && (now - lastPlay < oneHour)) {
+                const minutesLeft = Math.ceil((oneHour - (now - lastPlay)) / 60 / 1000);
+                alert('Повар Николай накладывает вето! Вы уже крутили барабан. Следующая попытка через ' + minutesLeft + ' мин.');
+                return;
+            }
+
+            // Фиксируем время попытки в памяти телефона
+            localStorage.setItem('slot_last_play_' + clientPhone, now.toString());
+
+            isSpinning = true;
+            phoneInput.disabled = true;
+            document.getElementById('slot-spin-btn').disabled = true;
+            
+            document.getElementById('slot-form-block').style.display = 'none';
+            document.getElementById('slot-waiting').style.display = 'block';
+            document.getElementById('slot-result').style.display = 'none';
+
+            // ЖЕСТКИЙ МАТЕМАТИЧЕСКИЙ РАСЧЕТ ШАНСОВ (1 из 50)
+            const rand = Math.floor(Math.random() * 50) + 1; 
+            let p1, p2, p3;
+
+            if (rand === 25) {
+                // Выпал 1 шанс из 50 — отдаем Кофейный Джекпот (☕-☕-☕)
+                p1 = '☕'; p2 = '☕'; p3 = '☕';
+            } else {
+                // В остальных 49 случаях разыгрываем шуточные призы или проигрыш
+                const subRand = Math.floor(Math.random() * 6);
+                if (subRand === 0) { p1 = '🥾'; p2 = '🥾'; p3 = '🥾'; }       // Пендель от Николая
+                else if (subRand === 1) { p1 = '⚙️'; p2 = '⚙️'; p3 = '⚙️'; } // Магистр прожарки
+                else if (subRand === 2) { p1 = '🔧'; p2 = '🔧'; p3 = '🔧'; } // Скидка на ремонт
+                else if (subRand === 3) { p1 = '🍫'; p2 = '🍫'; p3 = '🍫'; } // Взгляд Николая
+                else { 
+                    // Чистый проигрыш (разные значки)
+                    p1 = icons[Math.floor(Math.random() * 3)];
+                    p2 = icons[Math.floor(Math.random() * 3) + 3];
+                    p3 = icons[Math.floor(Math.random() * 2) + 1];
+                }
+            }
+
+            // Запускаем тиканье визуального таймера ожидания (12 секунд)
+            let timeLeft = 12;
+            const timerElement = document.getElementById('slot-timer');
+            const countdown = setInterval(function() {
+                timeLeft--;
+                timerElement.innerText = timeLeft;
+                if (timeLeft <= 0) clearInterval(countdown);
+            }, 1000);
+
+            // Анимация быстрой смены значков на барабанах
+            let animInterval = setInterval(function() {
+                document.getElementById('reel1').innerText = icons[Math.floor(Math.random() * icons.length)];
+                document.getElementById('reel2').innerText = icons[Math.floor(Math.random() * icons.length)];
+                document.getElementById('reel3').innerText = icons[Math.floor(Math.random() * icons.length)];
+            }, 100);
+
+            // Финал вращения (через 12 секунд останавливаем барабаны на нужных призах)
+            setTimeout(function() {
+                clearInterval(animInterval);
+                
+                document.getElementById('reel1').innerText = p1;
+                document.getElementById('reel2').innerText = p2;
+                document.getElementById('reel3').innerText = p3;
+
+                document.getElementById('slot-waiting').style.display = 'none';
+                document.getElementById('slot-result').style.display = 'block';
+                
+                showPrizeScreen(p1, p2, p3, clientPhone);
+            }, 12000);
+        }
+
+        // Функция активации нужного экрана выигрыша
+        function showPrizeScreen(p1, p2, p3, phone) {
+            // Скрываем все экраны призов
+            document.getElementById('prize-coffee').style.display = 'none';
+            document.getElementById('prize-kick').style.display = 'none';
+            document.getElementById('prize-magister').style.display = 'none';
+            document.getElementById('prize-repair').style.display = 'none';
+            document.getElementById('prize-choco').style.display = 'none';
+            document.getElementById('prize-lose').style.display = 'none';
+
+            let prizeName = 'Проигрыш';
+
+            if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
+                document.getElementById('prize-coffee').style.display = 'block';
+                prizeName = 'Бесплатный кофе';
+                startClaimTimer(180); // 3 минуты на получение у кассира
+            } else if (p1 === '🥾' && p2 === '🥾' && p3 === '🥾') {
+                document.getElementById('prize-kick').style.display = 'block';
+                prizeName = 'Пендель от Николая';
+            } else if (p1 === '⚙️' && p2 === '⚙️' && p3 === '⚙️') {
+                document.getElementById('prize-magister').style.display = 'block';
+                prizeName = 'Магистр прожарки';
+            } else if (p1 === '🔧' && p2 === '🔧' && p3 === '🔧') {
+                document.getElementById('prize-repair').style.display = 'block';
+                prizeName = 'Скидка 5% на ремонт';
+            } else if (p1 === '🍫' && p2 === '🍫' && p3 === '🍫') {
+                document.getElementById('prize-choco').style.display = 'block';
+                prizeName = 'Шоколадный взгляд Николая';
+            } else {
+                document.getElementById('prize-lose').style.display = 'block';
+            }
+
+            // ОТПРАВКА ДАННЫХ В ЯНДЕКС.МЕТРИКУ
+            if (typeof ym !== 'undefined') {
+                ym(111611223, 'userParams', { vending_slot: { phone: phone, prize: prizeName } });
+                ym(111611223, 'reachGoal', 'vending_game_spin');
+                if (prizeName === 'Бесплатный кофе') {
+                    ym(111611223, 'reachGoal', 'vending_win_coffee');
+                }
+            }
+        }
+
+        // Таймер обратного отсчета для кассира
+        function startClaimTimer(duration) {
+            clearInterval(claimCountdown);
+            let timer = duration, minutes, seconds;
+            const display = document.getElementById('claim-timer');
+            
+            claimCountdown = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(claimCountdown);
+                    display.textContent = "ВРЕМЯ ИСТЕКЛО";
+                    display.style.color = "#dc2626";
+                }
+            }, 1000);
+        }
+
+        function resetSlots() {
+            clearInterval(claimCountdown);
+            isSpinning = false;
+            document.getElementById('slot-phone').disabled = false;
+            document.getElementById('slot-spin-btn').disabled = false;
+            document.getElementById('slot-form-block').style.display = 'block';
+            document.getElementById('slot-result').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

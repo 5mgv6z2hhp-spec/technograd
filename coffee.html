@@ -22,7 +22,7 @@
         :root { --primary: #0f172a; --accent: #22c55e; --orange: #b45309; --light: #f8fafc; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
         body { background: #1e2030; color: #fff; text-align: center; padding: 20px 10px; }
-        .wrapper { max-width: 440px; margin: 0 auto; background: #111827; padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); border: 2px solid #374151; }
+        .wrapper { max-width: 440px; margin: 0 auto; background: #111827; padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); border: 2px solid #374151; position: relative; }
         
         h1 { font-size: 26px; font-weight: 800; color: #fef08a; text-shadow: 0 2px 4px rgba(0,0,0,0.5); margin-bottom: 5px; }
         .tagline { color: #9ca3af; font-size: 14px; margin-bottom: 25px; }
@@ -40,13 +40,24 @@
         .spin-btn:hover:not(:disabled) { background: #16a34a; transform: translateY(-1px); }
         .spin-btn:disabled { background: #4b5563; cursor: not-allowed; box-shadow: none; }
 
-        .waiting-block, .result-block { display: none; margin-top: 15px; padding: 15px; border-radius: 8px; background: #1f2937; border: 1px dashed #4b5563; }
+        .waiting-block, .result-block { display: none; margin-top: 15px; padding: 15px; border-radius: 8px; background: #1f2937; border: 1px dashed #4b5563; text-align: center; }
         .timer-text { font-size: 26px; font-weight: bold; color: #22c55e; margin: 10px 0; }
 
-        /* ВАЖНЫЙ B2B БЛОК: КНОПКА ПОЛОМКИ И БАННЕР ПЕРЕХОДА */
+        /* СТИЛИ УМНОГО B2B ОКНА ДЛЯ СВЯЗИ */
         .support-box { margin-top: 30px; padding-top: 20px; border-top: 2px solid #374151; text-align: center; }
-        .btn-broken { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: #dc2626; color: #fff; padding: 14px; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 15px; transition: 0.2s; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); line-height: 1.2; }
+        .btn-broken { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: #dc2626; color: #fff; padding: 14px; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 15px; transition: 0.2s; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); line-height: 1.2; cursor: pointer; border: none; }
         .btn-broken:hover { background: #b91c1c; }
+        
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 20000; align-items: center; justify-content: center; }
+        .modal-box { background: #1e293b; padding: 25px; border-radius: 12px; max-width: 380px; width: 90%; border: 1px solid #4b5563; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .modal-box h4 { font-size: 18px; color: #fef08a; margin-bottom: 12px; font-weight: 700; }
+        .modal-desc { font-size: 14px; color: #cbd5e1; margin-bottom: 20px; line-height: 1.5; }
+        
+        .btn-choice { display: block; width: 100%; padding: 12px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; margin-bottom: 12px; text-align: center; transition: 0.2s; border: none; }
+        .btn-choice-call { background: #22c55e; color: #fff; }
+        .btn-choice-call:hover { background: #16a34a; }
+        .btn-choice-max { background: #0284c7; color: #fff; }
+        .btn-choice-max:hover { background: #0369a1; }
         
         .b2b-banner { display: block; margin-top: 15px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 1px solid #b45309; padding: 15px; border-radius: 8px; text-decoration: none; text-align: left; transition: 0.2s; }
         .b2b-banner:hover { border-color: #f59e0b; transform: translateY(-1px); }
@@ -83,20 +94,20 @@
             <!-- 1. Кофейный Джекпот -->
             <div id="prize-coffee" style="display: none;">
                 <h3 style="color: #22c55e; font-size: 20px; margin-bottom: 8px;">🏆 КОФЕЙНЫЙ ДЖЕКПОТ!</h3>
-                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Ура! Вы выбили бесплатный кофе! Пожалуйста, покажите этот экран кассиру в течение 3 минут. Вам нальют самый вкусный и бодрящий напиток совершенно бесплатно!</p>
+                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Ура! Вы выбили бесплатный кофе! Пожалуйста, покажите этот экран повару Николаю в течение 3 минут. Он нальёт вам самый вкусный напиток совершенно бесплатно!</p>
                 <div style="font-size: 22px; font-weight: bold; color: #ef4444; margin: 10px 0;">Таймер: <span id="claim-timer">03:00</span></div>
             </div>
 
             <!-- 2. Волшебный пендель от Николая -->
             <div id="prize-kick" style="display: none;">
                 <h3 style="color: #f59e0b; font-size: 20px; margin-bottom: 8px;">🥾 ВОЛШЕБНЫЙ ПЕНДЕЛЬ!</h3>
-                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Легендарный выигрыш! Вам выпал Волшебный пендель для ускорения личной продуктивности и бизнеса. Обратитесь прямо на кассу к повару Николаю — он с удовольствием выпишет его вам лично, от всей души и абсолютно бесплатно!</p>
+                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Легендарный выигрыш! Вам выпал Волшебный пендель для ускорения личной продуктивности и бизнеса от повара Николая! Обратитесь к нему прямо на кухню — он с удовольствием выпишет его вам лично, от всей души и абсолютно бесплатно!</p>
             </div>
 
             <!-- 3. Магистр Прожарки -->
             <div id="prize-magister" style="display: none;">
                 <h3 style="color: #38bdf8; font-size: 20px; margin-bottom: 8px;">⚙️ МАГИСТР ПРОЖАРКИ!</h3>
-                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Поздравляем! Вы только что выиграли ментальное уважение нашей кофейни. Покажите этот экран на кассе — вам мысленно пожмут руку и одобрительно кивнут прямо с кухни!</p>
+                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Поздравляем! Вы только что выиграли ментальное уважение нашей кофейни. Вы насквозь видите гидросистему и отличаете рожок от суперавтомата!</p>
             </div>
 
             <!-- 4. Скидка на ремонт -->
@@ -108,25 +119,19 @@
             <!-- 5. Шоколадный взгляд -->
             <div id="prize-choco" style="display: none;">
                 <h3 style="color: #f43f5e; font-size: 20px; margin-bottom: 8px;">🍫 ШОКОЛАДНЫЙ ВЗГЛЯД!</h3>
-                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Ого! Вам выпал фирменный Шоколадный Взгляд от Николая. Покажите экран на кассе — повар посмотрит на вас так сладко, будто вы только что съели плитку дорогого бельгийского шоколада!</p>
+                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Ого! Вам выпал фирменный Шоколадный Взгляд от повара Николая. Посмотрите на него — он посмотрит на вас так сладко, будто вы только что съели плитку дорогого бельгийского шоколада!</p>
             </div>
 
             <!-- 6. Проигрыш -->
-            <div id="prize-lose" style="display: none;">
-                <!-- Сюда скрипт вставит одну из 300 случайных шуток Николая -->
-            </div>
+            <div id="prize-lose" style="display: none;"></div>
 
             <button onclick="resetSlots()" style="margin-top: 15px; background: #374151; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; color: #fff; font-size: 13px;">Закрыть окно</button>
         </div>
 
-        <!-- ВАЖНЫЙ B2B БЛОК: КНОПКА ПОЛОМКИ И БАННЕР ТЕРРИТОРИИ КОФЕМАШИН -->
+        <!-- КНОПКА ПОЛОМКИ И БАННЕР -->
         <div class="support-box">
-            <!-- Кнопка сообщить о проблеме автомата -->
-            <a href="max://u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" class="btn-broken">
-                ⚠️ Не работает автомат? Сообщить о проблеме
-            </a>
+            <button class="btn-broken" onclick="openSupportModal()">⚠️ Не работает автомат? Сообщить о проблеме</button>
 
-            <!-- Рекламный баннер перехода на основной сайт -->
             <a href="https://tehnograd-163.ru" target="_blank" class="b2b-banner">
                 <div class="b2b-title">⚙️ Собственный кофейный бизнес или кофемашина в офисе?</div>
                 <div class="b2b-text">Профессиональный срочный ремонт и техническое обслуживание коммерческих кофемашин в Тольятти. Выезд инженера от 1 часа. Жми для перехода на сайт!</div>
@@ -134,60 +139,101 @@
         </div>
     </div>
 
+    <!-- УМНОЕ МОДАЛЬНОЕ ОКНО ТЕХПОДДЕРЖКИ -->
+    <div id="support-modal" class="modal-overlay" onclick="closeSupportModal(event)">
+        <div class="modal-box">
+            <h4>Служба поддержки автомата</h4>
+            <p id="support-time-desc" class="modal-desc">Проверка времени...</p>
+            
+            <div id="support-actions">
+                <!-- Сюда скрипт выведет кнопки в зависимости от времени -->
+            </div>
+            
+            <button onclick="document.getElementById('support-modal').style.display='none'" style="background: transparent; border: 1px solid #64748b; color: #94a3b8; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-size: 13px; margin-top: 10px; width: 100%;">Назад в игру</button>
+        </div>
+    </div>
+
     <style> @keyframes roulettePulse { from { opacity: 0.5; } to { opacity: 1; } } </style>
     <script>
-        /* === БЛОК 8: СКРИПТЫ СЛОТ-МАШИНЫ И АНТИ-НАКРУТКА === */
+        /* === БЛОК 8: ОБНОВЛЕННАЯ СМАРТ-ЛОГИКА И АНТИ-НАКРУТКА === */
         
         const icons = ['☕', '🥾', '⚙️', '🔧', '🍫', '🫘'];
         let isSpinning = false;
         let claimCountdown;
 
-        // Массивы для генерации 300 уникальных вариаций шуточного проигрыша от Николая
+        // 300 комбинаций: 20 причин поломок гидросистемы х 5 настроений Николая
         const nikoPhrases = [
-            "кофейные зёрна рассыпались прямо на фартук!", "молоко для капучинатора внезапно убежало на плиту!",
-            "ТЭН бойлера забился накипью из самарского водопровода!", "эспрессо получился слишком кислым из-за недоэкстракции!",
-            "давление в помпе упало ниже критических 9 бар!", "кофемолка заклинила от случайного куска челябинского метеорита!",
-            "холдер выскочил из группы и облил всю кухню!", "сливной дренаж забился столетним кофейным дегтем!",
-            "настройки помола сбились от диких вибраций автомата!", "весы бариста показали перерасход дорогой арабики на 15%!",
-            "термоблок остыл, не успев нагреть воду для лунго!", "силовая плата выдала ложную ошибку датчика протока!",
-            "чистящая таблетка растворилась раньше времени!", "пинчер с молоком выскользнул из рук прямо на чистый пол!",
-            "в бункер с зерном случайно просыпался башкирский сахар!", "сетка душа группы забилась масляным налетом!",
-            "уплотнительное кольцо поршня потеряло былую эластичность!", "дренажный клапан сбросил всю воду обратно в поддон!",
-            "накопительный бойлер зашумел, как старый бабушкин чайник!"
+            "кофейные зёрна рассыпались прямо на чистый поварской фартук!", "молоко для капучинатора внезапно убежало на раскаленную плиту!",
+            "ТЭН бойлера оброс толстым слоем накипи из самарского водопровода!", "эспрессо получился слишком кислым из-за грубого нарушения экстракции!",
+            "давление в ротационной помпе упало ниже критических для пенки 9 бар!", "кофемолка намертво заклинила от случайного камешка в пачке зерна!",
+            "холдер выскочил из заварочной группы и залил горячей водой всю кухню!", "сливной дренаж забился застарелым и едким кофейным дегтем!",
+            "настройки помола полностью сбились от диких вибраций суперавтомата!", "весы показали критический перерасход дорогой арабики на 15%!",
+            "проточный термоблок остыл, не успев выдать воду нужной температуры!", "силовая плата управления выдала ложную ошибку датчика протока воды!",
+            "чистящая таблетка от кофейных масел растворилась раньше времени!", "питчер с холодным молоком выскользнул из рук прямо на кафельный пол!",
+            "в бункер с отборным зерном случайно просыпался кондитерский сахар!", "латунная сетка душа группы намертво забилась масляным налетом!",
+            "уплотнительное манжетное кольцо поршня полностью потеряло эластичность!", "дренажный трехходовой клапан сбросил всю воду обратно в поддон!",
+            "накопительный бойлер зашумел, как старый заизвесткованный чайник!"
         ];
 
         const nikoMoods = [
-            "Но повар Николай ласково улыбается сквозь усы и ждет вас через час.",
-            "Повар Николай сердито грозит вам поварешкой и советует повторить попытку позже.",
-            "Николай молча грустит у плиты, но обещает, что следующий час принесет удачу.",
-            "Повар Николай хитро подмигивает вам правым глазом и уже готовит новые зёрна.",
-            "Николай авторитетно заявляет, что чашка кофе всё ещё ждёт своего истинного героя!"
+            "Но повар Николай ласково улыбается сквозь усы и жёд вас ровно через час.",
+            "Повар Николай строго грозит вам большой поварешкой и советует повторить попытку позже.",
+            "Николай молча вздыхает у плиты, но обещает, что следующий час точно принесет удачу.",
+            "Повар Николай хитро подмигивает вам правым глазом и уже засыпает свежие зёрна.",
+            "Николай авторитетно заявляет со своей кухни, что чашка кофе всё ещё ждёт своего героя!"
         ];
+
+        // ФУНКЦИЯ ПРОВЕРКИ ВРЕМЕНИ И ОТКРЫТИЯ ОКНА ПОЛОМКИ (9:00 - 22:00)
+        function openSupportModal() {
+            const modal = document.getElementById('support-modal');
+            const timeDesc = document.getElementById('support-time-desc');
+            const actionsDiv = document.getElementById('support-actions');
+            const now = new Date();
+            const hours = now.getHours();
+            
+            modal.style.display = 'flex';
+            actionsDiv.innerHTML = ''; 
+
+            if (hours >= 9 && hours < 22) {
+                timeDesc.innerHTML = `🔔 <strong>Инженерная служба на связи!</strong><br>Сейчас рабочее время. Вы можете позвонить мастеру напрямую или написать нам в мессенджер MAX.`;
+                actionsDiv.innerHTML = `
+                    <a href="tel:+79372115128" class="btn-choice btn-choice-call">📞 Позвонить инженеру (Прямой вызов)</a>
+                    <a href="max://u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" class="btn-choice btn-choice-max">💬 Написать техникy в чат MAX</a>
+                `;
+            } else {
+                timeDesc.innerHTML = `🌙 <strong>Горячая линия закрыта (с 22:00 до 09:00)</strong><br>Сейчас ночное время, телефонная линия недоступна. Но вы можете оставить экстренную заявку в чате MAX — мастер ответит сразу утром!`;
+                actionsDiv.innerHTML = `
+                    <a href="max://u/f9LHodD0cOLGwUVCIro-LQ8GNllu9oJWRvf-pRijrFRcN0J4PSBgiVvr1RY" target="_blank" class="btn-choice btn-choice-max">💬 Написать в MAX (Прием заявок 24/7)</a>
+                `;
+            }
+        }
+
+        function closeSupportModal(e) {
+            if (e.target.id === 'support-modal') {
+                document.getElementById('support-modal').style.display = 'none';
+            }
+        }
 
         function spinSlots() {
             if (isSpinning) return;
-            
             const phoneInput = document.getElementById('slot-phone');
             const clientPhone = phoneInput.value.trim();
-            
             if (clientPhone.length < 8) {
                 alert('Пожалуйста, введите корректный номер телефона!');
                 return;
             }
 
-            // ЖЕСТКАЯ АНТИ-НАКРУТКА: Блокируем само устройство (браузер)
             const lastPlay = localStorage.getItem('slot_device_last_play');
             const now = Date.now();
             const oneHour = 60 * 60 * 1000;
 
             if (lastPlay && (now - lastPlay < oneHour)) {
                 const minutesLeft = Math.ceil((oneHour - (now - lastPlay)) / 60 / 1000);
-                alert('Повар Николай накладывает вето! С этого телефона уже крутили барабан. Следующая попытка через ' + minutesLeft + ' мин.');
+                alert('Повар Николай накладывает вето! С этого смартфона уже крутили барабан. Попытка доступна раз в час. Осталось ждать: ' + minutesLeft + ' мин.');
                 return;
             }
 
             localStorage.setItem('slot_device_last_play', now.toString());
-
             isSpinning = true;
             phoneInput.disabled = true;
             document.getElementById('slot-spin-btn').disabled = true;
@@ -196,18 +242,17 @@
             document.getElementById('slot-waiting').style.display = 'block';
             document.getElementById('slot-result').style.display = 'none';
 
-            // ЖЕСТКИЙ МАТЕМАТИЧЕСКИЙ РАСЧЕТ ШАНСОВ (1 из 50)
             const rand = Math.floor(Math.random() * 50) + 1; 
             let p1, p2, p3;
 
             if (rand === 25) {
-                p1 = '☕'; p2 = '☕'; p3 = '☕';
+                p1 = '☕'; p2 = '☕'; p3 = '☕'; 
             } else {
-                const subRand = Math.floor(Math.random() * 6);
-                if (subRand === 0) { p1 = '🥾'; p2 = '🥾'; p3 = '🥾'; }
-                else if (subRand === 1) { p1 = '🍫'; p2 = '🍫'; p3 = '🍫'; }
-                else if (subRand === 2) { p1 = '⚙️'; p2 = '⚙️'; p3 = '⚙️'; }
-                else if (subRand === 3) { p1 = '🔧'; p2 = '🔧'; p3 = '🔧'; }
+                const subRand = Math.floor(Math.random() * 5);
+                if (subRand === 0) { p1 = '🥾'; p2 = '🥾'; p3 = '🥾'; }      
+                else if (subRand === 1) { p1 = '🍫'; p2 = '🍫'; p3 = '🍫'; } 
+                else if (subRand === 2) { p1 = '⚙️'; p2 = '⚙️'; p3 = '⚙️'; } 
+                else if (subRand === 3) { p1 = '🔧'; p2 = '🔧'; p3 = '🔧'; } 
                 else { 
                     p1 = icons[Math.floor(Math.random() * 3)];
                     p2 = icons[Math.floor(Math.random() * 3) + 3];
@@ -236,11 +281,10 @@
                 document.getElementById('reel3').innerText = p3;
                 document.getElementById('slot-waiting').style.display = 'none';
                 document.getElementById('slot-result').style.display = 'block';
-                
                 showPrizeScreen(p1, p2, p3, clientPhone);
             }, 12000);
         }
-        // Функция распределения призов и сборки уникальных шуток
+        // Функция обработки и динамического вывода текстовых результатов
         function showPrizeScreen(p1, p2, p3, phone) {
             document.getElementById('prize-coffee').style.display = 'none';
             document.getElementById('prize-kick').style.display = 'none';
@@ -254,7 +298,7 @@
             if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
                 document.getElementById('prize-coffee').style.display = 'block';
                 prizeName = 'Бесплатный кофе';
-                startClaimTimer(180); // 3 минуты на получение
+                startClaimTimer(180); 
             } else if (p1 === '🥾' && p2 === '🥾' && p3 === '🥾') {
                 document.getElementById('prize-kick').style.display = 'block';
                 prizeName = 'Пендель от Николая';
@@ -268,20 +312,20 @@
                 document.getElementById('prize-repair').style.display = 'block';
                 prizeName = 'Скидка 5% на ремонт';
             } else {
-                // ДИНАМИЧЕСКАЯ ГЕНЕРАЦИЯ ШУТКИ ОТ НИКОЛАЯ (300 комбинаций)
+                // СБОРКА СЛУЧАЙНЫХ ШУТОК — ФРАЗЫ ТЕПЕРЬ ОБНОВЛЯЮТСЯ КАЖДЫЙ РАЗ!
                 const randomPhrase = nikoPhrases[Math.floor(Math.random() * nikoPhrases.length)];
                 const randomMood = nikoMoods[Math.floor(Math.random() * nikoMoods.length)];
                 
                 const loseContainer = document.getElementById('prize-lose');
                 loseContainer.innerHTML = `
-                    <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">Эх, шестерёнки не сошлись...</h3>
-                    <p style="font-size: 14px; line-height: 1.5; color: #9ca3af;">Кажется, у нас поломка: <strong>${randomPhrase}</strong></p>
-                    <p style="font-size: 14px; line-height: 1.5; color: #fef08a; margin-top: 8px;">${randomMood}</p>
+                    <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">Эх, комбинация не сошлась...</h3>
+                    <p style="font-size: 14px; line-height: 1.5; color: #9ca3af;">У повара Николая ЧП: <strong>${randomPhrase}</strong></p>
+                    <p style="font-size: 14px; line-height: 1.5; color: #fef08a; margin-top: 10px;">${randomMood}</p>
                 `;
                 loseContainer.style.display = 'block';
             }
 
-            // БЕЗОПАСНАЯ ОТПРАВКА ДАННЫХ В ЯНДЕКС.МЕТРИКУ
+            // Передача целей в Яндекс.Метрику счетчика 111611223
             if (typeof ym !== 'undefined') {
                 ym(111611223, 'userParams', { vending_slot: { phone: phone, prize: prizeName } });
                 ym(111611223, 'reachGoal', 'vending_game_spin');

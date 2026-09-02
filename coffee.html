@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎰 Кофейный Экспресс — Розыгрыш призов у автомата!</title>
     
-    <!-- ИСПРАВЛЕННЫЙ СЧЕТЧИК ЯНДЕКС.МЕТРИКИ ДЛЯ СБОРА КОФЕЙНЫХ ЛИДОВ -->
+    <!-- ОФИЦИАЛЬНЫЙ КОД СЧЕТЧИКА ЯНДЕКС.МЕТРИКИ -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -108,13 +108,12 @@
             <!-- 5. Шоколадный взгляд -->
             <div id="prize-choco" style="display: none;">
                 <h3 style="color: #f43f5e; font-size: 20px; margin-bottom: 8px;">🍫 ШОКОЛАДНЫЙ ВЗГЛЯД!</h3>
-                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Ого! Вам выпал фирменный Шоколадный Взгляд от Николая. Покажите экран на кассе — повар посмотрит на вас так сладко, будто вы только что съели плитку бельгийского шоколада!</p>
+                <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1;">Ого! Вам выпал фирменный Шоколадный Взгляд от Николая. Покажите экран на кассе — повар посмотрит на вас так сладко, будто вы только что съели плитку дорогого бельгийского шоколада!</p>
             </div>
 
             <!-- 6. Проигрыш -->
             <div id="prize-lose" style="display: none;">
-                <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">Эх, кофейные зёрна рассыпались...</h3>
-                <p style="font-size: 14px; line-height: 1.5; color: #9ca3af;">Но повар Николай верит в вас. Возвращайтесь завтра, бесплатная чашка всё ещё ждёт своего героя!</p>
+                <!-- Сюда скрипт вставит одну из 300 случайных шуток Николая -->
             </div>
 
             <button onclick="resetSlots()" style="margin-top: 15px; background: #374151; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; color: #fff; font-size: 13px;">Закрыть окно</button>
@@ -137,11 +136,33 @@
 
     <style> @keyframes roulettePulse { from { opacity: 0.5; } to { opacity: 1; } } </style>
     <script>
-        /* === БЛОК 8: СКРИПТЫ СЛОТ-МАШИНЫ И КЛЮЧЕВАЯ МАТЕМАТИКА === */
+        /* === БЛОК 8: СКРИПТЫ СЛОТ-МАШИНЫ И АНТИ-НАКРУТКА === */
         
         const icons = ['☕', '🥾', '⚙️', '🔧', '🍫', '🫘'];
         let isSpinning = false;
         let claimCountdown;
+
+        // Массивы для генерации 300 уникальных вариаций шуточного проигрыша от Николая
+        const nikoPhrases = [
+            "кофейные зёрна рассыпались прямо на фартук!", "молоко для капучинатора внезапно убежало на плиту!",
+            "ТЭН бойлера забился накипью из самарского водопровода!", "эспрессо получился слишком кислым из-за недоэкстракции!",
+            "давление в помпе упало ниже критических 9 бар!", "кофемолка заклинила от случайного куска челябинского метеорита!",
+            "холдер выскочил из группы и облил всю кухню!", "сливной дренаж забился столетним кофейным дегтем!",
+            "настройки помола сбились от диких вибраций автомата!", "весы бариста показали перерасход дорогой арабики на 15%!",
+            "термоблок остыл, не успев нагреть воду для лунго!", "силовая плата выдала ложную ошибку датчика протока!",
+            "чистящая таблетка растворилась раньше времени!", "пинчер с молоком выскользнул из рук прямо на чистый пол!",
+            "в бункер с зерном случайно просыпался башкирский сахар!", "сетка душа группы забилась масляным налетом!",
+            "уплотнительное кольцо поршня потеряло былую эластичность!", "дренажный клапан сбросил всю воду обратно в поддон!",
+            "накопительный бойлер зашумел, как старый бабушкин чайник!"
+        ];
+
+        const nikoMoods = [
+            "Но повар Николай ласково улыбается сквозь усы и ждет вас через час.",
+            "Повар Николай сердито грозит вам поварешкой и советует повторить попытку позже.",
+            "Николай молча грустит у плиты, но обещает, что следующий час принесет удачу.",
+            "Повар Николай хитро подмигивает вам правым глазом и уже готовит новые зёрна.",
+            "Николай авторитетно заявляет, что чашка кофе всё ещё ждёт своего истинного героя!"
+        ];
 
         function spinSlots() {
             if (isSpinning) return;
@@ -154,19 +175,18 @@
                 return;
             }
 
-            // БЛОКИРОВКА НА 1 ЧАС: Проверяем время последнего вращения для этого номера
-            const lastPlay = localStorage.getItem('slot_last_play_' + clientPhone);
+            // ЖЕСТКАЯ АНТИ-НАКРУТКА: Блокируем само устройство (браузер)
+            const lastPlay = localStorage.getItem('slot_device_last_play');
             const now = Date.now();
-            const oneHour = 60 * 60 * 1000; // 1 час в миллисекундах
+            const oneHour = 60 * 60 * 1000;
 
             if (lastPlay && (now - lastPlay < oneHour)) {
                 const minutesLeft = Math.ceil((oneHour - (now - lastPlay)) / 60 / 1000);
-                alert('Повар Николай накладывает вето! Вы уже крутили барабан. Следующая попытка через ' + minutesLeft + ' мин.');
+                alert('Повар Николай накладывает вето! С этого телефона уже крутили барабан. Следующая попытка через ' + minutesLeft + ' мин.');
                 return;
             }
 
-            // Фиксируем время попытки в памяти телефона
-            localStorage.setItem('slot_last_play_' + clientPhone, now.toString());
+            localStorage.setItem('slot_device_last_play', now.toString());
 
             isSpinning = true;
             phoneInput.disabled = true;
@@ -181,24 +201,20 @@
             let p1, p2, p3;
 
             if (rand === 25) {
-                // Выпал 1 шанс из 50 — отдаем Кофейный Джекпот (☕-☕-☕)
                 p1 = '☕'; p2 = '☕'; p3 = '☕';
             } else {
-                // В остальных 49 случаях разыгрываем шуточные призы или проигрыш
                 const subRand = Math.floor(Math.random() * 6);
-                if (subRand === 0) { p1 = '🥾'; p2 = '🥾'; p3 = '🥾'; }       // Пендель от Николая
-                else if (subRand === 1) { p1 = '⚙️'; p2 = '⚙️'; p3 = '⚙️'; } // Магистр прожарки
-                else if (subRand === 2) { p1 = '🔧'; p2 = '🔧'; p3 = '🔧'; } // Скидка на ремонт
-                else if (subRand === 3) { p1 = '🍫'; p2 = '🍫'; p3 = '🍫'; } // Взгляд Николая
+                if (subRand === 0) { p1 = '🥾'; p2 = '🥾'; p3 = '🥾'; }
+                else if (subRand === 1) { p1 = '🍫'; p2 = '🍫'; p3 = '🍫'; }
+                else if (subRand === 2) { p1 = '⚙️'; p2 = '⚙️'; p3 = '⚙️'; }
+                else if (subRand === 3) { p1 = '🔧'; p2 = '🔧'; p3 = '🔧'; }
                 else { 
-                    // Чистый проигрыш (разные значки)
                     p1 = icons[Math.floor(Math.random() * 3)];
                     p2 = icons[Math.floor(Math.random() * 3) + 3];
                     p3 = icons[Math.floor(Math.random() * 2) + 1];
                 }
             }
 
-            // Запускаем тиканье визуального таймера ожидания (12 секунд)
             let timeLeft = 12;
             const timerElement = document.getElementById('slot-timer');
             const countdown = setInterval(function() {
@@ -207,31 +223,25 @@
                 if (timeLeft <= 0) clearInterval(countdown);
             }, 1000);
 
-            // Анимация быстрой смены значков на барабанах
             let animInterval = setInterval(function() {
                 document.getElementById('reel1').innerText = icons[Math.floor(Math.random() * icons.length)];
                 document.getElementById('reel2').innerText = icons[Math.floor(Math.random() * icons.length)];
                 document.getElementById('reel3').innerText = icons[Math.floor(Math.random() * icons.length)];
             }, 100);
 
-            // Финал вращения (через 12 секунд останавливаем барабаны на нужных призах)
             setTimeout(function() {
                 clearInterval(animInterval);
-                
                 document.getElementById('reel1').innerText = p1;
                 document.getElementById('reel2').innerText = p2;
                 document.getElementById('reel3').innerText = p3;
-
                 document.getElementById('slot-waiting').style.display = 'none';
                 document.getElementById('slot-result').style.display = 'block';
                 
                 showPrizeScreen(p1, p2, p3, clientPhone);
             }, 12000);
         }
-
-        // Функция активации нужного экрана выигрыша
+        // Функция распределения призов и сборки уникальных шуток
         function showPrizeScreen(p1, p2, p3, phone) {
-            // Скрываем все экраны призов
             document.getElementById('prize-coffee').style.display = 'none';
             document.getElementById('prize-kick').style.display = 'none';
             document.getElementById('prize-magister').style.display = 'none';
@@ -244,24 +254,34 @@
             if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
                 document.getElementById('prize-coffee').style.display = 'block';
                 prizeName = 'Бесплатный кофе';
-                startClaimTimer(180); // 3 минуты на получение у кассира
+                startClaimTimer(180); // 3 минуты на получение
             } else if (p1 === '🥾' && p2 === '🥾' && p3 === '🥾') {
                 document.getElementById('prize-kick').style.display = 'block';
                 prizeName = 'Пендель от Николая';
+            } else if (p1 === '🍫' && p2 === '🍫' && p3 === '🍫') {
+                document.getElementById('prize-choco').style.display = 'block';
+                prizeName = 'Шоколадный взгляд Николая';
             } else if (p1 === '⚙️' && p2 === '⚙️' && p3 === '⚙️') {
                 document.getElementById('prize-magister').style.display = 'block';
                 prizeName = 'Магистр прожарки';
             } else if (p1 === '🔧' && p2 === '🔧' && p3 === '🔧') {
                 document.getElementById('prize-repair').style.display = 'block';
                 prizeName = 'Скидка 5% на ремонт';
-            } else if (p1 === '🍫' && p2 === '🍫' && p3 === '🍫') {
-                document.getElementById('prize-choco').style.display = 'block';
-                prizeName = 'Шоколадный взгляд Николая';
             } else {
-                document.getElementById('prize-lose').style.display = 'block';
+                // ДИНАМИЧЕСКАЯ ГЕНЕРАЦИЯ ШУТКИ ОТ НИКОЛАЯ (300 комбинаций)
+                const randomPhrase = nikoPhrases[Math.floor(Math.random() * nikoPhrases.length)];
+                const randomMood = nikoMoods[Math.floor(Math.random() * nikoMoods.length)];
+                
+                const loseContainer = document.getElementById('prize-lose');
+                loseContainer.innerHTML = `
+                    <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">Эх, шестерёнки не сошлись...</h3>
+                    <p style="font-size: 14px; line-height: 1.5; color: #9ca3af;">Кажется, у нас поломка: <strong>${randomPhrase}</strong></p>
+                    <p style="font-size: 14px; line-height: 1.5; color: #fef08a; margin-top: 8px;">${randomMood}</p>
+                `;
+                loseContainer.style.display = 'block';
             }
 
-            // ОТПРАВКА ДАННЫХ В ЯНДЕКС.МЕТРИКУ
+            // БЕЗОПАСНАЯ ОТПРАВКА ДАННЫХ В ЯНДЕКС.МЕТРИКУ
             if (typeof ym !== 'undefined') {
                 ym(111611223, 'userParams', { vending_slot: { phone: phone, prize: prizeName } });
                 ym(111611223, 'reachGoal', 'vending_game_spin');
@@ -271,7 +291,6 @@
             }
         }
 
-        // Таймер обратного отсчета для кассира
         function startClaimTimer(duration) {
             clearInterval(claimCountdown);
             let timer = duration, minutes, seconds;

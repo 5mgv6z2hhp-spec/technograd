@@ -313,9 +313,9 @@
             isSpinning = true; phoneInput.disabled = true; document.getElementById('slot-spin-btn').disabled = true;
             document.getElementById('slot-form-block').style.display = 'none'; document.getElementById('slot-waiting').style.display = 'block'; document.getElementById('slot-result').style.display = 'none';
 
-            // РАСЧЕТ ШАНСОВ: КОФЕ СТРОГО 1 ИЗ 50 (rand === 25)
-            const rand = Math.floor(Math.random() * 50) + 1; let p1, p2, p3;
-            if (rand === 25) { p1 = '☕'; p2 = '☕'; p3 = '☕'; } 
+                       // РАСЧЕТ ШАНСОВ: КОФЕ СТРОГО 5% (1 ИЗ 20). Выигрыш, если rand === 20
+            const rand = Math.floor(Math.random() * 20) + 1; let p1, p2, p3;
+            if (rand === 20) { p1 = '☕'; p2 = '☕'; p3 = '☕'; } 
             else {
                 const checkTime = new Date(); const currentHour = checkTime.getHours();
                 let subRand = Math.floor(Math.random() * 5);
@@ -329,6 +329,7 @@
                 else if (subRand === 3) { p1 = '🔧'; p2 = '🔧'; p3 = '🔧'; } 
                 else { p1 = icons[Math.floor(Math.random() * 3)]; p2 = icons[Math.floor(Math.random() * 3) + 3]; p3 = icons[Math.floor(Math.random() * 2) + 1]; }
             }
+
 
             let timeLeft = 12; const timerElement = document.getElementById('slot-timer');
             const countdown = setInterval(function() { timeLeft--; timerElement.innerText = timeLeft; if (timeLeft <= 0) clearInterval(countdown); }, 1000);

@@ -313,14 +313,14 @@
             isSpinning = true; phoneInput.disabled = true; document.getElementById('slot-spin-btn').disabled = true;
             document.getElementById('slot-form-block').style.display = 'none'; document.getElementById('slot-waiting').style.display = 'block'; document.getElementById('slot-result').style.display = 'none';
 
-                       // РАСЧЕТ ШАНСОВ: КОФЕ СТРОГО 5% (1 ИЗ 20). Выигрыш, если rand === 20
-            const rand = Math.floor(Math.random() * 20) + 1; let p1, p2, p3;
-            if (rand === 20) { p1 = '☕'; p2 = '☕'; p3 = '☕'; } 
+                                  // РАСЧЕТ ШАНСОВ: КОФЕ СТРОГО 15% (ПРИМЕРНО 1 ИЗ 7). Выигрыш, если rand === 7
+            const rand = Math.floor(Math.random() * 7) + 1; let p1, p2, p3;
+            if (rand === 7) { p1 = '☕'; p2 = '☕'; p3 = '☕'; } 
             else {
                 const checkTime = new Date(); const currentHour = checkTime.getHours();
                 let subRand = Math.floor(Math.random() * 5);
                 
-                // Ключевое условие: Волшебный пендель выпадает строго с 09:00 до 18:00
+                // Ключевое условие: Волшебный пендель выпадает строго с 09:00 до 18:00 [index]
                 if (currentHour < 9 || currentHour >= 18) { subRand = Math.floor(Math.random() * 4) + 1; } 
 
                 if (subRand === 0) { p1 = '🥾'; p2 = '🥾'; p3 = '🥾'; }       

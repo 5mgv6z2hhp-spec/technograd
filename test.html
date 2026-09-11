@@ -20,8 +20,7 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/111611223" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-</head>
-<body>
+
     <style>
         /* === СТИЛИ ИГРОВОГО ИНТЕРФЕЙСА СЛОТ-МАШИНЫ === */
         :root { --primary: #0f172a; --accent: #22c55e; --orange: #b45309; --light: #f8fafc; }
@@ -304,76 +303,14 @@
 
 
             // БЛОКИРОВКА УСТРОЙСТВА НА 1 ЧАС ОТ НАКРУТОК
-            const lastPlay = localStorage.getItem('slot_device_last_play'); const now = Date.now(); const oneHour = 60 * 60 * 1000;
-            if (lastPlay && (now - lastPlay < oneHour)) {
-                const minutesLeft = Math.ceil((oneHour - (now - lastPlay)) / 60 / 1000);
-                alert('Повар Николай накладывает вето! С этого смартфона уже крутили барабан. Попытка доступна раз в час. Осталось ждать: ' + minutesLeft + ' мин.'); return;
-            }
-
-            localStorage.setItem('slot_device_last_play', now.toString());
+           
+           
             isSpinning = true; phoneInput.disabled = true; document.getElementById('slot-spin-btn').disabled = true;
             document.getElementById('slot-form-block').style.display = 'none'; document.getElementById('slot-waiting').style.display = 'block'; document.getElementById('slot-result').style.display = 'none';
 
-                      // РАСЧЕТ ШАНСОВ: КОФЕ СТРОГО 15% ДЛЯ ТЕСТА (1 ИЗ 7). Выигрыш, если rand === 7
-        const rand = 7; let p1, p2, p3;
-        if (rand === 7) { 
-            p1 = '☕'; p2 = '☕'; p3 = '☕'; 
-            
-            // Включаем отображение кнопки начисления на победном экране
-            setTimeout(() => {
-                const winBox = document.getElementById('win-box');
-                if (winBox) {
-                    // Создаем красивую кнопку зачисления внутри окна джекпота
-                    const creditBtn = document.createElement('button');
-                    creditBtn.innerText = '💳 НАЧИСЛИТЬ 60 РУБЛЕЙ НА АВТОМАТ';
-                    creditBtn.style.width = '100%';
-                    creditBtn.style.padding = '15px';
-                    creditBtn.style.marginTop = '15px';
-                    creditBtn.style.backgroundColor = '#28a745';
-                    creditBtn.style.color = '#fff';
-                    creditBtn.style.border = 'none';
-                    creditBtn.style.borderRadius = '5px';
-                    creditBtn.style.fontWeight = 'bold';
-                    creditBtn.style.cursor = 'pointer';
-                    creditBtn.style.fontSize = '16px';
-                    
-                    // Логика нажатия на кнопку клиентом у автомата
-                    creditBtn.onclick = function() {
-                        creditBtn.innerText = '⏳ ЗАЧИСЛЕНИЕ...';
-                        creditBtn.disabled = true;
-                        creditBtn.style.backgroundColor = '#6c757d';
-                        
-                        const terminalId = "137348"; 
-                        const apiToken = "111da8bdc4a845bca7543467"; 
-                        
-                        fetch(`https://api.vendista.ru:99/terminals/137348/commands?token=${apiToken}`, { 
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                command_id: 1, // Команда начисления баланса по MDB
-                                parameter1: 6000 // 60 рублей (в копейках)
-                            })
-                        })
-                        .then(response => {
-                            creditBtn.innerText = '✅ БАЛАНС 60 РУБ НАЧИСЛЕН!';
-                            creditBtn.style.backgroundColor = '#17a2b8';
-                            console.log('Сигнал на зачисление 60 руб отправлен!');
-                        })
-                        .catch(err => {
-                            creditBtn.innerText = '❌ ОШИБКА СВЯЗИ';
-                            creditBtn.style.backgroundColor = '#dc3545';
-                            creditBtn.disabled = false;
-                            console.error('Ошибка связи с Вендистой:', err);
-                        });
-                    };
-                    
-                    // Вставляем кнопку перед кнопкой Закрыть окно
-                    winBox.insertBefore(creditBtn, winBox.lastElementChild);
-                }
-            }, 100);
-        }
-
-
+            // РАСЧЕТ ШАНСОВ: КОФЕ СТРОГО 1 ИЗ 50 (rand === 25)
+          const rand = 25;
+            if (rand === 25) { p1 = '☕'; p2 = '☕'; p3 = '☕'; } 
             else {
                 const checkTime = new Date(); const currentHour = checkTime.getHours();
                 let subRand = Math.floor(Math.random() * 5);
@@ -415,15 +352,14 @@
 
             let prizeName = 'Проигрыш';
 
-                   if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
-            document.getElementById('prize-coffee').style.display = 'block';
-            prizeName = "Бесплатный кофе";
-            startTimer(180);
-
-            // СОЗДАЕМ ЗЕЛЕНУЮ КНОПКУ ВЕНДИСТА ВНУТРИ ОКНА ВЫИГРЫША
-            const winBox = document.getElementById('prize-coffee');
+            if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
+                document.getElementById('prize-coffee').style.display = 'block';
+                prizeName = 'Бесплатный кофе';
+                startClaimTimer(180);
+             // СОЗДАЕМ ЗЕЛЕНУЮ КНОПКУ ВЕНДИСТА ВНУТРИ ОКНА ВЫИГРЫША
+            var winBox = document.getElementById('prize-coffee');
             if (winBox && !document.getElementById('vendista-credit-btn')) {
-                const creditBtn = document.createElement('button');
+                var creditBtn = document.createElement('button');
                 creditBtn.id = 'vendista-credit-btn';
                 creditBtn.innerText = '💳 НАЧИСЛИТЬ 60 РУБЛЕЙ НА АВТОМАТ';
                 creditBtn.style.width = '100%';
@@ -442,33 +378,26 @@
                     creditBtn.disabled = true;
                     creditBtn.style.backgroundColor = '#6c757d';
                     
-                    const terminalId = "137348"; 
-                    const apiToken = "111da8bdc4a845bca7543467"; 
-                    
-                    fetch(`https://api.vendista.ru:99/terminals/137348/commands?token=${apiToken}`, { 
+                    fetch('https://api.vendista.ru:99/terminals/137348/commands?token=111da8bdc4a845bca7543467', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            command_id: 1, // Команда начисления баланса по MDB
-                            parameter1: 6000 // 60 рублей (в копейках)
+                            command_id: 1,
+                            parameter1: 6000
                         })
                     })
-                    .then(response => {
+                    .then(function(res) {
                         creditBtn.innerText = '✅ БАЛАНС 60 РУБ НАЧИСЛЕН!';
                         creditBtn.style.backgroundColor = '#17a2b8';
-                        console.log('Сигнал на зачисление 60 руб отправлен!');
                     })
-                    .catch(err => {
+                    .catch(function(err) {
                         creditBtn.innerText = '❌ ОШИБКА СВЯЗИ';
                         creditBtn.style.backgroundColor = '#dc3545';
                         creditBtn.disabled = false;
-                        console.error('Ошибка связи с Вендистой:', err);
                     });
                 };
-                
                 winBox.appendChild(creditBtn);
             }
-        }
 
             } else if (p1 === '🥾' && p2 === '🥾' && p3 === '🥾') {
                 document.getElementById('prize-kick').style.display = 'block';
@@ -557,54 +486,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             generateSingleStory();
         });
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const phoneField = document.getElementById('slot-phone');
-        const spinButton = document.getElementById('slot-spin-btn');
-
-        if (phoneField && spinButton) {
-            // Очищаем старые привязки
-            phoneField.oninput = null;
-
-            // Живая маска на чистом JavaScript без внешних библиотек
-            phoneField.addEventListener('input', function(e) {
-                let input = phoneField.value.replace(/\D/g, ''); // Оставляем только цифры
-                
-                // Если пользователь стёр всё, оставляем плюс
-                if (!input) { phoneField.value = ''; spinButton.disabled = true; spinButton.style.opacity = '0.5'; return; }
-                
-                // Форматируем строку по маске +7 (999) 999-99-99
-                let formatted = '+7 ';
-                if (input.length > 1) {
-                    // Берём цифры после семерки
-                    let digits = input.startsWith('7') ? input.substring(1) : input;
-                    
-                    if (digits.length > 0) formatted += '(' + digits.substring(0, 3);
-                    if (digits.length > 3) formatted += ') ' + digits.substring(3, 6);
-                    if (digits.length > 6) formatted += '-' + digits.substring(6, 8);
-                    if (digits.length > 8) formatted += '-' + digits.substring(8, 10);
-                } else {
-                    formatted += input;
-                }
-                
-                phoneField.value = formatted;
-
-                // ПРОВЕРКА ПРАВИЛА: Если номер заполнен полностью (+7 + 10 цифр = 18 символов с пробелами и скобками)
-                if (phoneField.value.length === 18) {
-                    spinButton.disabled = false;
-                    spinButton.removeAttribute('disabled');
-                    spinButton.style.opacity = '1';
-                    spinButton.style.pointerEvents = 'auto';
-                } else {
-                    spinButton.disabled = true;
-                    spinButton.setAttribute('disabled', 'true');
-                    spinButton.style.opacity = '0.5';
-                    spinButton.style.pointerEvents = 'none';
-                }
-            });
-        }
-    });
-</script>
-
+    </script>
 </body>
 </html>

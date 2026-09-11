@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎰 Кофейный Экспресс — Розыгрыш призов у автомата!</title>
@@ -556,41 +557,30 @@
         document.addEventListener("DOMContentLoaded", function() {
             generateSingleStory();
         });
-  <script src="https://cdn.jsdelivr.net>/npm/inputmask@5.0.8/dist/inputmask.min.js"</script>
+ <script src="https://cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const phoneField = document.getElementById('slot-phone');
-        const spinButton = document.getElementById('slot-spin-btn');
-
-        if (phoneField && spinButton) {
-            // Отключаем старые конфликтующие функции на поле
-            phoneField.oninput = null;
-            phoneField.removeAttribute('oninput');
-
-            // Инициализируем маску ввода
-            const im = new Inputmask("+7 (999) 999-99-99", {
-                clearMaskOnLostFocus: false,
-                showMaskOnHover: false,
-                // Когда маска заполнена полностью (все 10 цифр на месте)
-                isComplete: function(buffer, opts) {
-                    spinButton.disabled = false;
-                    spinButton.removeAttribute('disabled');
-                    spinButton.style.opacity = '1';
-                    spinButton.style.pointerEvents = 'auto';
-                },
-                // Если пользователь стёр цифры и номер неполный
-                onincomplete: function() {
-                    spinButton.disabled = true;
-                    spinButton.setAttribute('disabled', 'true');
-                    spinButton.style.opacity = '0.5';
-                }
-            });
-            
-            // Активируем маску на поле
-            im.mask(phoneField);
-        }
+    $(document).ready(function() {
+        // Жестко привязываем маску к полю через стандартный синтаксис jQuery
+        $('#slot-phone').inputmask("+7 (999) 999-99-99", {
+            clearMaskOnLostFocus: false,
+            showMaskOnHover: false,
+            // Как только пользователь вбил все 10 цифр
+            isComplete: function(buffer, opts) {
+                $('#slot-spin-btn').prop('disabled', false).css({
+                    'opacity': '1',
+                    'pointer-events': 'auto'
+                });
+            },
+            // Если номер неполный или цифры стерты
+            onincomplete: function() {
+                $('#slot-spin-btn').prop('disabled', true).css({
+                    'opacity': '0.5'
+                });
+            }
+        });
     });
 </script>
+
 
 </body>
 </html>

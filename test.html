@@ -558,8 +558,15 @@
         });
   <script src="https://cdn.jsdelivr.net>/npm/inputmask@5.0.8/dist/inputmask.min.js"</script>
 <script>
-    Inputmask("+7 (999) 999-99-99").mask(document.getElementById('slot-phone'));
+    // Стираем старый конфликтующий обработчик ввода
+    const el = document.getElementById('slot-phone');
+    if (el) {
+        el.oninput = null; // Отключаем formatPhone
+        // Накатываем новую правильную маску со скобками
+        Inputmask("+7 (999) 999-99-99").mask(el);
+    }
 </script>
+
 
 </body>
 </html>

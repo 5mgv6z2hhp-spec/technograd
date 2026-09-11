@@ -558,15 +558,39 @@
         });
   <script src="https://cdn.jsdelivr.net>/npm/inputmask@5.0.8/dist/inputmask.min.js"</script>
 <script>
-    // Стираем старый конфликтующий обработчик ввода
-    const el = document.getElementById('slot-phone');
-    if (el) {
-        el.oninput = null; // Отключаем formatPhone
-        // Накатываем новую правильную маску со скобками
-        Inputmask("+7 (999) 999-99-99").mask(el);
-    }
-</script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const phoneField = document.getElementById('slot-phone');
+        const spinButton = document.getElementById('slot-spin-btn');
 
+        if (phoneField && spinButton) {
+            // Отключаем старые конфликтующие функции на поле
+            phoneField.oninput = null;
+            phoneField.removeAttribute('oninput');
+
+            // Инициализируем маску ввода
+            const im = new Inputmask("+7 (999) 999-99-99", {
+                clearMaskOnLostFocus: false,
+                showMaskOnHover: false,
+                // Когда маска заполнена полностью (все 10 цифр на месте)
+                isComplete: function(buffer, opts) {
+                    spinButton.disabled = false;
+                    spinButton.removeAttribute('disabled');
+                    spinButton.style.opacity = '1';
+                    spinButton.style.pointerEvents = 'auto';
+                },
+                // Если пользователь стёр цифры и номер неполный
+                onincomplete: function() {
+                    spinButton.disabled = true;
+                    spinButton.setAttribute('disabled', 'true');
+                    spinButton.style.opacity = '0.5';
+                }
+            });
+            
+            // Активируем маску на поле
+            im.mask(phoneField);
+        }
+    });
+</script>
 
 </body>
 </html>

@@ -414,10 +414,61 @@
 
             let prizeName = 'Проигрыш';
 
-            if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
-                document.getElementById('prize-coffee').style.display = 'block';
-                prizeName = 'Бесплатный кофе';
-                startClaimTimer(180); 
+                   if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
+            document.getElementById('prize-coffee').style.display = 'block';
+            prizeName = "Бесплатный кофе";
+            startTimer(180);
+
+            // СОЗДАЕМ ЗЕЛЕНУЮ КНОПКУ ВЕНДИСТА ВНУТРИ ОКНА ВЫИГРЫША
+            const winBox = document.getElementById('prize-coffee');
+            if (winBox && !document.getElementById('vendista-credit-btn')) {
+                const creditBtn = document.createElement('button');
+                creditBtn.id = 'vendista-credit-btn';
+                creditBtn.innerText = '💳 НАЧИСЛИТЬ 60 РУБЛЕЙ НА АВТОМАТ';
+                creditBtn.style.width = '100%';
+                creditBtn.style.padding = '15px';
+                creditBtn.style.marginTop = '15px';
+                creditBtn.style.backgroundColor = '#28a745';
+                creditBtn.style.color = '#fff';
+                creditBtn.style.border = 'none';
+                creditBtn.style.borderRadius = '5px';
+                creditBtn.style.fontWeight = 'bold';
+                creditBtn.style.cursor = 'pointer';
+                creditBtn.style.fontSize = '16px';
+                
+                creditBtn.onclick = function() {
+                    creditBtn.innerText = '⏳ ЗАЧИСЛЕНИЕ...';
+                    creditBtn.disabled = true;
+                    creditBtn.style.backgroundColor = '#6c757d';
+                    
+                    const terminalId = "137348"; 
+                    const apiToken = "111da8bdc4a845bca7543467"; 
+                    
+                    fetch(`https://api.vendista.ru:99/terminals/137348/commands?token=${apiToken}`, { 
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            command_id: 1, // Команда начисления баланса по MDB
+                            parameter1: 6000 // 60 рублей (в копейках)
+                        })
+                    })
+                    .then(response => {
+                        creditBtn.innerText = '✅ БАЛАНС 60 РУБ НАЧИСЛЕН!';
+                        creditBtn.style.backgroundColor = '#17a2b8';
+                        console.log('Сигнал на зачисление 60 руб отправлен!');
+                    })
+                    .catch(err => {
+                        creditBtn.innerText = '❌ ОШИБКА СВЯЗИ';
+                        creditBtn.style.backgroundColor = '#dc3545';
+                        creditBtn.disabled = false;
+                        console.error('Ошибка связи с Вендистой:', err);
+                    });
+                };
+                
+                winBox.appendChild(creditBtn);
+            }
+        }
+
             } else if (p1 === '🥾' && p2 === '🥾' && p3 === '🥾') {
                 document.getElementById('prize-kick').style.display = 'block';
                 prizeName = 'Пендель от Николая';

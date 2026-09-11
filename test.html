@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎰 Кофейный Экспресс — Розыгрыш призов у автомата!</title>
@@ -21,7 +20,8 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/111611223" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-
+</head>
+<body>
     <style>
         /* === СТИЛИ ИГРОВОГО ИНТЕРФЕЙСА СЛОТ-МАШИНЫ === */
         :root { --primary: #0f172a; --accent: #22c55e; --orange: #b45309; --light: #f8fafc; }
@@ -557,30 +557,54 @@
         document.addEventListener("DOMContentLoaded", function() {
             generateSingleStory();
         });
- <script src="https://cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
 <script>
-    $(document).ready(function() {
-        // Жестко привязываем маску к полю через стандартный синтаксис jQuery
-        $('#slot-phone').inputmask("+7 (999) 999-99-99", {
-            clearMaskOnLostFocus: false,
-            showMaskOnHover: false,
-            // Как только пользователь вбил все 10 цифр
-            isComplete: function(buffer, opts) {
-                $('#slot-spin-btn').prop('disabled', false).css({
-                    'opacity': '1',
-                    'pointer-events': 'auto'
-                });
-            },
-            // Если номер неполный или цифры стерты
-            onincomplete: function() {
-                $('#slot-spin-btn').prop('disabled', true).css({
-                    'opacity': '0.5'
-                });
-            }
-        });
+    document.addEventListener("DOMContentLoaded", function() {
+        const phoneField = document.getElementById('slot-phone');
+        const spinButton = document.getElementById('slot-spin-btn');
+
+        if (phoneField && spinButton) {
+            // Очищаем старые привязки
+            phoneField.oninput = null;
+
+            // Живая маска на чистом JavaScript без внешних библиотек
+            phoneField.addEventListener('input', function(e) {
+                let input = phoneField.value.replace(/\D/g, ''); // Оставляем только цифры
+                
+                // Если пользователь стёр всё, оставляем плюс
+                if (!input) { phoneField.value = ''; spinButton.disabled = true; spinButton.style.opacity = '0.5'; return; }
+                
+                // Форматируем строку по маске +7 (999) 999-99-99
+                let formatted = '+7 ';
+                if (input.length > 1) {
+                    // Берём цифры после семерки
+                    let digits = input.startsWith('7') ? input.substring(1) : input;
+                    
+                    if (digits.length > 0) formatted += '(' + digits.substring(0, 3);
+                    if (digits.length > 3) formatted += ') ' + digits.substring(3, 6);
+                    if (digits.length > 6) formatted += '-' + digits.substring(6, 8);
+                    if (digits.length > 8) formatted += '-' + digits.substring(8, 10);
+                } else {
+                    formatted += input;
+                }
+                
+                phoneField.value = formatted;
+
+                // ПРОВЕРКА ПРАВИЛА: Если номер заполнен полностью (+7 + 10 цифр = 18 символов с пробелами и скобками)
+                if (phoneField.value.length === 18) {
+                    spinButton.disabled = false;
+                    spinButton.removeAttribute('disabled');
+                    spinButton.style.opacity = '1';
+                    spinButton.style.pointerEvents = 'auto';
+                } else {
+                    spinButton.disabled = true;
+                    spinButton.setAttribute('disabled', 'true');
+                    spinButton.style.opacity = '0.5';
+                    spinButton.style.pointerEvents = 'none';
+                }
+            });
+        }
     });
 </script>
-
 
 </body>
 </html>

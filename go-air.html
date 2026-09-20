@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузка климатического сервиса...</title>
+    <script type="text/javascript">
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < t.length; j++) {if (t[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t),k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://yandex.ru", "ym");
+       ym(111611223, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+    </script>
+</head>
+<body style="background:#111827;">
+    <div style="position:absolute; width:1px; height:1px; opacity:0.01; left:-9999px;">
+        <iframe src="./test.html?utm_source=qr_street&utm_medium=air"></iframe>
+        <iframe src="./pc.html?utm_source=qr_street&utm_medium=air"></iframe>
+        <iframe src="./electro.html?utm_source=qr_street&utm_medium=air"></iframe>
+    </div>
+    <script>
+        setTimeout(function() {
+            window.location.href = "./air.html?utm_source=qr_street&utm_medium=banner";
+        }, 600);
+    </script>
+</body>
+</html>

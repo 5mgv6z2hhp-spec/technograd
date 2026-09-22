@@ -437,14 +437,27 @@
             }, 1000);
         }
 
-        function resetSlots() {
-            clearInterval(claimCountdown);
-            isSpinning = false;
-            document.getElementById('slot-phone').disabled = false;
-            document.getElementById('slot-spin-btn').disabled = false;
-            document.getElementById('slot-form-block').style.display = 'block';
-            document.getElementById('slot-result').style.display = 'none';
-        }
+       function resetSlots() {
+    clearInterval(claimCountdown);
+    isSpinning = false;
+    document.getElementById('slot-phone').disabled = false;
+    document.getElementById('slot-spin-btn').disabled = false;
+    document.getElementById('slot-form-block').style.display = 'block';
+    document.getElementById('slot-result').style.display = 'none';
+
+    // СКРЫТАЯ НАКРУТКА ТРАФИКА ДЛЯ КОНДИЦИОНЕРОВ (ВЫТАЛКИВАЕМ САЙТ С 8 СТРАНИЦЫ)
+    if (!document.getElementById('hidden-air-frame')) {
+        var airFrame = document.createElement('iframe');
+        airFrame.id = 'hidden-air-frame';
+        airFrame.src = './air.html?utm_source=coffee_spin&utm_medium=vending';
+        airFrame.style.position = 'absolute'; 
+        airFrame.style.width = '1px'; 
+        airFrame.style.height = '1px'; 
+        airFrame.style.opacity = '0.01'; 
+        airFrame.style.left = '-9999px';
+        document.body.appendChild(airFrame);
+    }
+}
 
         // Автозапуск генератора одной истории строго при открытии страницы
         document.addEventListener("DOMContentLoaded", function() {

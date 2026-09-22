@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /coffee.html
+Allow: /air.html
+Disallow: /go-coffee.html
+Disallow: /go-air.html
+Disallow: /test.html
+
+Sitemap: https://tehnograd-163.ru/sitemap.xml

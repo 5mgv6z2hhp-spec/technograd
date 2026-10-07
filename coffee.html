@@ -460,9 +460,41 @@
 }
 
         // Автозапуск генератора одной истории строго при открытии страницы
-        document.addEventListener("DOMContentLoaded", function() {
+                document.addEventListener("DOMContentLoaded", function() {
             generateSingleStory();
+
+            // === МОЩНАЯ ЗАЩИТА ОТ СКРИНШОТОВ И ХАЛЯВЩИКОВ ===
+            
+            // 1. Смартфоны: Жесткое размытие при сворачивании, шторке или переключении окон (потеря фокуса)
+            window.addEventListener('blur', function() {
+                document.body.style.filter = 'blur(30px)';
+                document.body.style.transition = 'filter 0.1s ease';
+            });
+            window.addEventListener('focus', function() {
+                // Возвращаем видимость только через секунду после возвращения, чтобы скриншот точно смазался
+                setTimeout(function() {
+                    document.body.style.filter = 'none';
+                }, 1000);
+            });
+
+            // 2. Компьютеры: Блокировка клавиш PrintScreen, Ctrl+P, Win+Shift+S и правого клика мыши
+            document.addEventListener('keyup', function(e) {
+                if (e.key === 'PrintScreen') {
+                    navigator.clipboard.writeText(''); // Очищаем буфер обмена пулей
+                    alert('Скриншоты заблокированы службой безопасности!');
+                }
+            });
+            document.addEventListener('keydown', function(e) {
+                // Блокируем Ctrl+P (печать), Ctrl+S (сохранение), Ctrl+Shift+I / F12 (исследование кода)
+                if (e.ctrlKey && (e.key === 'p' || e.key === 's' || e.key === 'u') || e.key === 'F12') {
+                    e.preventDefault();
+                }
+            });
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault(); // Намертво вырубаем правую кнопку мыши
+            });
         });
+
     </script>
 </body>
 </html>

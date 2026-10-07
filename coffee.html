@@ -23,7 +23,25 @@
 
 
     <style>
-        /* === СТИЛИ ИГРОВОГО ИНТЕРФЕЙСА СЛОТ-МАШИНЫ === */
+        #security-timer-block {
+    margin: 15px auto;
+    padding: 10px;
+    background: rgba(2, 132, 199, 0.1);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    max-width: 280px;
+    text-align: center;
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 14px;
+}
+#security-time {
+    font-size: 16px;
+    color: var(--orange);
+    display: block;
+    margin-top: 4px;
+}
+       /* === СТИЛИ ИГРОВОГО ИНТЕРФЕЙСА СЛОТ-МАШИНЫ === */
         :root { --primary: #0f172a; --accent: #22c55e; --orange: #b45309; --light: #f8fafc; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
         body { background: #1e2030; color: #fff; text-align: center; padding: 20px 10px; }
@@ -80,6 +98,15 @@
             <div id="reel2" class="reel">🫘</div>
             <div id="reel3" class="reel">⚙️</div>
         </div>
+        </div>
+        
+        <!-- Динамический маркер безопасности для борьбы со старыми скриншотами -->
+        <div id="security-timer-block">
+            🔐 СЛУЖБА БЕЗОПАСНОСТИ АВТОМАТА
+            <span id="security-time">Загрузка времени...</span>
+        </div>
+
+        <!-- БЛОК ДЛЯ СТРАШНЫХ КОФЕЙНЫХ ИСТОРИЙ -->
 
         <!-- БЛОК ДЛЯ СЛУЧАЙНЫХ КОФЕЙНЫХ БАЕК И ИСТОРИЙ -->
         <div id="coffee-stories-box" style="margin: 15px 0 20px 0; min-height: 70px; background: rgba(31, 41, 55, 0.6); padding: 12px; border-radius: 8px; border-left: 4px solid #b45309; text-align: left;">
@@ -462,6 +489,20 @@
         // Автозапуск генератора одной истории строго при открытии страницы
                 document.addEventListener("DOMContentLoaded", function() {
             generateSingleStory();
+        // 3. Динамический маркер времени и даты секунда в секунду
+        function updateSecurityTime() {
+            const now = new Date();
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const dateStr = now.toLocaleDateString('ru-RU', options);
+            const timeStr = now.toLocaleTimeString('ru-RU');
+            
+            const targetBlock = document.getElementById('security-time');
+            if (targetBlock) {
+                targetBlock.innerText = dateStr + ' ' + timeStr;
+            }
+        }
+        updateSecurityTime();
+        setInterval(updateSecurityTime, 1000); // Перерисовываем каждую секунду намертво
 
             // === МОЩНАЯ ЗАЩИТА ОТ СКРИНШОТОВ И ХАЛЯВЩИКОВ ===
             

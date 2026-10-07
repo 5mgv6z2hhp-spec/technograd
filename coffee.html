@@ -341,9 +341,9 @@
             isSpinning = true; phoneInput.disabled = true; document.getElementById('slot-spin-btn').disabled = true;
             document.getElementById('slot-form-block').style.display = 'none'; document.getElementById('slot-waiting').style.display = 'block'; document.getElementById('slot-result').style.display = 'none';
 
-                                  // РАСЧЕТ ШАНСОВ: КОФЕ СТРОГО 15% (ПРИМЕРНО 1 ИЗ 7). Выигрыш, если rand === 7
-            const rand = Math.floor(Math.random() * 7) + 1; let p1, p2, p3;
-            if (rand === 7) { p1 = '☕'; p2 = '☕'; p3 = '☕'; } 
+                                          // РАСЧЕТ ШАНСОВ: СТРОГО 10% (РОВНО 1 ИЗ 10). Выигрыш, если rand === 10
+        const rand = Math.floor(Math.random() * 10) + 1;
+        if (rand === 10) { p1 = '☕'; p2 = '☕'; p3 = '☕'; } 
             else {
                 const checkTime = new Date(); const currentHour = checkTime.getHours();
                 let subRand = Math.floor(Math.random() * 5);

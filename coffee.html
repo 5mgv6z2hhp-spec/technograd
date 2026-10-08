@@ -403,7 +403,7 @@
         }
        // Функция распределения призов и вывода экранов результатов
 function showPrizeScreen(p1, p2, p3, phone) {
-    // Скрываем все экраны результатов перед выводом нового приза
+    // 1. Скрываем вообще все экраны результатов
     document.getElementById('prize-coffee').style.display = 'none';
     document.getElementById('prize-kick').style.display = 'none';
     document.getElementById('prize-magister').style.display = 'none';
@@ -411,86 +411,91 @@ function showPrizeScreen(p1, p2, p3, phone) {
     document.getElementById('prize-choco').style.display = 'none';
     document.getElementById('prize-lose').style.display = 'none';
 
-    // Скрываем маркетинговую кнопку по умолчанию
+    // 2. Скрываем и очищаем прошлую маркетинговую кнопку
     let actionBtn = document.getElementById('promo-action-btn');
     if (actionBtn) actionBtn.style.display = "none";
 
     let prizeName = 'Проигрыш';
-    let activeBlockId = 'prize-lose'; // По умолчанию блок проигрыша
+    let activeBlockId = 'prize-lose'; // По умолчанию выводим в общее текстовое поле
 
-    // 1. Проверка на БЕСПЛАТНЫЙ КОФЕ
+    // ==========================================
+    // ПРОВЕРКА КОМБИНАЦИЙ И ССЫЛОК (СТРОГО 100%)
+    // ==========================================
+
+    // А) ГЛАВНЫЙ ВЫИГРЫШ: БЕСПЛАТНЫЙ КОФЕ
     if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
         activeBlockId = 'prize-coffee';
         prizeName = 'Бесплатный кофе';
-        startClaimTimer(180);
+        if (typeof startClaimTimer === 'function') startClaimTimer(180); // Оживляем таймер времени!
     } 
-    // 2. Проверка на Волшебный пендель
+    // Б) ИСТОРИЯ: Волшебный пендель от Николая
     else if (p1 === '🦶' && p2 === '💥' && p3 === '💨') {
         activeBlockId = 'prize-kick';
         prizeName = 'Пендель от Николая';
     } 
-    // 3. Проверка на Шоколадный взгляд
+    // В) ИСТОРИЯ: Шоколадный взгляд
     else if (p1 === '🥛' && p2 === '☕' && p3 === '🍫') {
         activeBlockId = 'prize-choco';
-        prizeName = 'Шоколадный взгляд Николая';
+        prizeName = 'Шоколадный взгляд';
     } 
-    // 4. Проверка на Кофейного магистра
+    // Г) ИСТОРИЯ: Кофейный магистр
     else if (p1 === '🧙‍♂️' && p2 === '✨' && p3 === '🔮') {
         activeBlockId = 'prize-magister';
         prizeName = 'Кофейный магистр';
     } 
-    // 5. Проверка на Бодрого прораба
+    // Д) ИСТОРИЯ: Бодрый прораб / Кофейный экспресс
     else if (p1 === '🏗️' && p2 === '☕' && p3 === '🛠️') {
-        activeBlockId = 'prize-repair'; // Используем блок ремонта или прораба
+        activeBlockId = 'prize-repair';
         prizeName = 'Бодрый прораб';
     }
-    // 6. НОВОЕ: Скидка 10% на установку кондиционера
+    // Е) МАРКЕТИНГ: Скидка 10% на УСТАНОВКУ КОНДИЦИОНЕРА (Ведёт строго на air.html!)
     else if (p1 === '❄️' && p2 === '❄️' && p3 === '🛠️') {
-        activeBlockId = 'prize-lose'; // Выводим в поле результатов
+        activeBlockId = 'prize-lose';
         prizeName = 'Скидка 10% на установку кондиционера';
-        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🚀 Использовать скидку на установку");
+        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🚀 Использовать скидку на установку кондиционера");
     } 
-    // 7. НОВОЕ: Скидка 5% на чистку кондиционера
+    // Ж) МАРКЕТИНГ: Скидка 5% на ЧИСТКУ КОНДИЦИОНЕРА (Ведёт строго на air.html!)
     else if (p1 === '❄️' && p2 === '🧼' && p3 === '💨') {
         activeBlockId = 'prize-lose';
         prizeName = 'Скидка 5% на чистку кондиционера';
-        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🚀 Перейти на сайт климата");
+        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🚀 Перейти на сайт чистки кондиционеров");
     } 
-    // 8. НОВОЕ: Скидка 10% на ремонт кофемашины
+    // З) МАРКЕТИНГ: Скидка 10% на РЕМОНТ КОФЕМАШИНЫ (Ведёт строго на главный сайт!)
     else if (p1 === '🔧' && p2 === '☕' && p3 === '⚙️') {
         activeBlockId = 'prize-lose';
         prizeName = 'Скидка 10% на ремонт кофемашины';
-        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🔧 Заказать ремонт со скидкой");
+        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🔧 Заказать ремонт кофемашины со скидкой");
     }
 
-    // Включаем нужный блок на экране
-    document.getElementById(activeBlockId).style.display = 'block';
+    // Включаем нужный текстовый экран
+    let targetBlock = document.getElementById(activeBlockId);
+    if (targetBlock) {
+        targetBlock.style.display = 'block';
+    }
 
-    // Отправка точной цели в Яндекс.Метрику
+    // Безопасная отправка в Яндекс.Метрику
     if (typeof ym !== 'undefined') {
         ym(98539243, 'reachGoal', 'wheel_spin_success', { prize: prizeName, phone: phone });
     }
 }
 
-// Вспомогательная функция для генерации кнопки строго внутри нужного поля результатов
+// Вспомогательная функция сборки кнопки (защищена от блокировок кода)
 function showPromoButton(parentId, url, text) {
     let btn = document.getElementById('promo-action-btn');
     if (!btn) {
         btn = document.createElement('a');
         btn.id = 'promo-action-btn';
-        btn.style = 'display:block; margin:15px auto 0; padding:12px; background:#b45309; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold; font-size:15px; max-width:260px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
+        btn.style = 'display:block; margin:15px auto 0; padding:12px; background:#b45309; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold; font-size:14px; max-width:280px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
     }
     btn.href = url;
     btn.innerText = text;
     btn.style.display = "block";
     
-    // Привязываем кнопку строго внутрь активного текстового блока выигрыша
-    const targetParent = document.getElementById(parentId);
-    if (targetParent) {
-        targetParent.appendChild(btn);
+    const parentContainer = document.getElementById(parentId);
+    if (parentContainer) {
+        parentContainer.appendChild(btn);
     }
 }
-
-    </script>
+</script>
 </body>
 </html>

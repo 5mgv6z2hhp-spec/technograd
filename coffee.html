@@ -341,23 +341,49 @@
             isSpinning = true; phoneInput.disabled = true; document.getElementById('slot-spin-btn').disabled = true;
             document.getElementById('slot-form-block').style.display = 'none'; document.getElementById('slot-waiting').style.display = 'block'; document.getElementById('slot-result').style.display = 'none';
 
-                                          // РАСЧЕТ ШАНСОВ: СТРОГО 10% (РОВНО 1 ИЗ 10). Выигрыш, если rand === 10
-        const rand = Math.floor(Math.random() * 10) + 1;
-        if (rand === 10) { p1 = '☕'; p2 = '☕'; p3 = '☕'; } 
-            else {
-                const checkTime = new Date(); const currentHour = checkTime.getHours();
-                let subRand = Math.floor(Math.random() * 5);
-                
-                // Ключевое условие: Волшебный пендель выпадает строго с 09:00 до 18:00 
-                if (currentHour < 9 || currentHour >= 18) { subRand = Math.floor(Math.random() * 4) + 1; } 
+                                                  // РАСЧЕТ ШАНСОВ: СТРОГО 5% (РОВНО 1 ИЗ 20). Выигрыш, если rand === 20
+                const rand = Math.floor(Math.random() * 20) + 1;
+        if (rand === 20) { 
+            // 1. БЕСПЛАТНЫЙ КОФЕ (5%)
+            p1 = '☕'; p2 = '☕'; p3 = '☕'; 
+        } else {
+            const checkTime = new Date();
+            const currentHour = checkTime.getHours();
+            
+            // Расширяем диапазон до 8, чтобы добавить 3 новые скидки к 5 старым призам!
+            let subRand = Math.floor(Math.random() * 8); 
 
-                if (subRand === 0) { p1 = '🥾'; p2 = '🥾'; p3 = '🥾'; }       
-                else if (subRand === 1) { p1 = '🍫'; p2 = '🍫'; p3 = '🍫'; } 
-                else if (subRand === 2) { p1 = '⚙️'; p2 = '⚙️'; p3 = '⚙️'; } 
-                else if (subRand === 3) { p1 = '🔧'; p2 = '🔧'; p3 = '🔧'; } 
-                else { p1 = icons[Math.floor(Math.random() * 3)]; p2 = icons[Math.floor(Math.random() * 3) + 3]; p3 = icons[Math.floor(Math.random() * 2) + 1]; }
+            // Ночью и вечером отключаем Волшебный пендель (0), сдвигая его на Кофейного магистра (1)
+            if ((currentHour < 9 || currentHour >= 18) && subRand === 0) { 
+                subRand = 1; 
             }
 
+            if (subRand === 0) { 
+                // СТАРОЕ: Волшебный пендель (~12% днем, 0% ночью)
+                p1 = '🦶'; p2 = '💥'; p3 = '💨'; 
+            } else if (subRand === 1) { 
+                // СТАРОЕ: Кофейный магистр (~12%)
+                p1 = '🧙‍♂️'; p2 = '✨'; p3 = '🔮'; 
+            } else if (subRand === 2) { 
+                // СТАРОЕ: Мастер Капучино (~12%)
+                p1 = '🥛'; p2 = '☕'; p3 = '🍫'; 
+            } else if (subRand === 3) { 
+                // СТАРОЕ: Бодрый Прораб (~12%)
+                p1 = '🏗️'; p2 = '☕'; p3 = '🛠️'; 
+            } else if (subRand === 4) {
+                // НОВОЕ: Скидка 10% на установку кондиционера (12.5%)
+                p1 = '❄️'; p2 = '❄️'; p3 = '🛠️';
+            } else if (subRand === 5) {
+                // НОВОЕ: Скидка 5% на чистку кондиционера (12.5%)
+                p1 = '❄️'; p2 = '🧼'; p3 = '💨';
+            } else if (subRand === 6) {
+                // НОВОЕ: Скидка 10% на ремонт кофемашины (12.5%)
+                p1 = '🔧'; p2 = '☕'; p3 = '⚙️';
+            } else { 
+                // СТАРОЕ: Пролёт (~12.5%)
+                p1 = '🧠'; p2 = '❓'; p3 = '✨'; 
+            }
+        }
 
             let timeLeft = 12; const timerElement = document.getElementById('slot-timer');
             const countdown = setInterval(function() { timeLeft--; timerElement.innerText = timeLeft; if (timeLeft <= 0) clearInterval(countdown); }, 1000);
@@ -383,6 +409,10 @@
             document.getElementById('prize-repair').style.display = 'none';
             document.getElementById('prize-choco').style.display = 'none';
             document.getElementById('prize-lose').style.display = 'none';
+                    // Скрываем маркетинговую кнопку по умолчанию
+        let actionBtn = document.getElementById('promo-action-btn');
+        if (actionBtn) actionBtn.style.display = "none";
+
 
             let prizeName = 'Проигрыш';
 
@@ -415,6 +445,39 @@
                 `;
                 loseContainer.style.display = 'block';
             }
+        // Проверка на новые скидки и включение кнопок перехода на сайты
+        if (p1 === '❄️' && p2 === '❄️' && p3 === '🛠️') {
+            prizeName = 'Скидка 10% на установку кондиционера';
+                        showPromoButton("https://" + "xn----7sbab3cjcead3a2b7b.xn--p1ai/air.html?utm_source=qr_vending&utm_medium=win_10_install", "🚀 Использовать скидку на установку");
+
+        } 
+        else if (p1 === '❄️' && p2 === '🧼' && p3 === '💨') {
+            prizeName = 'Скидка 5% на чистку кондиционера';
+                        showPromoButton("https://xn" + "----" + "7sbab3cjcead3a2b7b.xn--p1ai/air.html?utm_source=qr_vending&utm_medium=win_5_clean", "🚀 Перейти на сайт климата");
+
+        } 
+        else if (p1 === '🔧' && p2 === '☕' && p3 === '⚙️') {
+            prizeName = 'Скидка 10% на ремонт кофемашины';
+            showPromoButton("https://tehnograd-163.ru", "🔧 Заказать ремонт со скидкой");
+        }
+
+        // Вспомогательная функция для сборки и вывода кнопки на экран результатов
+        function showPromoButton(url, text) {
+            let btn = document.getElementById('promo-action-btn');
+            if (!btn) {
+                btn = document.createElement('a');
+                btn.id = 'promo-action-btn';
+                btn.style = 'display:block; margin:15px auto 0; padding:12px; background:#b45309; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold; font-size:15px; max-width:260px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
+                // Вставляем кнопку внутрь экрана результатов, где лежит текст выигрыша
+                const resultBlock = document.getElementById('slot-result') || document.getElementById('prize-lose');
+                if (resultBlock) {
+                    resultBlock.parentNode.appendChild(btn);
+                }
+            }
+            btn.href = url;
+            btn.innerText = text;
+            btn.style.display = "block";
+        }
 
             // Передача целей в Яндекс.Метрику счетчика 111611223
             if (typeof ym !== 'undefined') {

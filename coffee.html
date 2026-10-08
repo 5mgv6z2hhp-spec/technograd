@@ -469,19 +469,18 @@
         loseContainer.style.display = 'block';
         prizeName = 'Скидка 5% на чистку кондиционера';
 
-            } else {
-                // СБОРКА СЛУЧАЙНЫХ КУЛИНАРНЫХ ШУТОК ОТ НИКОЛАЯ
-                const randomPhrase = nikoPhrases[Math.floor(Math.random() * nikoPhrases.length)];
-                const randomMood = nikoMoods[Math.floor(Math.random() * nikoMoods.length)];
-                
+                       } else {
+                // ВЫВОД СЛУЧАЙНЫХ ШУТОК И КУЛИНАРНЫХ СТАТУСОВ НИКОЛАЯ НА ЭКРАН ТЕЛЕФОНА!
                 const loseContainer = document.getElementById('prize-lose');
-                loseContainer.innerHTML = `
-                    <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">Эх, комбинация не сошлась...</h3>
-                    <p style="font-size: 14px; line-height: 1.5; color: #9ca3af;">У повара Николая ЧП: <strong>${randomPhrase}</strong></p>
-                    <p style="font-size: 14px; line-height: 1.5; color: #fef08a; margin-top: 10px;">${randomMood}</p>
-                `;
-                loseContainer.style.display = 'block';
+                if (loseContainer) {
+                    loseContainer.innerHTML = `
+                        <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">✨ Результат прокрутки:</h3>
+                        <p style="font-size: 14px; line-height: 1.5; color: #fef08a; font-weight: bold; font-size: 16px;">${prizeName}</p>
+                    `;
+                    loseContainer.style.display = 'block';
+                }
             }
+
 
             // Передача целей в Яндекс.Метрику счетчика 111611223
             if (typeof ym !== 'undefined') {

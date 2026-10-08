@@ -469,18 +469,32 @@
         loseContainer.style.display = 'block';
         prizeName = 'Скидка 5% на чистку кондиционера';
 
-                       } else {
-                // ВЫВОД СЛУЧАЙНЫХ ШУТОК И КУЛИНАРНЫХ СТАТУСОВ НИКОЛАЯ НА ЭКРАН ТЕЛЕФОНА!
+                                 } else {
+                // ЖИВОЙ МАССИВ И ВЫВОД ФРАЗ НИКОЛАЯ НА ЭКРАН ТЕЛЕФОНА!
+                const losePhrases = [
+                    'Почти вышло! Кофемашина Николай подмигнула вам!',
+                    'Упс! Пендель Николая пролетел мимо, попробуйте ещё раз!',
+                    'Почти джекпот! Звёзды в Тольятти сегодня рекомендуют эспрессо!',
+                    'Магия кофе шепчет: "Повтори бросок, бро!"',
+                    'Николай задумался о рецепте идеального латте... Крутите ещё!',
+                    'Смайлики разбежались, но Николай верит в ваш успех!'
+                ];
+                
+                // Если имя приза не долетело сверху, берем случайную фразу Николая
+                let finalDisplay = prizeName;
+                if (!finalDisplay || finalDisplay === 'Проигрыш') {
+                    finalDisplay = losePhrases[Math.floor(Math.random() * losePhrases.length)];
+                }
+
                 const loseContainer = document.getElementById('prize-lose');
                 if (loseContainer) {
                     loseContainer.innerHTML = `
                         <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">✨ Результат прокрутки:</h3>
-                        <p style="font-size: 14px; line-height: 1.5; color: #fef08a; font-weight: bold; font-size: 16px;">${prizeName}</p>
+                        <p style="font-size: 14px; line-height: 1.5; color: #fef08a; font-weight: bold; font-size: 16px;">${finalDisplay}</p>
                     `;
                     loseContainer.style.display = 'block';
                 }
             }
-
 
             // Передача целей в Яндекс.Метрику счетчика 111611223
             if (typeof ym !== 'undefined') {

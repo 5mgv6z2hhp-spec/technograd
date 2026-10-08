@@ -341,22 +341,46 @@
             isSpinning = true; phoneInput.disabled = true; document.getElementById('slot-spin-btn').disabled = true;
             document.getElementById('slot-form-block').style.display = 'none'; document.getElementById('slot-waiting').style.display = 'block'; document.getElementById('slot-result').style.display = 'none';
 
-                                  // РАСЧЕТ ШАНСОВ: КОФЕ СТРОГО 5% (ПРИМЕРНО 1 ИЗ 20). Выигрыш, если rand === 7
-            const rand = Math.floor(Math.random() * 20) + 1; let p1, p2, p3;
-            if (rand === 20) { p1 = '☕'; p2 = '☕'; p3 = '☕'; } 
-            else {
-                const checkTime = new Date(); const currentHour = checkTime.getHours();
-                let subRand = Math.floor(Math.random() * 5);
-                
-                // Ключевое условие: Волшебный пендель выпадает строго с 09:00 до 18:00 [index]
-                           if (currentHour < 9 || currentHour >= 18) { if (subRand === 0) subRand = 1; } else { if (subRand === 0 && Math.floor(Math.random() * 4) !== 0) subRand = 4; } 
-
-                if (subRand === 0) { p1 = '🥾'; p2 = '🥾'; p3 = '🥾'; }       
-                else if (subRand === 1) { p1 = '🍫'; p2 = '🍫'; p3 = '🍫'; } 
-                else if (subRand === 2) { p1 = '⚙️'; p2 = '⚙️'; p3 = '⚙️'; } 
-                else if (subRand === 3) { p1 = '🔧'; p2 = '🔧'; p3 = '🔧'; } 
-                else { p1 = icons[Math.floor(Math.random() * 3)]; p2 = icons[Math.floor(Math.random() * 3) + 3]; p3 = icons[Math.floor(Math.random() * 2) + 1]; }
+                                          // ТОЧНЫЙ РАСЧЕТ ШАНСОВ ИЗ 100 ВАРИАНТОВ (КОФЕ И КЛИМАТ СТРОГО ПО 5%)
+        const rand = Math.floor(Math.random() * 100) + 1;
+        const checkTime = new Date();
+        const currentHour = checkTime.getHours();
+        
+        if (rand <= 5) {
+            // 1. ГЛАВНЫЙ ДЖЕКПОТ: БЕСПЛАТНЫЙ КОФЕ (СТРОГО 5%)
+            p1 = '☕'; p2 = '☕'; p3 = '☕';
+        } else if (rand > 5 && rand <= 10) {
+            // 2. ИСТОРИЯ: Волшебный пендель (5% днем, 0% ночью с 18:00 до 09:00)
+            if (currentHour < 9 || currentHour >= 18) {
+                // Ночью превращаем Пендель в Кофейного магистра
+                p1 = '🧙‍♂️'; p2 = '✨'; p3 = '🔮';
+            } else {
+                p1 = '🦶'; p2 = '💥'; p3 = '💨';
             }
+        } else if (rand > 10 && rand <= 15) {
+            // 3. БИЗНЕС-ВЫИГРЫШ: 3 СНЕЖИНКИ (СТРОГО 5% — Скидка 10% на установку кондиционера)
+            p1 = '❄️'; p2 = '❄️'; p3 = '❄️';
+        } else if (rand > 15 && rand <= 20) {
+            // 4. БИЗНЕС-ВЫИГРЫШ: СНЕЖИНКА-КЛЮЧ-СНЕЖИНКА (СТРОГО 5% — Скидка 5% на чистку)
+            p1 = '❄️'; p2 = '🔧'; p3 = '❄️';
+        } else if (rand > 20 && rand <= 25) {
+            // 5. ИСТОРИЯ: Кофейный магистр (5%)
+            p1 = '🧙‍♂️'; p2 = '✨'; p3 = '🔮';
+        } else if (rand > 25 && rand <= 30) {
+            // 6. ИСТОРИЯ: Шоколадный взгляд (5%)
+            p1 = '🥛'; p2 = '☕'; p3 = '🍫';
+        } else if (rand > 30 && rand <= 35) {
+            // 7. ИСТОРИЯ: Бодрый прораб (5%)
+            p1 = '🏗️'; p2 = '☕'; p3 = '🛠️';
+        } else if (rand > 35 && rand <= 55) {
+            // 8. ВЕСЕЛЫЕ ИСТОРИИ НИКОЛАЯ (20% — Случайные байки из массива nikoPhrases)
+            p1 = '👨‍🍳'; p2 = '☕'; p3 = '📜';
+        } else {
+            // 9. ОБЫЧНЫЙ ПРОИГРЫШ (45% — Комбинация не сошлась)
+            p1 = icons[Math.floor(Math.random() * 3)];
+            p2 = icons[Math.floor(Math.random() * 3) + 3];
+            p3 = icons[Math.floor(Math.random() * 2) + 1];
+        }
 
 
             let timeLeft = 12; const timerElement = document.getElementById('slot-timer');

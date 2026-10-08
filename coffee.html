@@ -341,49 +341,23 @@
             isSpinning = true; phoneInput.disabled = true; document.getElementById('slot-spin-btn').disabled = true;
             document.getElementById('slot-form-block').style.display = 'none'; document.getElementById('slot-waiting').style.display = 'block'; document.getElementById('slot-result').style.display = 'none';
 
-                                                  // РАСЧЕТ ШАНСОВ: СТРОГО 5% (РОВНО 1 ИЗ 20). Выигрыш, если rand === 20
-                const rand = Math.floor(Math.random() * 20) + 1;
-        if (rand === 20) { 
-            // 1. БЕСПЛАТНЫЙ КОФЕ (5%)
-            p1 = '☕'; p2 = '☕'; p3 = '☕'; 
-        } else {
-            const checkTime = new Date();
-            const currentHour = checkTime.getHours();
-            
-            // Расширяем диапазон до 8, чтобы добавить 3 новые скидки к 5 старым призам!
-            let subRand = Math.floor(Math.random() * 8); 
+                                  // РАСЧЕТ ШАНСОВ: КОФЕ СТРОГО 15% (ПРИМЕРНО 1 ИЗ 7). Выигрыш, если rand === 7
+            const rand = Math.floor(Math.random() * 7) + 1; let p1, p2, p3;
+            if (rand === 7) { p1 = '☕'; p2 = '☕'; p3 = '☕'; } 
+            else {
+                const checkTime = new Date(); const currentHour = checkTime.getHours();
+                let subRand = Math.floor(Math.random() * 5);
+                
+                // Ключевое условие: Волшебный пендель выпадает строго с 09:00 до 18:00 [index]
+                if (currentHour < 9 || currentHour >= 18) { subRand = Math.floor(Math.random() * 4) + 1; } 
 
-            // Ночью и вечером отключаем Волшебный пендель (0), сдвигая его на Кофейного магистра (1)
-            if ((currentHour < 9 || currentHour >= 18) && subRand === 0) { 
-                subRand = 1; 
+                if (subRand === 0) { p1 = '🥾'; p2 = '🥾'; p3 = '🥾'; }       
+                else if (subRand === 1) { p1 = '🍫'; p2 = '🍫'; p3 = '🍫'; } 
+                else if (subRand === 2) { p1 = '⚙️'; p2 = '⚙️'; p3 = '⚙️'; } 
+                else if (subRand === 3) { p1 = '🔧'; p2 = '🔧'; p3 = '🔧'; } 
+                else { p1 = icons[Math.floor(Math.random() * 3)]; p2 = icons[Math.floor(Math.random() * 3) + 3]; p3 = icons[Math.floor(Math.random() * 2) + 1]; }
             }
 
-            if (subRand === 0) { 
-                // СТАРОЕ: Волшебный пендель (~12% днем, 0% ночью)
-                p1 = '🦶'; p2 = '💥'; p3 = '💨'; 
-            } else if (subRand === 1) { 
-                // СТАРОЕ: Кофейный магистр (~12%)
-                p1 = '🧙‍♂️'; p2 = '✨'; p3 = '🔮'; 
-            } else if (subRand === 2) { 
-                // СТАРОЕ: Мастер Капучино (~12%)
-                p1 = '🥛'; p2 = '☕'; p3 = '🍫'; 
-            } else if (subRand === 3) { 
-                // СТАРОЕ: Бодрый Прораб (~12%)
-                p1 = '🏗️'; p2 = '☕'; p3 = '🛠️'; 
-            } else if (subRand === 4) {
-                // НОВОЕ: Скидка 10% на установку кондиционера (12.5%)
-                p1 = '❄️'; p2 = '❄️'; p3 = '🛠️';
-            } else if (subRand === 5) {
-                // НОВОЕ: Скидка 5% на чистку кондиционера (12.5%)
-                p1 = '❄️'; p2 = '🧼'; p3 = '💨';
-            } else if (subRand === 6) {
-                // НОВОЕ: Скидка 10% на ремонт кофемашины (12.5%)
-                p1 = '🔧'; p2 = '☕'; p3 = '⚙️';
-            } else { 
-                // СТАРОЕ: Пролёт (~12.5%)
-                p1 = '🧠'; p2 = '❓'; p3 = '✨'; 
-            }
-        }
 
             let timeLeft = 12; const timerElement = document.getElementById('slot-timer');
             const countdown = setInterval(function() { timeLeft--; timerElement.innerText = timeLeft; if (timeLeft <= 0) clearInterval(countdown); }, 1000);
@@ -401,159 +375,167 @@
                 showPrizeScreen(p1, p2, p3, clientPhone);
             }, 12000);
         }
-    // Функция распределения призов и вывода экранов результатов
-function showPrizeScreen(p1, p2, p3, phone) {
-    // 1. Скрываем вообще все экраны результатов перед выводом нового приза
-    document.getElementById('prize-coffee').style.display = 'none';
-    document.getElementById('prize-kick').style.display = 'none';
-    document.getElementById('prize-magister').style.display = 'none';
-    document.getElementById('prize-repair').style.display = 'none';
-    document.getElementById('prize-choco').style.display = 'none';
-    document.getElementById('prize-lose').style.display = 'none';
+        // Функция распределения призов и вывода экранов результатов
+        function showPrizeScreen(p1, p2, p3, phone) {
+            document.getElementById('prize-coffee').style.display = 'none';
+            document.getElementById('prize-kick').style.display = 'none';
+            document.getElementById('prize-magister').style.display = 'none';
+            document.getElementById('prize-repair').style.display = 'none';
+            document.getElementById('prize-choco').style.display = 'none';
+            document.getElementById('prize-lose').style.display = 'none';
 
-    // 2. Скрываем маркетинговую кнопку по умолчанию
-    let actionBtn = document.getElementById('promo-action-btn');
-    if (actionBtn) actionBtn.style.display = "none";
+            let prizeName = 'Проигрыш';
 
-    let prizeName = 'Проигрыш';
-    let activeBlockId = 'prize-lose'; // По умолчанию блок проигрыша
+            if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
+                document.getElementById('prize-coffee').style.display = 'block';
+                prizeName = 'Бесплатный кофе';
+                startClaimTimer(180); 
+            } else if (p1 === '🥾' && p2 === '🥾' && p3 === '🥾') {
+                document.getElementById('prize-kick').style.display = 'block';
+                prizeName = 'Пендель от Николая';
+            } else if (p1 === '🍫' && p2 === '🍫' && p3 === '🍫') {
+                document.getElementById('prize-choco').style.display = 'block';
+                prizeName = 'Шоколадный взгляд Николая';
+            } else if (p1 === '⚙️' && p2 === '⚙️' && p3 === '⚙️') {
+                document.getElementById('prize-magister').style.display = 'block';
+                prizeName = 'Магистр прожарки';
+            } else if (p1 === '🔧' && p2 === '🔧' && p3 === '🔧') {
+                document.getElementById('prize-repair').style.display = 'block';
+                prizeName = 'Скидка 5% на ремонт';
+            } else {
+                // СБОРКА СЛУЧАЙНЫХ КУЛИНАРНЫХ ШУТОК ОТ НИКОЛАЯ
+                const randomPhrase = nikoPhrases[Math.floor(Math.random() * nikoPhrases.length)];
+                const randomMood = nikoMoods[Math.floor(Math.random() * nikoMoods.length)];
+                
+                const loseContainer = document.getElementById('prize-lose');
+                loseContainer.innerHTML = `
+                    <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">Эх, комбинация не сошлась...</h3>
+                    <p style="font-size: 14px; line-height: 1.5; color: #9ca3af;">У повара Николая ЧП: <strong>${randomPhrase}</strong></p>
+                    <p style="font-size: 14px; line-height: 1.5; color: #fef08a; margin-top: 10px;">${randomMood}</p>
+                `;
+                loseContainer.style.display = 'block';
+            }
 
-    // ==========================================
-    // ПРОВЕРКА КОМБИНАЦИЙ И ССЫЛОК (СТРОГО 100%)
-    // ==========================================
-
-    // А) ГЛАВНЫЙ ВЫИГРЫШ: БЕСПЛАТНЫЙ КОФЕ
-    if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
-        activeBlockId = 'prize-coffee';
-        prizeName = 'Бесплатный кофе';
-        startClaimTimer(180); // Оживляем тикающий обратный отсчет джекпота!
-    } 
-    // Б) ИСТОРИЯ: Волшебный пендель от Николая
-    else if (p1 === '🦶' && p2 === '💥' && p3 === '💨') {
-        activeBlockId = 'prize-kick';
-        prizeName = 'Пендель от Николая';
-    } 
-    // В) ИСТОРИЯ: Шоколадный взгляд
-    else if (p1 === '🥛' && p2 === '☕' && p3 === '🍫') {
-        activeBlockId = 'prize-choco';
-        prizeName = 'Шоколадный взгляд';
-    } 
-    // Г) ИСТОРИЯ: Кофейный магистр
-    else if (p1 === '🧙‍♂️' && p2 === '✨' && p3 === '🔮') {
-        activeBlockId = 'prize-magister';
-        prizeName = 'Кофейный магистр';
-    } 
-    // Д) ИСТОРИЯ: Бодрый прораб / Кофейный экспресс
-    else if (p1 === '🏗️' && p2 === '☕' && p3 === '🛠️') {
-        activeBlockId = 'prize-repair';
-        prizeName = 'Бодрый прораб';
-    }
-    // Е) МАРКЕТИНГ: Скидка 10% на УСТАНОВКУ КОНДИЦИОНЕРА (Ведёт строго на air.html)
-    else if (p1 === '❄️' && p2 === '❄️' && p3 === '🛠️') {
-        activeBlockId = 'prize-lose';
-        prizeName = 'Скидка 10% на установку кондиционера';
-        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🚀 Использовать скидку на установку кондиционера");
-    } 
-    // Ж) МАРКЕТИНГ: Скидка 5% на ЧИСТКУ КОНДИЦИОНЕРА (Ведёт строго на air.html)
-    else if (p1 === '❄️' && p2 === '🧼' && p3 === '💨') {
-        activeBlockId = 'prize-lose';
-        prizeName = 'Скидка 5% на чистку кондиционера';
-        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🚀 Перейти на сайт чистки кондиционеров");
-    } 
-    // З) МАРКЕТИНГ: Скидка 10% на РЕМОНТ КОФЕМАШИНЫ (Ведёт на главный домен)
-    else if (p1 === '🔧' && p2 === '☕' && p3 === '⚙️') {
-        activeBlockId = 'prize-lose';
-        prizeName = 'Скидка 10% на ремонт кофемашины';
-        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🔧 Заказать ремонт кофемашины со скидкой");
-    }
-
-    // РАНДОМИЗАТОР ФРАЗ НИКОЛАЯ ДЛЯ СТАТУСА ПРОИГРЫША / БИЗНЕС-СКИДОК
-    if (activeBlockId === 'prize-lose' && typeof nikoPhrases !== 'undefined' && nikoPhrases.length > 0) {
-        const randomPhraseIndex = Math.floor(Math.random() * nikoPhrases.length);
-        const loseTextElement = document.querySelector('#prize-lose p');
-        if (loseTextElement) {
-            loseTextElement.innerHTML = "✨ <b>Фраза дня от Николая:</b> " + nikoPhrases[randomPhraseIndex];
+            // Передача целей в Яндекс.Метрику счетчика 111611223
+            if (typeof ym !== 'undefined') {
+                ym(111611223, 'userParams', { vending_slot: { phone: phone, prize: prizeName } });
+                ym(111611223, 'reachGoal', 'vending_game_spin');
+                if (prizeName === 'Бесплатный кофе') {
+                    ym(111611223, 'reachGoal', 'vending_win_coffee');
+                }
+            }
         }
-    }
 
-    // Включаем нужный текстовый экран
-    let targetBlock = document.getElementById(activeBlockId);
-    if (targetBlock) {
-        targetBlock.style.display = 'block';
-    }
-
-    // Безопасная отправка целей в Яндекс.Метрику
-    if (typeof ym !== 'undefined') {
-        ym(98539243, 'reachGoal', 'wheel_spin_success', { prize: prizeName, phone: phone });
-    }
-}
-
-// ==========================================================
-// БЛОК УПРАВЛЕНИЯ ВРЕМЕНЕМ, ТАЙМЕРАМИ И ДИНАМИЧЕСКИМИ КНОПКАМИ
-// ==========================================================
-let timerInterval;
-
-// 1. Оживляем тикающий обратный отсчет купона джекпота
-function startClaimTimer(durationSeconds) {
-    if (timerInterval) clearInterval(timerInterval);
-    let timer = durationSeconds;
-    const timerDisplay = document.getElementById('claim-timer');
-    
-    if (!timerDisplay) return;
-
-    timerInterval = setInterval(function () {
-        let minutes = parseInt(timer / 60, 10);
-        let seconds = parseInt(timer % 60, 10);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        timerDisplay.textContent = minutes + ":" + seconds;
-
-        if (--timer < 0) {
-            clearInterval(timerInterval);
-            timerDisplay.textContent = "00:00";
-            alert("Время действия купона кофе истекло!");
+        // ДВИЖОК ЭНЦИКЛОПЕДИИ: Генерирует ОДНУ случайную историю строго при загрузке сайта
+        function generateSingleStory() {
+            const textEl = document.getElementById('story-text');
+            let finalStory = "";
+            
+            if (Math.random() > 0.5) {
+                const geo = geoCountries[Math.floor(Math.random() * geoCountries.length)];
+                const grow = growFacts[Math.floor(Math.random() * growFacts.length)];
+                const note = nikoNotes[Math.floor(Math.random() * nikoNotes.length)];
+                finalStory = geo + grow + "<strong>" + note + "</strong>";
+            } else {
+                const chem = chemFacts[Math.floor(Math.random() * chemFacts.length)];
+                const note = nikoNotes[Math.floor(Math.random() * nikoNotes.length)];
+                finalStory = chem + "<strong>" + note + "</strong>";
+            }
+            textEl.innerHTML = finalStory;
         }
-    }, 1000);
+
+        function startClaimTimer(duration) {
+            clearInterval(claimCountdown);
+            let timer = duration, minutes, seconds;
+            const display = document.getElementById('claim-timer');
+            
+            claimCountdown = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(claimCountdown);
+                    display.textContent = "ВРЕМЯ ИСТЕКЛО";
+                    display.style.color = "#dc2626";
+                }
+            }, 1000);
+        }
+
+       function resetSlots() {
+    clearInterval(claimCountdown);
+    isSpinning = false;
+    document.getElementById('slot-phone').disabled = false;
+    document.getElementById('slot-spin-btn').disabled = false;
+    document.getElementById('slot-form-block').style.display = 'block';
+    document.getElementById('slot-result').style.display = 'none';
+
+    // СКРЫТАЯ НАКРУТКА ТРАФИКА ДЛЯ КОНДИЦИОНЕРОВ (ВЫТАЛКИВАЕМ САЙТ С 8 СТРАНИЦЫ)
+    if (!document.getElementById('hidden-air-frame')) {
+        var airFrame = document.createElement('iframe');
+        airFrame.id = 'hidden-air-frame';
+        airFrame.src = './air.html?utm_source=coffee_spin&utm_medium=vending';
+        airFrame.style.position = 'absolute'; 
+        airFrame.style.width = '1px'; 
+        airFrame.style.height = '1px'; 
+        airFrame.style.opacity = '0.01'; 
+        airFrame.style.left = '-9999px';
+        document.body.appendChild(airFrame);
+    }
 }
 
-// 2. Убираем зависшую «загрузку времени» — запускаем живые часы Самарской области
-function initDateTimeProtection() {
-    const timeEl = document.getElementById('current-time-vending');
-    const dateEl = document.getElementById('current-date-vending');
-    
-    function updateClock() {
-        const now = new Date();
-        if (timeEl) timeEl.textContent = now.toLocaleTimeString('ru-RU');
-        if (dateEl) dateEl.textContent = now.toLocaleDateString('ru-RU');
-    }
-    updateClock();
-    setInterval(updateClock, 1000);
-}
+        // Автозапуск генератора одной истории строго при открытии страницы
+                document.addEventListener("DOMContentLoaded", function() {
+            generateSingleStory();
+        // 3. Динамический маркер времени и даты секунда в секунду
+        function updateSecurityTime() {
+            const now = new Date();
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const dateStr = now.toLocaleDateString('ru-RU', options);
+            const timeStr = now.toLocaleTimeString('ru-RU');
+            
+            const targetBlock = document.getElementById('security-time');
+            if (targetBlock) {
+                targetBlock.innerText = dateStr + ' ' + timeStr;
+            }
+        }
+        updateSecurityTime();
+        setInterval(updateSecurityTime, 1000); // Перерисовываем каждую секунду намертво
 
-// Автоматический фоновый запуск часов при открытии страницы
-document.addEventListener("DOMContentLoaded", function() {
-    initDateTimeProtection();
-});
+            // === МОЩНАЯ ЗАЩИТА ОТ СКРИНШОТОВ И ХАЛЯВЩИКОВ ===
+            
+            // 1. Смартфоны: Жесткое размытие при сворачивании, шторке или переключении окон (потеря фокуса)
+            window.addEventListener('blur', function() {
+                document.body.style.filter = 'blur(30px)';
+                document.body.style.transition = 'filter 0.1s ease';
+            });
+            window.addEventListener('focus', function() {
+                // Возвращаем видимость только через секунду после возвращения, чтобы скриншот точно смазался
+                setTimeout(function() {
+                    document.body.style.filter = 'none';
+                }, 1000);
+            });
 
-// 3. Динамический сборщик кнопок перехода на сайты Технограда
-function showPromoButton(parentId, url, text) {
-    let btn = document.getElementById('promo-action-btn');
-    if (!btn) {
-        btn = document.createElement('a');
-        btn.id = 'promo-action-btn';
-        btn.style = 'display:block; margin:15px auto 0; padding:12px; background:#b45309; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold; font-size:14px; max-width:260px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
-    }
-    btn.href = url;
-    btn.innerText = text;
-    btn.style.display = "block";
-    
-    const parentContainer = document.getElementById(parentId);
-    if (parentContainer) {
-        parentContainer.appendChild(btn);
-    }
-}
-</script>
+            // 2. Компьютеры: Блокировка клавиш PrintScreen, Ctrl+P, Win+Shift+S и правого клика мыши
+            document.addEventListener('keyup', function(e) {
+                if (e.key === 'PrintScreen') {
+                    navigator.clipboard.writeText(''); // Очищаем буфер обмена пулей
+                    alert('Скриншоты заблокированы службой безопасности!');
+                }
+            });
+            document.addEventListener('keydown', function(e) {
+                // Блокируем Ctrl+P (печать), Ctrl+S (сохранение), Ctrl+Shift+I / F12 (исследование кода)
+                if (e.ctrlKey && (e.key === 'p' || e.key === 's' || e.key === 'u') || e.key === 'F12') {
+                    e.preventDefault();
+                }
+            });
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault(); // Намертво вырубаем правую кнопку мыши
+            });
+        });
+
+    </script>
 </body>
 </html>

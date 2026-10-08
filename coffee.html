@@ -426,6 +426,25 @@
             } else if (p1 === '🔧' && p2 === '🔧' && p3 === '🔧') {
                 document.getElementById('prize-repair').style.display = 'block';
                 prizeName = 'Скидка 5% на ремонт';
+                    } else if (p1 === '❄️' && p2 === '❄️' && p3 === '❄️') {
+        const loseContainer = document.getElementById('prize-lose');
+        loseContainer.innerHTML = `
+            <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">🎉 Поздравляем! Выиграна супер-скидка!</h3>
+            <p style="font-size: 14px; line-height: 1.5; color: #9ca3af;">Вам выпала <strong>Скидка 10% на установку кондиционера</strong> под ключ от Технограда!</p>
+            <a href="https://tehnograd-163.ru/air.html" style="display:block; margin:15px auto 0; padding:12px; background:#b45309; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold; font-size:14px; max-width:280px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">🚀 Использовать скидку на установку кондиционера</a>
+        `;
+        loseContainer.style.display = 'block';
+        prizeName = 'Скидка 10% на установку кондиционера';
+    } else if (p1 === '❄️' && p2 === '🔧' && p3 === '❄️') {
+        const loseContainer = document.getElementById('prize-lose');
+        loseContainer.innerHTML = `
+            <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">🎉 Поздравляем! Выиграна супер-скидка!</h3>
+            <p style="font-size: 14px; line-height: 1.5; color: #9ca3af;">Вам выпала <strong>Скидка 5% на комплексную чистку кондиционера</strong> от Технограда!</p>
+            <a href="https://tehnograd-163.ru/air.html" style="display:block; margin:15px auto 0; padding:12px; background:#b45309; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold; font-size:14px; max-width:280px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">🚀 Перейти на сайт чистки кондиционеров</a>
+        `;
+        loseContainer.style.display = 'block';
+        prizeName = 'Скидка 5% на чистку кондиционера';
+
             } else {
                 // СБОРКА СЛУЧАЙНЫХ КУЛИНАРНЫХ ШУТОК ОТ НИКОЛАЯ
                 const randomPhrase = nikoPhrases[Math.floor(Math.random() * nikoPhrases.length)];

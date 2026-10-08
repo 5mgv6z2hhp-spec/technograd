@@ -401,7 +401,7 @@
                 showPrizeScreen(p1, p2, p3, clientPhone);
             }, 12000);
         }
-      // Функция распределения призов и вывода экранов результатов
+    // Функция распределения призов и вывода экранов результатов
 function showPrizeScreen(p1, p2, p3, phone) {
     // 1. Скрываем вообще все экраны результатов перед выводом нового приза
     document.getElementById('prize-coffee').style.display = 'none';
@@ -416,17 +416,17 @@ function showPrizeScreen(p1, p2, p3, phone) {
     if (actionBtn) actionBtn.style.display = "none";
 
     let prizeName = 'Проигрыш';
-    let activeBlockId = 'prize-lose'; // По умолчанию выводим в общее поле результатов
+    let activeBlockId = 'prize-lose'; // По умолчанию блок проигрыша
 
     // ==========================================
     // ПРОВЕРКА КОМБИНАЦИЙ И ССЫЛОК (СТРОГО 100%)
     // ==========================================
 
-    // А) ГЛАВНЫЙ ВЫИГРЫШ: БЕСПЛАТНЫЙ КОФЕ (5%)
+    // А) ГЛАВНЫЙ ВЫИГРЫШ: БЕСПЛАТНЫЙ КОФЕ
     if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
         activeBlockId = 'prize-coffee';
         prizeName = 'Бесплатный кофе';
-        startClaimTimer(180); // Оживляем тикающий обратный отсчет!
+        startClaimTimer(180); // Оживляем тикающий обратный отсчет джекпота!
     } 
     // Б) ИСТОРИЯ: Волшебный пендель от Николая
     else if (p1 === '🦶' && p2 === '💥' && p3 === '💨') {
@@ -448,23 +448,32 @@ function showPrizeScreen(p1, p2, p3, phone) {
         activeBlockId = 'prize-repair';
         prizeName = 'Бодрый прораб';
     }
-    // Е) БИЗНЕС-ВЫИГРЫШ: Скидка 10% на УСТАНОВКУ КОНДИЦИОНЕРА (Ведёт на air.html)
+    // Е) МАРКЕТИНГ: Скидка 10% на УСТАНОВКУ КОНДИЦИОНЕРА (Ведёт строго на air.html)
     else if (p1 === '❄️' && p2 === '❄️' && p3 === '🛠️') {
         activeBlockId = 'prize-lose';
         prizeName = 'Скидка 10% на установку кондиционера';
-        showPromoButton(activeBlockId, "https://tehnograd-163.ru/air.html", "🚀 Использовать скидку на установку кондиционера");
+        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🚀 Использовать скидку на установку кондиционера");
     } 
-    // Ж) БИЗНЕС-ВЫИГРЫШ: Скидка 5% на ЧИСТКУ КОНДИЦИОНЕРА (Ведёт на air.html)
+    // Ж) МАРКЕТИНГ: Скидка 5% на ЧИСТКУ КОНДИЦИОНЕРА (Ведёт строго на air.html)
     else if (p1 === '❄️' && p2 === '🧼' && p3 === '💨') {
         activeBlockId = 'prize-lose';
         prizeName = 'Скидка 5% на чистку кондиционера';
-        showPromoButton(activeBlockId, "https://tehnograd-163.ru/air.html", "🚀 Перейти на сайт чистки кондиционеров");
+        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🚀 Перейти на сайт чистки кондиционеров");
     } 
-    // З) БИЗНЕС-ВЫИГРЫШ: Скидка 10% на РЕМОНТ КОФЕМАШИНЫ (Ведёт на главный домен)
+    // З) МАРКЕТИНГ: Скидка 10% на РЕМОНТ КОФЕМАШИНЫ (Ведёт на главный домен)
     else if (p1 === '🔧' && p2 === '☕' && p3 === '⚙️') {
         activeBlockId = 'prize-lose';
         prizeName = 'Скидка 10% на ремонт кофемашины';
         showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🔧 Заказать ремонт кофемашины со скидкой");
+    }
+
+    // РАНДОМИЗАТОР ФРАЗ НИКОЛАЯ ДЛЯ СТАТУСА ПРОИГРЫША / БИЗНЕС-СКИДОК
+    if (activeBlockId === 'prize-lose' && typeof nikoPhrases !== 'undefined' && nikoPhrases.length > 0) {
+        const randomPhraseIndex = Math.floor(Math.random() * nikoPhrases.length);
+        const loseTextElement = document.querySelector('#prize-lose p');
+        if (loseTextElement) {
+            loseTextElement.innerHTML = "✨ <b>Фраза дня от Николая:</b> " + nikoPhrases[randomPhraseIndex];
+        }
     }
 
     // Включаем нужный текстовый экран
@@ -473,18 +482,18 @@ function showPrizeScreen(p1, p2, p3, phone) {
         targetBlock.style.display = 'block';
     }
 
-    // Безопасная отправка в Яндекс.Метрику
+    // Безопасная отправка целей в Яндекс.Метрику
     if (typeof ym !== 'undefined') {
         ym(98539243, 'reachGoal', 'wheel_spin_success', { prize: prizeName, phone: phone });
     }
 }
 
 // ==========================================================
-// ВОССТАНОВЛЕННЫЕ СИСТЕМНЫЕ ФУНКЦИИ (ВРЕМЯ, ТАЙМЕРЫ И КНОПКИ)
+// БЛОК УПРАВЛЕНИЯ ВРЕМЕНЕМ, ТАЙМЕРАМИ И ДИНАМИЧЕСКИМИ КНОПКАМИ
 // ==========================================================
 let timerInterval;
 
-// 1. Функция обратного отсчета для джекпота (3 минуты)
+// 1. Оживляем тикающий обратный отсчет купона джекпота
 function startClaimTimer(durationSeconds) {
     if (timerInterval) clearInterval(timerInterval);
     let timer = durationSeconds;
@@ -504,12 +513,12 @@ function startClaimTimer(durationSeconds) {
         if (--timer < 0) {
             clearInterval(timerInterval);
             timerDisplay.textContent = "00:00";
-            alert("Время действия купона истекло!");
+            alert("Время действия купона кофе истекло!");
         }
     }, 1000);
 }
 
-// 2. Оживляем живые часы автомата Тольятти
+// 2. Убираем зависшую «загрузку времени» — запускаем живые часы Самарской области
 function initDateTimeProtection() {
     const timeEl = document.getElementById('current-time-vending');
     const dateEl = document.getElementById('current-date-vending');
@@ -523,12 +532,12 @@ function initDateTimeProtection() {
     setInterval(updateClock, 1000);
 }
 
-// Запуск часов в фоновом режиме сразу при открытии рулетки
+// Автоматический фоновый запуск часов при открытии страницы
 document.addEventListener("DOMContentLoaded", function() {
     initDateTimeProtection();
 });
 
-// 3. Генератор маркетинговых кнопок перехода на сайты Технограда
+// 3. Динамический сборщик кнопок перехода на сайты Технограда
 function showPromoButton(parentId, url, text) {
     let btn = document.getElementById('promo-action-btn');
     if (!btn) {

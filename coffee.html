@@ -401,203 +401,95 @@
                 showPrizeScreen(p1, p2, p3, clientPhone);
             }, 12000);
         }
-        // Функция распределения призов и вывода экранов результатов
-        function showPrizeScreen(p1, p2, p3, phone) {
-            document.getElementById('prize-coffee').style.display = 'none';
-            document.getElementById('prize-kick').style.display = 'none';
-            document.getElementById('prize-magister').style.display = 'none';
-            document.getElementById('prize-repair').style.display = 'none';
-            document.getElementById('prize-choco').style.display = 'none';
-            document.getElementById('prize-lose').style.display = 'none';
-                    // Скрываем маркетинговую кнопку по умолчанию
-        let actionBtn = document.getElementById('promo-action-btn');
-        if (actionBtn) actionBtn.style.display = "none";
+       // Функция распределения призов и вывода экранов результатов
+function showPrizeScreen(p1, p2, p3, phone) {
+    // Скрываем все экраны результатов перед выводом нового приза
+    document.getElementById('prize-coffee').style.display = 'none';
+    document.getElementById('prize-kick').style.display = 'none';
+    document.getElementById('prize-magister').style.display = 'none';
+    document.getElementById('prize-repair').style.display = 'none';
+    document.getElementById('prize-choco').style.display = 'none';
+    document.getElementById('prize-lose').style.display = 'none';
 
+    // Скрываем маркетинговую кнопку по умолчанию
+    let actionBtn = document.getElementById('promo-action-btn');
+    if (actionBtn) actionBtn.style.display = "none";
 
-            let prizeName = 'Проигрыш';
+    let prizeName = 'Проигрыш';
+    let activeBlockId = 'prize-lose'; // По умолчанию блок проигрыша
 
-            if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
-                document.getElementById('prize-coffee').style.display = 'block';
-                prizeName = 'Бесплатный кофе';
-                startClaimTimer(180); 
-            } else if (p1 === '🥾' && p2 === '🥾' && p3 === '🥾') {
-                document.getElementById('prize-kick').style.display = 'block';
-                prizeName = 'Пендель от Николая';
-            } else if (p1 === '🍫' && p2 === '🍫' && p3 === '🍫') {
-                document.getElementById('prize-choco').style.display = 'block';
-                prizeName = 'Шоколадный взгляд Николая';
-            } else if (p1 === '⚙️' && p2 === '⚙️' && p3 === '⚙️') {
-                document.getElementById('prize-magister').style.display = 'block';
-                prizeName = 'Магистр прожарки';
-            } else if (p1 === '🔧' && p2 === '🔧' && p3 === '🔧') {
-                document.getElementById('prize-repair').style.display = 'block';
-                prizeName = 'Скидка 5% на ремонт';
-            } else {
-                // СБОРКА СЛУЧАЙНЫХ КУЛИНАРНЫХ ШУТОК ОТ НИКОЛАЯ
-                const randomPhrase = nikoPhrases[Math.floor(Math.random() * nikoPhrases.length)];
-                const randomMood = nikoMoods[Math.floor(Math.random() * nikoMoods.length)];
-                
-                const loseContainer = document.getElementById('prize-lose');
-                loseContainer.innerHTML = `
-                    <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">Эх, комбинация не сошлась...</h3>
-                    <p style="font-size: 14px; line-height: 1.5; color: #9ca3af;">У повара Николая ЧП: <strong>${randomPhrase}</strong></p>
-                    <p style="font-size: 14px; line-height: 1.5; color: #fef08a; margin-top: 10px;">${randomMood}</p>
-                `;
-                loseContainer.style.display = 'block';
-            }
-        // Проверка на новые скидки и включение кнопок перехода на сайты
-        if (p1 === '❄️' && p2 === '❄️' && p3 === '🛠️') {
-            prizeName = 'Скидка 10% на установку кондиционера';
-                                                showPromoButton("https://" + "tehnograd-163.ru/air.html?utm_source=qr_vending&utm_medium=win_10_install", "🚀 Использовать скидку на установку");
+    // 1. Проверка на БЕСПЛАТНЫЙ КОФЕ
+    if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
+        activeBlockId = 'prize-coffee';
+        prizeName = 'Бесплатный кофе';
+        startClaimTimer(180);
+    } 
+    // 2. Проверка на Волшебный пендель
+    else if (p1 === '🦶' && p2 === '💥' && p3 === '💨') {
+        activeBlockId = 'prize-kick';
+        prizeName = 'Пендель от Николая';
+    } 
+    // 3. Проверка на Шоколадный взгляд
+    else if (p1 === '🥛' && p2 === '☕' && p3 === '🍫') {
+        activeBlockId = 'prize-choco';
+        prizeName = 'Шоколадный взгляд Николая';
+    } 
+    // 4. Проверка на Кофейного магистра
+    else if (p1 === '🧙‍♂️' && p2 === '✨' && p3 === '🔮') {
+        activeBlockId = 'prize-magister';
+        prizeName = 'Кофейный магистр';
+    } 
+    // 5. Проверка на Бодрого прораба
+    else if (p1 === '🏗️' && p2 === '☕' && p3 === '🛠️') {
+        activeBlockId = 'prize-repair'; // Используем блок ремонта или прораба
+        prizeName = 'Бодрый прораб';
+    }
+    // 6. НОВОЕ: Скидка 10% на установку кондиционера
+    else if (p1 === '❄️' && p2 === '❄️' && p3 === '🛠️') {
+        activeBlockId = 'prize-lose'; // Выводим в поле результатов
+        prizeName = 'Скидка 10% на установку кондиционера';
+        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🚀 Использовать скидку на установку");
+    } 
+    // 7. НОВОЕ: Скидка 5% на чистку кондиционера
+    else if (p1 === '❄️' && p2 === '🧼' && p3 === '💨') {
+        activeBlockId = 'prize-lose';
+        prizeName = 'Скидка 5% на чистку кондиционера';
+        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🚀 Перейти на сайт климата");
+    } 
+    // 8. НОВОЕ: Скидка 10% на ремонт кофемашины
+    else if (p1 === '🔧' && p2 === '☕' && p3 === '⚙️') {
+        activeBlockId = 'prize-lose';
+        prizeName = 'Скидка 10% на ремонт кофемашины';
+        showPromoButton(activeBlockId, "https://tehnograd-163.ru", "🔧 Заказать ремонт со скидкой");
+    }
 
-        } 
-        else if (p1 === '❄️' && p2 === '🧼' && p3 === '💨') {
-            prizeName = 'Скидка 5% на чистку кондиционера';
-                                                showPromoButton("https://" + "tehnograd-163.ru/air.html?utm_source=qr_vending&utm_medium=win_5_clean", "🚀 Перейти на сайт климата");
+    // Включаем нужный блок на экране
+    document.getElementById(activeBlockId).style.display = 'block';
 
-        } 
-        else if (p1 === '🔧' && p2 === '☕' && p3 === '⚙️') {
-            prizeName = 'Скидка 10% на ремонт кофемашины';
-            showPromoButton("https://tehnograd-163.ru", "🔧 Заказать ремонт со скидкой");
-        }
-
-        // Вспомогательная функция для сборки и вывода кнопки на экран результатов
-        function showPromoButton(url, text) {
-            let btn = document.getElementById('promo-action-btn');
-            if (!btn) {
-                btn = document.createElement('a');
-                btn.id = 'promo-action-btn';
-                btn.style = 'display:block; margin:15px auto 0; padding:12px; background:#b45309; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold; font-size:15px; max-width:260px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
-                // Вставляем кнопку внутрь экрана результатов, где лежит текст выигрыша
-                const resultBlock = document.getElementById('slot-result') || document.getElementById('prize-lose');
-                if (resultBlock) {
-                    resultBlock.parentNode.appendChild(btn);
-                }
-            }
-            btn.href = url;
-            btn.innerText = text;
-            btn.style.display = "block";
-        }
-
-            // Передача целей в Яндекс.Метрику счетчика 111611223
-            if (typeof ym !== 'undefined') {
-                ym(111611223, 'userParams', { vending_slot: { phone: phone, prize: prizeName } });
-                ym(111611223, 'reachGoal', 'vending_game_spin');
-                if (prizeName === 'Бесплатный кофе') {
-                    ym(111611223, 'reachGoal', 'vending_win_coffee');
-                }
-            }
-        }
-
-        // ДВИЖОК ЭНЦИКЛОПЕДИИ: Генерирует ОДНУ случайную историю строго при загрузке сайта
-        function generateSingleStory() {
-            const textEl = document.getElementById('story-text');
-            let finalStory = "";
-            
-            if (Math.random() > 0.5) {
-                const geo = geoCountries[Math.floor(Math.random() * geoCountries.length)];
-                const grow = growFacts[Math.floor(Math.random() * growFacts.length)];
-                const note = nikoNotes[Math.floor(Math.random() * nikoNotes.length)];
-                finalStory = geo + grow + "<strong>" + note + "</strong>";
-            } else {
-                const chem = chemFacts[Math.floor(Math.random() * chemFacts.length)];
-                const note = nikoNotes[Math.floor(Math.random() * nikoNotes.length)];
-                finalStory = chem + "<strong>" + note + "</strong>";
-            }
-            textEl.innerHTML = finalStory;
-        }
-
-        function startClaimTimer(duration) {
-            clearInterval(claimCountdown);
-            let timer = duration, minutes, seconds;
-            const display = document.getElementById('claim-timer');
-            
-            claimCountdown = setInterval(function () {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-                display.textContent = minutes + ":" + seconds;
-
-                if (--timer < 0) {
-                    clearInterval(claimCountdown);
-                    display.textContent = "ВРЕМЯ ИСТЕКЛО";
-                    display.style.color = "#dc2626";
-                }
-            }, 1000);
-        }
-
-       function resetSlots() {
-    clearInterval(claimCountdown);
-    isSpinning = false;
-    document.getElementById('slot-phone').disabled = false;
-    document.getElementById('slot-spin-btn').disabled = false;
-    document.getElementById('slot-form-block').style.display = 'block';
-    document.getElementById('slot-result').style.display = 'none';
-
-    // СКРЫТАЯ НАКРУТКА ТРАФИКА ДЛЯ КОНДИЦИОНЕРОВ (ВЫТАЛКИВАЕМ САЙТ С 8 СТРАНИЦЫ)
-    if (!document.getElementById('hidden-air-frame')) {
-        var airFrame = document.createElement('iframe');
-        airFrame.id = 'hidden-air-frame';
-        airFrame.src = './air.html?utm_source=coffee_spin&utm_medium=vending';
-        airFrame.style.position = 'absolute'; 
-        airFrame.style.width = '1px'; 
-        airFrame.style.height = '1px'; 
-        airFrame.style.opacity = '0.01'; 
-        airFrame.style.left = '-9999px';
-        document.body.appendChild(airFrame);
+    // Отправка точной цели в Яндекс.Метрику
+    if (typeof ym !== 'undefined') {
+        ym(98539243, 'reachGoal', 'wheel_spin_success', { prize: prizeName, phone: phone });
     }
 }
 
-        // Автозапуск генератора одной истории строго при открытии страницы
-                document.addEventListener("DOMContentLoaded", function() {
-            generateSingleStory();
-        // 3. Динамический маркер времени и даты секунда в секунду
-        function updateSecurityTime() {
-            const now = new Date();
-            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-            const dateStr = now.toLocaleDateString('ru-RU', options);
-            const timeStr = now.toLocaleTimeString('ru-RU');
-            
-            const targetBlock = document.getElementById('security-time');
-            if (targetBlock) {
-                targetBlock.innerText = dateStr + ' ' + timeStr;
-            }
-        }
-        updateSecurityTime();
-        setInterval(updateSecurityTime, 1000); // Перерисовываем каждую секунду намертво
-
-            // === МОЩНАЯ ЗАЩИТА ОТ СКРИНШОТОВ И ХАЛЯВЩИКОВ ===
-            
-            // 1. Смартфоны: Жесткое размытие при сворачивании, шторке или переключении окон (потеря фокуса)
-            window.addEventListener('blur', function() {
-                document.body.style.filter = 'blur(30px)';
-                document.body.style.transition = 'filter 0.1s ease';
-            });
-            window.addEventListener('focus', function() {
-                // Возвращаем видимость только через секунду после возвращения, чтобы скриншот точно смазался
-                setTimeout(function() {
-                    document.body.style.filter = 'none';
-                }, 1000);
-            });
-
-            // 2. Компьютеры: Блокировка клавиш PrintScreen, Ctrl+P, Win+Shift+S и правого клика мыши
-            document.addEventListener('keyup', function(e) {
-                if (e.key === 'PrintScreen') {
-                    navigator.clipboard.writeText(''); // Очищаем буфер обмена пулей
-                    alert('Скриншоты заблокированы службой безопасности!');
-                }
-            });
-            document.addEventListener('keydown', function(e) {
-                // Блокируем Ctrl+P (печать), Ctrl+S (сохранение), Ctrl+Shift+I / F12 (исследование кода)
-                if (e.ctrlKey && (e.key === 'p' || e.key === 's' || e.key === 'u') || e.key === 'F12') {
-                    e.preventDefault();
-                }
-            });
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault(); // Намертво вырубаем правую кнопку мыши
-            });
-        });
+// Вспомогательная функция для генерации кнопки строго внутри нужного поля результатов
+function showPromoButton(parentId, url, text) {
+    let btn = document.getElementById('promo-action-btn');
+    if (!btn) {
+        btn = document.createElement('a');
+        btn.id = 'promo-action-btn';
+        btn.style = 'display:block; margin:15px auto 0; padding:12px; background:#b45309; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold; font-size:15px; max-width:260px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
+    }
+    btn.href = url;
+    btn.innerText = text;
+    btn.style.display = "block";
+    
+    // Привязываем кнопку строго внутрь активного текстового блока выигрыша
+    const targetParent = document.getElementById(parentId);
+    if (targetParent) {
+        targetParent.appendChild(btn);
+    }
+}
 
     </script>
 </body>

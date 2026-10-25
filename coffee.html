@@ -447,11 +447,13 @@
             } else if (p1 === '⚙️' && p2 === '⚙️' && p3 === '⚙️') {
                 document.getElementById('prize-magister').style.display = 'block';
                 prizeName = 'Магистр прожарки';
-            } else if (p1 === '🔧' && p2 === '🔧' && p3 === '🔧') {
-                document.getElementById('prize-repair').style.display = 'block';
-                prizeName = 'Скидка 5% на ремонт';
-                    } else if (p1 === '❄️' && p2 === '❄️' && p3 === '❄️') {
-        const loseContainer = document.getElementById('prize-lose');
+         } else if (p1 === '❄️' && p2 === '🔧' && p3 === '❄️') {
+            document.getElementById('prize-repair').style.display = 'block';
+            prizeName = 'Скидка 5% на ремонт';
+        } else if (p1 === '❄️' && p2 === '❄️' && p3 === '❄️') {
+
+            const loseContainer = document.getElementById('prize-lose');
+
         loseContainer.innerHTML = `
             <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">🎉 Поздравляем! Выиграна супер-скидка!</h3>
             <p style="font-size: 14px; line-height: 1.5; color: #9ca3af;">Вам выпала <strong>Скидка 10% на установку кондиционера</strong> под ключ от Технограда!</p>
@@ -552,18 +554,6 @@
     document.getElementById('slot-form-block').style.display = 'block';
     document.getElementById('slot-result').style.display = 'none';
 
-    // СКРЫТАЯ НАКРУТКА ТРАФИКА ДЛЯ КОНДИЦИОНЕРОВ (ВЫТАЛКИВАЕМ САЙТ С 8 СТРАНИЦЫ)
-    if (!document.getElementById('hidden-air-frame')) {
-        var airFrame = document.createElement('iframe');
-        airFrame.id = 'hidden-air-frame';
-        airFrame.src = './air.html?utm_source=coffee_spin&utm_medium=vending';
-        airFrame.style.position = 'absolute'; 
-        airFrame.style.width = '1px'; 
-        airFrame.style.height = '1px'; 
-        airFrame.style.opacity = '0.01'; 
-        airFrame.style.left = '-9999px';
-        document.body.appendChild(airFrame);
-    }
 }
 
         // Автозапуск генератора одной истории строго при открытии страницы

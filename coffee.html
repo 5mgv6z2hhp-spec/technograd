@@ -499,46 +499,46 @@
         loseContainer.style.display = 'block';
         prizeName = 'Скидка 5% на чистку кондиционера';
 
-            } else {
-            // АБСОЛЮТНО БЕЗОПАСНАЯ ПРОВЕРКА СТАТУСОВ (НЕ ЛОМАЕТ МАСКУ ТЕЛОФОНА ПРИ ЗАГРУЗКЕ)
+                    } else {
+            // АБСОЛЮТНО БЕЗОПАСНАЯ ПРОВЕРКА СТАТУСОВ (НЕ ЛОМАЕТ МАСКУ ТЕЛЕФОНА)
             var currentStatus = (typeof prizeName !== 'undefined' && prizeName) ? prizeName : '';
             
-            if (currentStatus && currentStatus !== 'Обычный проигрыш' && !currentStatus.includes('Скидка')) {
-                const loseContainer = document.getElementById('price-lose');
-                if (loseContainer) {
+            // Находим тот самый серый контейнер, в котором лежит кнопка закрытия окна
+            var loseContainer = document.getElementById('price-lose') || document.querySelector('.result-block');
+            
+            if (loseContainer) {
+                if (currentStatus && currentStatus !== 'Обычный проигрыш' && !currentStatus.includes('Скидка')) {
+                    // ЕСЛИ ВЫПАЛ СТАТУС (например, "Диско-кофеин"): принудительно пересобираем этот блок
                     loseContainer.innerHTML = `
                         <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">🎉 ВАШ СТАТУС ОТ НИКОЛАЯ</h3>
-                        <p style="font-size: 16px; line-height: 1.5; color: #fef08a; font-weight: bold; margin-bottom: 5px;">
+                        <p style="font-size: 16px; line-height: 1.5; color: #fef08a; font-weight: bold; margin-bottom: 8px;">
                             💥 "${currentStatus}" 💥
                         </p>
-                        <p style="font-size: 13px; color: #9ca3af; font-style: italic;">
+                        <p style="font-size: 13px; color: #9ca3af; font-style: italic; margin-bottom: 15px;">
                             Шеф Николай заценил ваш стиль! Крутаните еще раз, чтобы выбить главный джекпот!
                         </p>
+                        <button onclick="closeModal()" class="spin-btn" style="padding: 10px 20px; font-size: 14px; max-width: 160px; margin: 0 auto; display: block; background: #4b5563;">Закрыть окно</button>
                     `;
                     loseContainer.style.display = 'block';
-                }
-            } else {
-                // ИСТИННЫЙ МИКРО-ПРОИГРЫШ (Если на барабанах полная разбериха)
-                const losePhrases = [
-                    'Почти вышло! Кофемашина Николай подмигнула вам!',
-                    'Упс! Пендель Николая пролетел мимо, попробуйте ещё раз!',
-                    'Почти джекпот! Звёзды в Тольятти сегодня рекомендуют эспрессо!',
-                    'Магия кофе шепчет: "Повтори бросок, бро!"',
-                    'Николай задумался о рецепте идеального латте... Крутите ещё!',
-                    'Смайлики разбежались, но Николай верит в ваш успех!'
-                ];
-
-                const randomPhrase = losePhrases[Math.floor(Math.random() * losePhrases.length)];
-                const loseContainer = document.getElementById('price-lose');
-                
-                if (loseContainer) {
+                } else {
+                    // ИСТИННЫЙ МИКРО-ПРОИГРЫШ (Если на барабанах полная разбериха)
+                    var losePhrases = [
+                        'Почти вышло! Кофемашина Николай подмигнула вам!',
+                        'Упс! Пендель Николая пролетел мимо, попробуйте ещё раз!',
+                        'Почти джекпот! Звёзды в Тольятти сегодня рекомендуют эспрессо!',
+                        'Магия кофе шепчет: "Повтори бросок, бро!"',
+                        'Николай задумался о рецепте идеального латте... Крутите ещё!'
+                    ];
+                    var randomPhrase = losePhrases[Math.floor(Math.random() * losePhrases.length)];
+                    
                     loseContainer.innerHTML = `
                         <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">✨ Результат прокрутки:</h3>
-                        <p style="font-size: 14px; line-height: 1.5; color: #fef08a; font-weight: bold;">"${randomPhrase}"</p>
+                        <p style="font-size: 14px; line-height: 1.5; color: #fef08a; font-weight: bold; margin-bottom: 15px;">"${randomPhrase}"</p>
+                        <button onclick="closeModal()" class="spin-btn" style="padding: 10px 20px; font-size: 14px; max-width: 160px; margin: 0 auto; display: block; background: #4b5563;">Закрыть окно</button>
                     `;
                     loseContainer.style.display = 'block';
+                    prizeName = 'Обычный проигрыш';
                 }
-                prizeName = 'Обычный проигрыш';
             }
         }
 

@@ -499,28 +499,47 @@
         loseContainer.style.display = 'block';
         prizeName = 'Скидка 5% на чистку кондиционера';
 
-     } else {
-            // ЖИВОЙ МАССИВ И ВЫВОД ФРАЗ НИКОЛАЯ НА ЭКРАН ТЕЛЕФОНА!
-            const losePhrases = [
-                'Почти вышло! Кофемашина Николай подмигнула вам!',
-                'Упс! Пендель Николая пролетел мимо, попробуйте ещё раз!',
-                'Почти джекпот! Звёзды в Тольятти сегодня рекомендуют эспрессо!',
-                'Магия кофе шепчет: "Повтори бросок, бро!"',
-                'Николай задумался о рецепте идеального латте... Крутите ещё!',
-                'Смайлики разбежались, но Николай верит в ваш успех!'
-            ];
-
-            const randomPhrase = losePhrases[Math.floor(Math.random() * losePhrases.length)];
-            let finalDisplay = randomPhrase;
-            
-            const loseContainer = document.getElementById('prize-lose');
-            if (loseContainer) {
+            } else {
+            // УМНАЯ ПРОВЕРКА: Если автомат зафиксировал веселый статус от Николая!
+            if (prizeName && prizeName !== 'Обычный проигрыш' && !prizeName.includes('Скидка')) {
+                const loseContainer = document.getElementById('prize-lose');
+                if (loseContainer) {
                     loseContainer.innerHTML = `
-                        <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">✨ Результат прокрутки:</h3>
-                        <p style="font-size: 14px; line-height: 1.5; color: #fef08a; font-weight: bold; font-size: 16px;">${finalDisplay}</p>
+                        <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">🎉 ВАШ СТАТУС ОТ НИКОЛАЯ</h3>
+                        <p style="font-size: 16px; line-height: 1.5; color: #fef08a; font-weight: bold; margin-bottom: 5px;">
+                            💥 "${prizeName}" 💥
+                        </p>
+                        <p style="font-size: 13px; color: #9ca3af; font-style: italic;">
+                            Шеф Николай заценил ваш стиль! Крутаните еще раз, чтобы выбить главный джекпот!
+                        </p>
                     `;
                     loseContainer.style.display = 'block';
                 }
+            } else {
+                // ИСТИННЫЙ МИКРО-ПРОИГРЫШ (Если на барабанах полная разбериха)
+                const losePhrases = [
+                    'Почти вышло! Кофемашина Николай подмигнула вам!',
+                    'Упс! Пендель Николая пролетел мимо, попробуйте ещё раз!',
+                    'Почти джекпот! Звёзды в Тольятти сегодня рекомендуют эспрессо!',
+                    'Магия кофе шепчет: "Повтори бросок, бро!"',
+                    'Николай задумался о рецепте идеального латте... Крутите ещё!',
+                    'Смайлики разбежались, но Николай верит в ваш успех!'
+                ];
+
+                const randomPhrase = losePhrases[Math.floor(Math.random() * losePhrases.length)];
+                const loseContainer = document.getElementById('prize-lose');
+                
+                if (loseContainer) {
+                    loseContainer.innerHTML = `
+                        <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">✨ Результат прокрутки:</h3>
+                        <p style="font-size: 14px; line-height: 1.5; color: #fef08a; font-weight: bold;">"${randomPhrase}"</p>
+                    `;
+                    loseContainer.style.display = 'block';
+                }
+                prizeName = 'Обычный проигрыш';
+            }
+        }
+
             }
 
             // Передача целей в Яндекс.Метрику счетчика 111611223

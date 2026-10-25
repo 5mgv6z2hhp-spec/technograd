@@ -427,7 +427,7 @@
             }, 12000);
         }
         // Функция распределения призов и вывода экранов результатов
-        function showPrizeScreen(p1, p2, p3, phone) {
+        function showPrizeScreen(p1, p2, p3, clientPhone) {
             document.getElementById('prize-coffee').style.display = 'none';
             document.getElementById('prize-kick').style.display = 'none';
             document.getElementById('prize-magister').style.display = 'none';
@@ -436,6 +436,7 @@
             document.getElementById('prize-lose').style.display = 'none';
 
             let prizeName = '';
+            let phone = clientPhone;
 
             if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
                 document.getElementById('prize-coffee').style.display = 'block';
@@ -537,11 +538,9 @@
                     loseContainer.style.display = 'block';
                 }
                 prizeName = 'Обычный проигрыш';
-            }
         }
-
-            }
-
+    }
+}
             // Передача целей в Яндекс.Метрику счетчика 111611223
             if (typeof ym !== 'undefined') {
                 ym(111611223, 'userParams', { vending_slot: { phone: phone, prize: prizeName } });

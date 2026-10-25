@@ -431,23 +431,10 @@
             document.getElementById('prize-repair').style.display = 'none';
             document.getElementById('prize-choco').style.display = 'none';
             document.getElementById('prize-lose').style.display = 'none';
-            
-    // ПАСХАЛКА ДЛЯ VIP-ПЕРСОНЫ (СТРОГО 100%)
-       let cleanPhone = String(phone).replace(/\D/g, '');
-    if (cleanPhone.endsWith('9272134463')) {
-        const loseContainer = document.getElementById('prize-lose');
-        if (loseContainer) {
-            loseContainer.innerHTML = `
-                <h3 style="color: #fef08a; font-size: 18px; margin-bottom: 8px; font-family: sans-serif;">👑 Уровень доступа: VIP Персона!</h3>
-                <p style="font-size: 14px; line-height: 1.5; color: #fff; font-weight: bold; font-family: sans-serif;">Повар Николай шлет вам пламенный привет и уведомляет, что вы стали VIP персоной. Можете всегда обратиться к Николаю — он вам выпишет самый магический пендель без очереди и ожидания!</p>
-            `;
-                           loseContainer.style.display = 'block';
-                   }
-        return;
         }
-    
 
-            let prizeName = '';
+        let prizeName = '';
+
 
             if (p1 === '☕' && p2 === '☕' && p3 === '☕') {
                 document.getElementById('prize-coffee').style.display = 'block';

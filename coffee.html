@@ -372,7 +372,10 @@
         } else if (rand > 35 && rand <= 40) {
             // 7. ИСТОРИЯ: Бодрый прораб (5%)
             p1 = '🏗️'; p2 = '☕'; p3 = '🛠️';
-                } else if (rand > 40 && rand <= 70) {
+        } else if (rand > 40 && rand <= 45) {
+            // НОВАЯ КОМБИНАЦИЯ: Ремонт кофемашин (строго 5% шанса)
+            p1 = '🔧'; p2 = '🔧'; p3 = '🔧';
+        } else if (rand > 45 && rand <= 75) {
             // 8. СЛУЧАЙНЫЕ ВЕСЕЛЫЕ СТАТУСЫ ОТ НИКОЛАЯ (30% ШАНСА — БЕЗ ПЛАТНЫХ ПРИЗОВ!)
             const funnyCombos = [
                 { p: ['👨‍🍳', '☕', '📜'], name: 'Дипломный бариста' },
@@ -444,10 +447,35 @@
          } else if (p1 === '🥛' && p2 === '☕' && p3 === '🍫') {
             document.getElementById('price-choco').style.display = 'block';
             prizeName = 'Шоколадный взгляд Николая';
+            
+            // Наполняем серый контейнер сочным поздравлением
+            const loseBlock = document.getElementById('price-lose');
+            if (loseBlock) {
+                loseBlock.style.display = 'block';
+                loseBlock.innerHTML = `
+                    <h3 style="color: #fef08a; font-size: 18px; margin-bottom: 8px; font-weight: bold;">🎉 ВАШ СТАТУС: Шоколадный взгляд!</h3>
+                    <p style="color: #cbd5e1; font-size: 14px; line-height: 1.5; font-style: italic;">
+                        "Шеф Николай подмигивает вам: этот сладкий кофейно-шоколадный микс заряжает романтикой на весь день!"
+                    </p>
+                `;
+            }
         } else if (p1 === '🧙‍♂️' && p2 === '✨' && p3 === '🔮') {
             document.getElementById('price-magister').style.display = 'block';
             prizeName = 'Кофейный магистр';
-         } else if (p1 === '❄️' && p2 === '🔧' && p3 === '❄️') {
+            
+            // Наполняем серый контейнер сочным поздравлением
+            const loseBlock = document.getElementById('price-lose');
+            if (loseBlock) {
+                loseBlock.style.display = 'block';
+                loseBlock.innerHTML = `
+                    <h3 style="color: #fef08a; font-size: 18px; margin-bottom: 8px; font-weight: bold;">🔮 ВАШ СТАТУС: Кофейный магистр!</h3>
+                    <p style="color: #cbd5e1; font-size: 14px; line-height: 1.5; font-style: italic;">
+                        "Вы получили высшее признание от Николая! Теперь вы официально дипломированный капучинный сомелье!"
+                    </p>
+                `;
+            }
+
+         } else if (p1 === '🔧' && p2 === '🔧' && p3 === '🔧') {
             document.getElementById('prize-repair').style.display = 'block';
             prizeName = 'Скидка 5% на ремонт';
         } else if (p1 === '❄️' && p2 === '❄️' && p3 === '❄️') {

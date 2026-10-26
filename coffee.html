@@ -444,60 +444,21 @@
          } else if (p1 === '🥾' && p2 === '🥾' && p3 === '🥾') {
                 document.getElementById('prize-kick').style.display = 'block';
                 prizeName = 'Пендель от Николая';
-                 } else if (p1 === '🥛' && p2 === '☕' && p3 === '🍫') {
+         } else if (p1 === '🥛' && p2 === '☕' && p3 === '🍫') {
             document.getElementById('price-choco').style.display = 'block';
             prizeName = 'Шоколадный взгляд Николая';
             
+            // Наполняем серый контейнер сочным поздравлением
             const loseBlock = document.getElementById('price-lose');
             if (loseBlock) {
                 loseBlock.style.display = 'block';
                 loseBlock.innerHTML = `
-                    <h3 style="color: #fef08a; font-size: 18px; margin-bottom: 8px; font-weight: bold;">🎉 ВАШ СТАТУС: Шоколадный взгляд</h3>
+                    <h3 style="color: #fef08a; font-size: 18px; margin-bottom: 8px; font-weight: bold;">🎉 ВАШ СТАТУС: Шоколадный взгляд!</h3>
                     <p style="color: #cbd5e1; font-size: 14px; line-height: 1.5; font-style: italic;">
                         "Шеф Николай подмигивает вам: этот сладкий кофейно-шоколадный микс заряжает романтикой на весь день!"
                     </p>
                 `;
             }
-        } else if (p1 === '🧙‍♂️' && p2 === '✨' && p3 === '🔮') {
-            document.getElementById('price-magister').style.display = 'block';
-            prizeName = 'Кофейный магистр';
-        } else if (p1 === '🏗️' && p2 === '☕' && p3 === '🛠️') {
-            document.getElementById('price-progr').style.display = 'block';
-            prizeName = 'Бодрый прораб';
-        } else {
-            // ТОТ САМЫЙ ОБЩИЙ БЛОК ДЛЯ ДИСКО-КОФЕИНА И ВЕСЕЛЫХ СТАТУСОВ
-            const loseBlock = document.getElementById('price-lose');
-            if (loseBlock) {
-                loseBlock.style.display = 'block';
-                
-                // Проверяем, лежит ли в переменной веселый статус бариста от Николая
-                if (prizeName && prizeName !== 'Обычный проигрыш' && !prizeName.includes('Скидка')) {
-                    loseBlock.innerHTML = `
-                        <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">🎉 ВАШ СТАТУС ОТ НИКОЛАЯ</h3>
-                        <p style="font-size: 16px; line-height: 1.5; color: #fef08a; font-weight: bold; margin-bottom: 5px;">
-                            💥 "${prizeName}" 💥
-                        </p>
-                        <p style="font-size: 13px; color: #9ca3af; font-style: italic;">
-                            Шеф Николай заценил ваш стиль! Крутаните еще раз, чтобы выбить главный джекпот!
-                        </p>
-                    `;
-                } else {
-                    // Истинный микро-проигрыш — выдаем случайную фразу дня от Николая
-                    const losePhrases = [
-                        'Почти вышло! Кофемашина Николай подмигнула вам!',
-                        'Упс! Пендель Николая пролетел мимо, попробуйте ещё раз!',
-                        'Почти джекпот! Звёзды в Тольятти сегодня рекомендуют эспрессо!',
-                        'Магия кофе шепчет: "Повтори бросок, бро!"',
-                        'Николай задумался о рецепте идеального латте... Крутите ещё!'
-                    ];
-                    const randomPhrase = losePhrases[Math.floor(Math.random() * losePhrases.length)];
-                    loseBlock.innerHTML = `
-                        <h3 style="color: #9ca3af; font-size: 18px; margin-bottom: 8px;">✨ Результат прокрутки:</h3>
-                        <p style="font-size: 14px; line-height: 1.5; color: #fef08a; font-weight: bold;">"${randomPhrase}"</p>
-                    `;
-                    prizeName = 'Обычный проигрыш';
-                }
-          
         } else if (p1 === '🧙‍♂️' && p2 === '✨' && p3 === '🔮') {
             document.getElementById('price-magister').style.display = 'block';
             prizeName = 'Кофейный магистр';
